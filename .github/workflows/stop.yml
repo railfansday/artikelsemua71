@@ -1,0 +1,25 @@
+name: Finalize and Push Articles
+
+on:
+  workflow_dispatch: # Bisa dijalankan manual dari tab Actions di GitHub
+
+jobs:
+  push_final_articles:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Configure Git Identity
+        run: |
+          git config --global user.name "railfansday"
+          git config --global user.email "railfansday@users.noreply.github.io"
+
+      - name: Add and Commit Final Articles
+        run: |
+          git add .
+          git commit -m "Finalize repository: reached target monograph limit (~19.7k+ items)" || echo "No changes to commit"
+
+      - name: Push to GitHub Pages
+        run: |
+          git push origin main
