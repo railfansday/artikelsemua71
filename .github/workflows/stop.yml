@@ -3,6 +3,10 @@ name: Finalize and Push Articles
 on:
   workflow_dispatch: # Bisa dijalankan manual dari tab Actions di GitHub
 
+# Tambahkan blok permissions ini agar GitHub Actions bot punya hak akses tulis
+permissions:
+  contents: write
+
 jobs:
   push_final_articles:
     runs-on: ubuntu-latest
@@ -18,7 +22,7 @@ jobs:
       - name: Add and Commit Final Articles
         run: |
           git add .
-          git commit -m "Finalize repository: reached target monograph limit (~19.7k+ items)" || echo "No changes to commit"
+          git commit -m "Finalize repository: reached target monograph limit" || echo "No changes to commit"
 
       - name: Push to GitHub Pages
         run: |
