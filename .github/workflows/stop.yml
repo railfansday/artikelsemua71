@@ -1,14 +1,13 @@
-name: Finalize and Push Articles
+name: Stop and Push Current Articles
 
 on:
-  workflow_dispatch: # Bisa dijalankan manual dari tab Actions di GitHub
+  workflow_dispatch: # Bisa diklik manual dari tab Actions di GitHub
 
-# Tambahkan blok permissions ini agar GitHub Actions bot punya hak akses tulis
 permissions:
   contents: write
 
 jobs:
-  push_final_articles:
+  finalize_repo:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -19,11 +18,8 @@ jobs:
           git config --global user.name "railfansday"
           git config --global user.email "railfansday@users.noreply.github.io"
 
-      - name: Add and Commit Final Articles
+      - name: Add, Commit and Push Current Progress
         run: |
           git add .
-          git commit -m "Finalize repository: reached target monograph limit" || echo "No changes to commit"
-
-      - name: Push to GitHub Pages
-        run: |
+          git commit -m "Stop and finalize articles at current generated count" || echo "No changes to commit"
           git push origin main
