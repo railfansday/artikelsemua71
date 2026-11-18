@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Report: SDXL in 4 steps with Latent Consistency LoRAs</title>
+    <meta name="description" content="Industry observers note that latent Consistency Models (LCM) are a way to decrease the number of steps required to generate an image with Stable Diffusion ">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/tech-report-sdxl-in-4-steps-with-latent-consistency-loras-3567.html">
+    <meta property="og:title" content="Tech Report: SDXL in 4 steps with Latent Consistency LoRAs">
+    <meta property="og:description" content="Industry observers note that latent Consistency Models (LCM) are a way to decrease the number of steps required to generate an image with Stable Diffusion ">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/lcm_sdxl/lcm_thumbnail.png">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/tech-report-sdxl-in-4-steps-with-latent-consistency-loras-3567.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Tech Report: SDXL in 4 steps with Latent Consistency LoRAs", "image": ["https://huggingface.co/blog/assets/lcm_sdxl/lcm_thumbnail.png"], "datePublished": "2023-11-09T00:00:00", "dateModified": "2026-11-18T01:06:20.029017", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/tech-report-sdxl-in-4-steps-with-latent-consistency-loras-3567.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Tech Report: SDXL in 4 steps with Latent Consistency LoRAs</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 09 Nov 2023 &bull; ⏱️ 6 min read (1235 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>Industry observers note that latent Consistency Models (LCM) are a way to decrease the number of steps required to generate an image with Stable Diffusion (or SDXL) by distilling the original model into another version that requires fewer steps (4 to 8 instead of the original 25 to 50).</li><li style='margin-bottom:6px;'>We are delighted to announce a fresh method that can essentially make Stable Diffusion and SDXL faster, as if they had been distilled using the LCM process!</li><li style='margin-bottom:6px;'>According to recent reports, so, what’s the trick?</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-3567"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-3567"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-3567"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Tech Report: SDXL in 4 steps with Latent Consistency LoRAs" loading="lazy" src="https://huggingface.co/blog/assets/lcm_sdxl/lcm_thumbnail.png" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-3567">Industry observers note that latent Consistency Models (LCM) are a way to decrease the number of steps required to generate an image with Stable Diffusion (or SDXL) by distilling the original model into another version that requires fewer steps (4 to 8 instead of the original 25 to 50). Distillation is a type of training procedure that attempts to replicate the outputs from a source model using a upcoming one. The distilled model may be designed to be smaller (that’s the case of DistilBERT or the recently-released Distil-Whisper) or, in this case, require fewer steps to run. It’s usually a lengthy and costly process that requires huge amounts of data, patience, and a few GPUs.</p>
+<p>Well, that was the status quo before today!</p>
+<p>We are delighted to announce a fresh method that can essentially make Stable Diffusion and SDXL faster, as if they had been distilled using the LCM process! How does it sound to run any SDXL model in about 1 second instead of 7 on a 3090, or 10x faster on Mac? Read on for details!</p>
+<p>According to recent reports, so, what’s the trick? For latent consistency distillation, each model needs to be distilled separately. The core idea with LCM LoRA is to train just a small number of adapters, known as LoRA layers, instead of the full model. The resulting LoRAs can then be applied to any fine-tuned version of the model without having to distil them separately. If you are itching to see how this looks in practice, just jump to the next section to play with the inference code. If you want to train your own LoRAs, this is the process you’d use:.</p>
+<p>For more details on the process, please download our paper.</p>
+<p>It has been revealed that fast inference of Stable Diffusion and SDXL enables new use-cases and workflows. To name a few:.</p>
+<p>According to recent reports, to gauge the speed difference we are talking about, generating a single 1024x1024 image on an M1 Mac with SDXL (base) takes about a minute. Using the LCM LoRA, we get great results in just ~6s (4 steps). This is an order of magnitude faster, and not having to wait for results is a game-changer. Using a 4090, we get almost instant response (less than 1s). This unlocks the use of SDXL in applications where real-time events are a requirement.</p>
+<p>The version of diffusers released today makes it very easy to use LCM LoRAs:.</p>
+<p>This would result in the following full-resolution image:.</p>
+<p>Image generated with SDXL in 4 steps using an LCM LoRA.</p>
+<p>Let’s see how the number of steps impacts generation quality. The following code will generate images with 1 to 8 total inference steps:.</p>
+<p>These are the 8 images displayed in a grid:.</p>
+<p>LCM LoRA generations with 1 to 8 steps.</p>
+<p>Industry observers note that as expected, using just 1 step produces an approximate shape without discernible features and lacking texture. However, results quickly improve, and they are usually very satisfactory in just 4 to 6 steps. Personally, I find the 8-step image in the previous test to be a bit too saturated and “cartoony” for my taste, so I’d probably choose between the ones with 5 and 6 steps in this example. Generation is so fast that you can create a bunch of different variants using just 4 steps, and then select the ones you like and iterate using a couple more steps and refined prompts as necessary.</p>
+<p>It has been revealed that note that in the previous examples we used a guidance_scale of 1, which effectively disables it. This works well for most prompts, and it’s fastest, but ignores negative prompts. You can also explore using negative prompts by providing a guidance scale between 1 and 2 – we found that larger values don’t work.</p>
+<p>How does this compare against the standard SDXL pipeline, in terms of quality? Let’s see an example!</p>
+<p>We can quickly revert our pipeline to a standard SDXL pipeline by unloading the LoRA weights and switching to the default scheduler:.</p>
+<p>According to recent reports, then we can run inference as usual for SDXL. We’ll gather results using varying number of steps:.</p>
+<p>SDXL pipeline results (same prompt and random seed), using 1, 4, 8, 15, 20, 25, 30, and 50 steps.</p>
+<p>Recent findings suggest that as you can see, images in this example are pretty much useless until ~20 steps (second row), and quality still increases noticeably with more steps. The details in the final image are amazing, but it took 50 steps to get there.</p>
+<p id="sec-mid-3567">It has been revealed that this technique also works for any other fine-tuned SDXL or Stable Diffusion model. To demonstrate, let's see how to run inference on collage-diffusion, a model fine-tuned from Stable Diffusion v1.5 using Dreambooth.</p>
+<p>According to recent reports, the code is similar to the one we saw in the previous examples. We load the fine-tuned model, and then the LCM LoRA suitable for Stable Diffusion v1.5.</p>
+<p>LCM LoRA technique with a Dreambooth Stable Diffusion v1.5 model, allowing 4-step inference.</p>
+<p>Recent findings suggest that the integration of LCM in diffusers makes it possible to take advantage of many features and workflows that are part of the diffusers toolbox. For example:.</p>
+<p>Industry observers note that this section is not meant to be exhaustive, but illustrative of the generation speed we achieve on various computers. Let us stress again how liberating it is to explore image generation so easily.</p>
+<p>These tests were run with a batch size of 1 in all cases, using this script by Sayak Paul.</p>
+<p>For cards with a lot of capacity, such as A100, performance increases significantly when generating multiple images at once, which is usually the case for production workloads.</p>
+<p>Latent Consistency Models LoRAs Collection.</p>
+<p>Recent findings suggest that latent-consistency/lcm-sdxl. Full fine-tuned consistency model derived from SDXL 1.0 base.</p>
+<p>latent-consistency/lcm-ssd-1b. Full fine-tuned consistency model derived from segmind/SSD-1B.</p>
+<p>Using the diffusers + PEFT integration, you can combine LCM LoRAs with regular SDXL LoRAs, giving them the superpower to run LCM inference in only 4 steps.</p>
+<p>Here we are going to combine CiroN2022/toy_face LoRA with the LCM LoRA:.</p>
+<p>Standard and LCM LoRAs combined for fast (4 step) inference.</p>
+<p>According to recent reports, need ideas to explore some LoRAs? Check out our experimental LoRA the Explorer (LCM version) Space to test amazing creations by the community and get inspired!</p>
+<p>As part of the diffusers release today, we are providing training and fine-tuning scripts developed in collaboration with the LCM team authors. They allow consumers to:.</p>
+<p>For more details, please check the instructions for SDXL or Stable Diffusion in the repo.</p>
+<p>It has been revealed that we hope these scripts inspire the community to try their own fine-tunes. Please, do let us know if you use them for your projects!</p>
+<p>Latent Consistency Models project page, paper.</p>
+<p>LoRA the Explorer (experimental LCM version).</p>
+<p id="sec-end-3567">The amazing work on Latent Consistency Models was performed by the LCM Team, please make sure to check out their code, report and paper. This project is a collaboration between the diffusers team, the LCM team, and community contributor Daniel Gu. We believe it's a testament to the enabling power of open source AI, the cornerstone that allows researchers, practitioners and tinkerers to explore newly introduced ideas and collaborate. We'd also like to thank @madebyollin for their continued contributions to the community, including the float16 autoencoder we use in our training scripts.</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/lcm_lora" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="tech-report-thailand-steps-up-small-modular-reactor-looks-nuclear-16340.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #16340. Tech Report: Thailand Steps Up Small Modular Reactor Looks - Nuclear Engineering International
+        </a>
+        
+        <a href="tech-report-steps-to-getting-started-with-edge-ai-nvidia-develope-13125.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #13125. Tech Report: Steps to Getting Started with Edge AI - NVIDIA Developer
+        </a>
+        
+        <a href="tech-report-fsb-outlines-next-steps-for-enhancing-cross-border-pa-10617.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #10617. Tech Report: FSB outlines next steps for enhancing cross-border payments - Financial Stability Board
+        </a>
+        
+        <a href="big-tech-takes-steps-to-build-open-standards-for-agentic-ai-cio-d-7319.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #7319. Big tech takes steps to build open standards for agentic AI - CIO Dive
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>
