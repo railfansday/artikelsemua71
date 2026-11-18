@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Improving Hugging Face Training Efficiency Through Packing with Flash Attention 2</title>
+    <meta name="description" content="Training with packed instruction tuning examples (without padding) is now compatible with Flash Attention 2 in Hugging Face, thanks to a recent PR and the ">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/improving-hugging-face-training-efficiency-through-packing-with-f-23244.html">
+    <meta property="og:title" content="Improving Hugging Face Training Efficiency Through Packing with Flash Attention 2">
+    <meta property="og:description" content="Training with packed instruction tuning examples (without padding) is now compatible with Flash Attention 2 in Hugging Face, thanks to a recent PR and the ">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/packing-with-FA2/thumbnail.png">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/improving-hugging-face-training-efficiency-through-packing-with-f-23244.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Improving Hugging Face Training Efficiency Through Packing with Flash Attention 2", "image": ["https://huggingface.co/blog/assets/packing-with-FA2/thumbnail.png"], "datePublished": "2024-08-21T00:00:00", "dateModified": "2026-11-18T05:48:31.965410", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/improving-hugging-face-training-efficiency-through-packing-with-f-23244.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Improving Hugging Face Training Efficiency Through Packing with Flash Attention 2</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 21 Aug 2024 &bull; ⏱️ 4 min read (892 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>Training with packed instruction tuning examples (without padding) is now compatible with Flash Attention 2 in Hugging Face, thanks to a recent PR and the new DataCollatorWithFlattening.</li><li style='margin-bottom:6px;'>Sources indicate that it can provide up to 2x improvement in training throughput while maintaining convergence quality.</li><li style='margin-bottom:6px;'>Industry observers note that padding input sequences in mini-batches is a usual method to collate inputs during training.</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-23244"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-23244"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-23244"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Improving Hugging Face Training Efficiency Through Packing with Flash Attention 2" loading="lazy" src="https://huggingface.co/blog/assets/packing-with-FA2/thumbnail.png" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-23244">Training with packed instruction tuning examples (without padding) is now compatible with Flash Attention 2 in Hugging Face, thanks to a recent PR and the new DataCollatorWithFlattening.</p>
+<p>Sources indicate that it can provide up to 2x improvement in training throughput while maintaining convergence quality. Read on for the details!</p>
+<p>Industry observers note that padding input sequences in mini-batches is a usual method to collate inputs during training. However, this introduces inefficiencies because of the irrelevant padding tokens. Packing examples without padding, and using the token position information, is a more efficient alternative. However, previous implementations of packing did not consider example boundaries when using Flash Attention 2, resulting in undesired cross-example attention that reduce quality and convergence.</p>
+<p>Hugging Face Transformers now addresses this with a newly introduced feature that maintains boundary awareness during packing, alongside the introduction of a new data collator, DataCollatorWithFlattening.</p>
+<p>In a recent development, by selecting DataCollatorWithFlattening, Hugging Face Trainer owners can now seamlessly concatenate sequences into a single tensor while accounting for sequence boundaries during Flash Attention 2 computations. This is achieved through the flash_attn_varlen_func, which calculates the cumulative sequence lengths in each mini-batch (cu_seqlens).</p>
+<p>The same feature is available to Hugging Face SFTTrainer customers in the TRL library by setting a upcoming flag, padding_free=True, when calling the data collator DataCollatorForCompletionOnlyLM.</p>
+<p>We see significant improvement in training throughput using this feature with the latest DataCollatorWithFlattening. The figure below highlights the throughput measured in tokens/second during training. In this example, the throughput is the per-GPU average over 8 A100-80 GPU over one epoch of a 20K randomly selected sample from two different instruct tuning datasets, FLAN and OrcaMath.</p>
+<p>Sources indicate that FLAN has short sequences on average but a large variance in sequence length, so example lengths in each batch may vary widely. This means that padded FLAN batches may incur a significant overhead in unused padding tokens. Training on the FLAN dataset demonstrates a significant benefit using the fresh DataCollatorWithFlattening in terms of increased throughput. We see a 2x throughput increase on the models shown here: llama2-7B, mistral-7B, and granite-8B-code.</p>
+<p>In a recent development, orcaMath has longer examples and a lower variance in example length. As such, the improvement from packing is lower. Our experiments show a 1.4x increase in throughput when training using this form of packing on the OrcaMath dataset across these three models.</p>
+<p>It has been revealed that memory usage also improves through packing with the new DataCollatorWithFlattening. The following figure reveals the peak memory usage of the same three models training on the same two datasets. Peak memory is reduced by 20% on the FLAN dataset, which benefits considerably from packing.</p>
+<p>Peak memory reduction is 6% on the OrcaMath dataset with its more homogeneous example lengths.</p>
+<p>In a recent development, packing examples, when it reduces the number of optimization steps, may harm training convergence. The upcoming feature, however, retains the minibatches and, hence, the same number of optimization steps as would be used with padded examples. Thus, there is no impact on train convergence, as we see in the next figure, which highlights identical validation loss of the same three models training on the same two datasets, whether the models are trained with packing using the new DataCollatorWithFlattening or with padding.</p>
+<p id="sec-mid-23244">Consider a batch of data with a batchsize = 4 where the four sequences are as follows:.</p>
+<p>Sources indicate that after concatenating the examples, the padding-free collator returns the input_ids, labels, and position_ids of each example. Hence, the collator provides, for this batch of data,.</p>
+<p>The modifications required are lightweight and are limited to providing the position_ids to Flash Attention 2.</p>
+<p>In a recent development, this relies, however, on the model exposing position_ids. As of the time of writing, 14 models expose them and are supported by the solution. Specifically, Llama 2 and 3, Mistral, Mixtral, Granite, DBRX, Falcon, Gemma, OLMo, Phi 1, 2, and 3, phi3, Qwen 2 and 2 MoE, StableLM, and StarCoder 2 are all supported by the solution.</p>
+<p>Reaping the benefits of packing with position_ids is easy.</p>
+<p>If you are using Hugging Face Trainer from Transformers, only two steps are required:.</p>
+<p>If you are using Hugging Face SFTTrainer from TRL with DataCollatorForCompletionOnlyLM, then the two required steps are:.</p>
+<p>For Trainer customers, the example below illustrates how to use the new feature.</p>
+<p>For TRL customers, the example below indicates how to use the fresh feature with SFTTrainer.</p>
+<p>In a recent development, packing instruction tuning examples, instead of padding, is now fully compatible with Flash Attention 2, thanks to a recent PR and the latest DataCollatorWithFlattening. The method is compatible with models that use position_ids. Benefits can be seen in throughput and peak memory usage during training, with no degradation in training convergence. Actual throughput and memory improvement depends on the model and the distribution of example lengths in the training data. Training with data that has a wide variation of example lengths will see the greatest benefit, with respect to padding, by using the DataCollatorWithFlattening. The same feature is available to SFTTrainer customers in the TRL library by setting a new flag, padding_free=True, when calling DataCollatorForCompletionOnlyLM.</p>
+<p>For a more detailed analysis, have a look at the paper at https://huggingface.co/papers/2407.09105.</p>
+<p id="sec-end-23244">According to recent reports, data_collator = DataCollatorWithFlattening()  This method cannot inherently prevent attention isolation. But it can have position isolation. Do you realize this problem? @RQlee  @ArthurZ.</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/packing-with-FA2" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="habana-labs-and-hugging-face-partner-to-accelerate-transformer-mo-25479.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #25479. Habana Labs and Hugging Face Partner to Accelerate Transformer Model Training
+        </a>
+        
+        <a href="optimumonnx-runtime-easier-faster-training-for-your-hugging-face--24970.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #24970. Optimum+ONNX Runtime - Easier, Faster training for your Hugging Face models
+        </a>
+        
+        <a href="industry-news-databricks-hugging-face-up-to-40-faster-training-an-24724.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #24724. Industry News: Databricks ❤️ Hugging Face: up to 40% faster training and tuning of Large Language Models
+        </a>
+        
+        <a href="improving-parquet-dedupe-on-hugging-face-hub-23136.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #23136. Improving Parquet Dedupe on Hugging Face Hub
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

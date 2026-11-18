@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to ggml</title>
+    <meta name="description" content="Recent findings suggest that ggml is a machine learning (ML) library written in C and C++ with a focus on Transformer inference. The project is open-source">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/introduction-to-ggml-23257.html">
+    <meta property="og:title" content="Introduction to ggml">
+    <meta property="og:description" content="Recent findings suggest that ggml is a machine learning (ML) library written in C and C++ with a focus on Transformer inference. The project is open-source">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/introduction-to-ggml/cover.jpg">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/introduction-to-ggml-23257.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Introduction to ggml", "image": ["https://huggingface.co/blog/assets/introduction-to-ggml/cover.jpg"], "datePublished": "2024-08-13T00:00:00", "dateModified": "2026-11-18T05:48:32.784661", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/introduction-to-ggml-23257.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Introduction to ggml</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 13 Aug 2024 &bull; ⏱️ 5 min read (929 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>Recent findings suggest that ggml is a machine learning (ML) library written in C and C++ with a focus on Transformer inference.</li><li style='margin-bottom:6px;'>It has been revealed that over time, ggml has gained popularity alongside other projects like llama.cpp and whisper.cpp.</li><li style='margin-bottom:6px;'>The main reasons people choose to use ggml over other libraries are:.</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-23257"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-23257"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-23257"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Introduction to ggml" loading="lazy" src="https://huggingface.co/blog/assets/introduction-to-ggml/cover.jpg" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-23257">Recent findings suggest that ggml is a machine learning (ML) library written in C and C++ with a focus on Transformer inference. The project is open-source and is being actively developed by a growing community. ggml is similar to ML libraries such as PyTorch and TensorFlow, though it is still in its early stages of development and some of its fundamentals are still changing rapidly.</p>
+<p>It has been revealed that over time, ggml has gained popularity alongside other projects like llama.cpp and whisper.cpp. Many other projects also use ggml under the hood to enable on-device LLM, including ollama, jan, LM Studio, GPT4All.</p>
+<p>The main reasons people choose to use ggml over other libraries are:.</p>
+<p>However, ggml also comes with some disadvantages that you need to keep in mind when using it (this list may change in future versions of ggml):.</p>
+<p>In this article, we will focus on the fundamentals of ggml for developers looking to get started with the library. We do not cover higher-level tasks such as LLM inference with llama.cpp, which builds upon ggml. Instead, we'll explore the core concepts and basic usage of ggml to provide a solid foundation for further learning and development.</p>
+<p>For simplicity, this guide will show you how to compile ggml on Ubuntu. In reality, you can compile ggml on virtually any platform (including Windows, macOS, and BSD).</p>
+<p>If you see the expected result, that means we're good to go!</p>
+<p>Before diving deep into ggml, we should understand some key concepts. If you're coming from high-level libraries like PyTorch or TensorFlow, these may seem challenging to grasp. However, keep in mind that ggml is a low-level library. Understanding these terms can give you much more control over performance:.</p>
+<p>In a recent development, in this example, we'll go through the steps to replicate the code we ran in Getting Started. We need to create 2 matrices, multiply them and get the result. Using PyTorch, the code looks like this:.</p>
+<p>With ggml, the following steps must be done to achieve the same result:.</p>
+<p>NOTE: In this example, we will allocate the tensor data inside the ggml_context for simplicity. In practice, memory should be allocated as a device buffer, as we'll see in the next section.</p>
+<p>To get started, let's create a new directory examples/demo.</p>
+<p>The code for this example is based on simple-ctx.cpp.</p>
+<p>Edit examples/demo/demo.c with the content below:.</p>
+<p>Write these lines in the examples/demo/CMakeLists.txt file you created:.</p>
+<p>Edit examples/CMakeLists.txt, add this line at the end:.</p>
+<p>"Backend" in ggml refers to an interface that can handle tensor operations. Backend can be CPU, CUDA, Vulkan, etc.</p>
+<p>It has been revealed that the backend abstracts the execution of the computation graphs. Once defined, a graph can be computed with the available hardware by using the respective backend implementation. Note that ggml will automatically reserve memory for any intermediate tensors necessary for the computation and will optimize the memory usage based on the lifetime of these intermediate results.</p>
+<p id="sec-mid-23257">When doing a computation or inference with backend, common steps that need to be done are:.</p>
+<p>The code for this example is based on simple-backend.cpp.</p>
+<p>Compile and run it, you should get the same result as the last example:.</p>
+<p>According to recent reports, the ggml_cgraph represents the computational graph, which defines the order of operations that will be executed by the backend. Printing the graph can be a helpful debugging tool, especially when working with more complex models and computations.</p>
+<p>You can add ggml_graph_print to print the cgraph:.</p>
+<p>Additionally, you can draw the cgraph as graphviz dot format:.</p>
+<p>You can use the dot command or this online website to render debug.dot into a final image:.</p>
+<p>According to recent reports, this article has provided an introductory overview of ggml, covering the key concepts, a simple usage example, and an example using a backend. While we've covered the basics, there is much more to explore when it comes to ggml.</p>
+<p>In upcoming articles, we'll dive deeper into other ggml-related subjects, such as the GGUF format, quantization, and how the different backends are organized and utilized. Additionally, you can visit the ggml examples directory to see more advanced use cases and sample code. Stay tuned for more ggml content in the future!</p>
+<p>The first line of step 10 for simple-backend.cpp should be.</p>
+<p>due to the use of the gf as an opaque pointer.</p>
+<p>This blog post was written before that ggml_graph_n_nodes was introduced, so it's not up-to-date.Feel free to open a PR to correct if you want. Thanks.</p>
+<p>In a recent development, between this ggml project, llama.cpp, external projects like ollama, etc... how does the flow work for updates?</p>
+<p>According to recent reports, should changes to ggml be submitted to ggml-org\ggml, then pulled into llama.cpp and others? To avoid fragmentation, it seems like ggml should be maintained separately and made a submodule of llama.cpp (but I am FAR from a git expert).</p>
+<p>I think I need the line #include “ggml-cpu.h” in the second demo.c.</p>
+<p>int main(void) {    // initialize data of matrices to perform matrix multiplication    const int rows_A = 4, cols_A = 2;    float matrix_A[rows_A * cols_A] = {        2, 8,        5, 1,        4, 2,        8, 6    };    const int rows_B = 3, cols_B = 2;    float matrix_B[rows_B * cols_B] = {        10, 5,        9, 9,        5, 4    };.</p>
+<p>My compiler is complaining statingerror: variable-sized object may not be initialized except with an empty initializer    9 |     float matrix_A[rows_A * cols_A] = {      |                                       ^Did you not face this problem, just curious!</p>
+<p id="sec-end-23257">I get this is error if I compile with gcc, but compilation succeeds with g++.</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/introduction-to-ggml" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="tech-report-rise-financial-services-llc-a-subsidiary-of-siebert-p-39382.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #39382. Tech Report: RISE Financial Services, LLC, a Subsidiary of Siebert, Purchases Minority Stake in Hedge Connection Inc., A Woman-Owned and Patented FinTech Company Providing Capital Introduction Solutions - Business Wire
+        </a>
+        
+        <a href="industry-news-an-introduction-to-edge-computing-common-questions--34302.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #34302. Industry News: An Introduction to Edge Computing: Common Questions and Resources for Success - NVIDIA Developer
+        </a>
+        
+        <a href="wi-fi-8-edge-ai-and-the-introduction-of-security-and-management-s-33822.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #33822. Wi-Fi 8, Edge AI and the Introduction of Security and Management services - Light Reading
+        </a>
+        
+        <a href="variational-project-introduction-and-potential-analysis-decentral-32351.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #32351. Variational: Project Introduction and Potential Analysis (Decentralized Derivatives Trading Protocol on Arbitrum) - KuCoin
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

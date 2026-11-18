@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAVE: Zero-shot VQA Evaluation on Docmatix with LLMs - Do We Still Need Fine-Tuning?</title>
+    <meta name="description" content="While developing Docmatix, we noticed that fine-tuning Florence-2 on it yielded great performance on DocVQA, but resulted in low scores on the benchmark. T">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/lave-zero-shot-vqa-evaluation-on-docmatix-with-llms-do-we-still-n-23354.html">
+    <meta property="og:title" content="LAVE: Zero-shot VQA Evaluation on Docmatix with LLMs - Do We Still Need Fine-Tuning?">
+    <meta property="og:description" content="While developing Docmatix, we noticed that fine-tuning Florence-2 on it yielded great performance on DocVQA, but resulted in low scores on the benchmark. T">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/184_zero_shot_docmatix/thumb.001.jpeg">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/lave-zero-shot-vqa-evaluation-on-docmatix-with-llms-do-we-still-n-23354.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "LAVE: Zero-shot VQA Evaluation on Docmatix with LLMs - Do We Still Need Fine-Tuning?", "image": ["https://huggingface.co/blog/assets/184_zero_shot_docmatix/thumb.001.jpeg"], "datePublished": "2024-07-25T00:00:00", "dateModified": "2026-11-18T05:48:44.463637", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/lave-zero-shot-vqa-evaluation-on-docmatix-with-llms-do-we-still-n-23354.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>LAVE: Zero-shot VQA Evaluation on Docmatix with LLMs - Do We Still Need Fine-Tuning?</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 25 Jul 2024 &bull; ⏱️ 5 min read (926 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>While developing Docmatix, we noticed that fine-tuning Florence-2 on it yielded great performance on DocVQA, but resulted in low scores on the benchmark.</li><li style='margin-bottom:6px;'>According to recent reports, although the generated answers semantically align with the reference answers, as illustrated in Figure 1, they still receive low scores.</li><li style='margin-bottom:6px;'>Figure 1: t-SNE visualization of Zero-Shot Generated and Reference Answers from Docmatix dataset.</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-23354"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-23354"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-23354"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="LAVE: Zero-shot VQA Evaluation on Docmatix with LLMs - Do We Still Need Fine-Tuning?" loading="lazy" src="https://huggingface.co/blog/assets/184_zero_shot_docmatix/thumb.001.jpeg" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-23354">While developing Docmatix, we noticed that fine-tuning Florence-2 on it yielded great performance on DocVQA, but resulted in low scores on the benchmark. To enhance performance, we had to fine-tune the model further on DocVQA to learn the syntax required for the benchmark. Interestingly, this additional fine-tuning seemed to perform worse according to human evaluators, which is why we primarily used it for ablation studies and released the model only trained on Docmatix for broader use.</p>
+<p>According to recent reports, although the generated answers semantically align with the reference answers, as illustrated in Figure 1, they still receive low scores. This raises these questions: Should we fine-tune the models to improve these metrics, or should we develop new metrics that better align with human perception?</p>
+<p>Figure 1: t-SNE visualization of Zero-Shot Generated and Reference Answers from Docmatix dataset.</p>
+<p>Our community has recently focused on out-of-distribution (OOD) evaluation, utilizing methods like zero-shot transfer to unseen VQA tasks or fine-tuning on one VQA dataset and evaluating on another. This shift is increasingly relevant with the rise of synthetic datasets such as Docmatix, SciGraphQA, SimVQA used to fine-tune Vision Language Models (VLMs).</p>
+<p>Sources indicate that traditionally, VQA Accuracy has been the main metric for evaluating model performance. It relies on exact string matching between a model's predicted answer and a set of reference answers annotated by humans. This metric worked well because VQA evaluation followed an independent and identically distributed (IID) paradigm, where training and testing data distributions were similar, allowing models to adapt effectively See details here.</p>
+<p>In OOD settings, generated answers might not match reference answers despite being correct due to differences in format, specificity, or interpretation. This paradigm is perfectly illustrated in the Figure 1, where we compare the zero-shot generated captions vs the reference captions from the synthetic dataset. This is particularly true for instruction-generated datasets and their human-curated counterparts. Some methods have attempted to align answer formats with references, but this only addresses the symptom, not the root cause of flawed evaluation metrics. While human evaluation is reliable, it is costly and not scalable, highlighting the need for metrics that better align with human judgment.</p>
+<p>In a recent development, docmatix is the largest synthetic DocVQA dataset, generated from the curated document dataset, PDFA. It is 100x larger than previously available datasets. The human-curated counterpart is DocVQA, which serves as an evaluation benchmark for VQA models for Document Understanding. In this post, we are going to use the subset of Docmatix which consists around 200 test samples, which can be downloaded here Docmatix-zero-shot-exp.</p>
+<p>Recent findings suggest that figure 2: The examples of Q&amp;A pairs from Docmatix and DocVQA test set. Note: the corresponding images are not shown here.</p>
+<p>Although the content of the question and answer pairs in Docmatix and DocVQA is similar, their styles differ significantly. Traditional metrics like CIDER, ANLS, and BLEU can be overly restrictive for zero-shot evaluation in this context. Motivated by the similarity of the embeddings observed in t-SNE (Figure 1), we decided to use a different evaluation metric. In this post, we consider the LAVE (LLM-Assisted VQA Evaluation) metric to better assess generalization on this unseen but semantically similar dataset.</p>
+<p id="sec-mid-23354">Figure 3: t-SNE visualization of Question, Answer and Image features from Docmatix and DocVQA datasets.</p>
+<p>Figure 5: t-SNE visualization of Question, Answer and Image features from Docmatix and DocVQA datasets.</p>
+<p>For our evaluation, we chose MPLUGDocOwl1.5 as a baseline model. This model achieves an 84% ANLS score on the test subset of the original DocVQA dataset. We then ran a zero-shot generation on a subset of Docmatix, consisting of 200 images. We used Llama-2-Chat-7b for rating the answers.</p>
+<p>We followed the procedure outlined in the paper. The VQA evaluation is framed as an answer-rating task suitable for in-context learning with LLMs. We used a rating scale from 1 to 3 to account for ambiguous questions or incomplete answers. The prompt included a task description, several demonstrations of input/output, and the input for a test example.</p>
+<p>We structured our task description and included the instruction "Give the rationale before rating" to showcase a justification for the assigned rating. Each demonstration comprised a question, a set of reference answers, the candidate answer, the answer rating, and an explanation for the rating. We also include the "Provide only one rating" to avoid sentence-by-sentence analysis, which sometimes resulted in several ratings.</p>
+<p>Given the LLM’s generated text for the test example, we extracted the rating from the last character (either 1, 2, or 3) and mapped it to a score in the range [0, 1]: [ s = \frac{r - 1}{2} ].</p>
+<p>The results of our evaluation are summarized in the table below:.</p>
+<p>Figure 4: Llama rating and rationale for the generated and reference answers from Docmatix test subset.</p>
+<p>Figure 5: Llama rating and rationale for the generated and reference answers from Docmatix test subset.</p>
+<p id="sec-end-23354">It has been revealed that we have approximately 50% accuracy gain when using LLMs to evaluate responses, indicating that the answers can be correct despite not adhering to a strict format. This suggests that our current evaluation metrics may be too rigid. It’s vital to note that this is not a comprehensive research paper, and more ablation studies are needed to fully understand the effectiveness of different metrics on the evaluation of zero-shot performance on synthetic dataset. We hope this work serves as a starting point to broaden the current research focus on improving the evaluation of zero-shot vision-language models within the context of synthetic datasets and to explore more efficient approaches beyond prompt learning.</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/zero-shot-vqa-docmatix" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="fine-tuning-20b-llms-with-rlhf-on-a-24gb-consumer-gpu-24838.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #24838. Fine-tuning 20B LLMs with RLHF on a 24GB consumer GPU
+        </a>
+        
+        <a href="fine-tuning-llms-to-158bit-extreme-quantization-made-easy-23198.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #23198. Fine-tuning LLMs to 1.58bit: extreme quantization made easy
+        </a>
+        
+        <a href="argilla-24-easily-build-fine-tuning-and-evaluation-datasets-on-th-23006.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #23006. Argilla 2.4: Easily Build Fine-Tuning and Evaluation Datasets on the Hub — No Code Required
+        </a>
+        
+        <a href="breaking-trust-the-direction-search-the-step-zero-and-first-order-21386.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #21386. Breaking: Trust the Direction, Search the Step: Zero-and-First-Order Methods for LLM Fine-Tuning
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

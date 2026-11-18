@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deploy Meta Llama 3.1 405B on Google Cloud Vertex AI</title>
+    <meta name="description" content="Industry observers note that meta Llama 3.1 is the latest open LLM from Meta, released in July 2024. Meta Llama 3.1 comes in three sizes: 8B for efficient ">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/deploy-meta-llama-31-405b-on-google-cloud-vertex-ai-23247.html">
+    <meta property="og:title" content="Deploy Meta Llama 3.1 405B on Google Cloud Vertex AI">
+    <meta property="og:description" content="Industry observers note that meta Llama 3.1 is the latest open LLM from Meta, released in July 2024. Meta Llama 3.1 comes in three sizes: 8B for efficient ">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/llama31-on-vertex-ai/thumbnail.png">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/deploy-meta-llama-31-405b-on-google-cloud-vertex-ai-23247.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Deploy Meta Llama 3.1 405B on Google Cloud Vertex AI", "image": ["https://huggingface.co/blog/assets/llama31-on-vertex-ai/thumbnail.png"], "datePublished": "2024-08-19T00:00:00", "dateModified": "2026-11-18T05:48:32.184717", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/deploy-meta-llama-31-405b-on-google-cloud-vertex-ai-23247.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">AI & Tech</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Deploy Meta Llama 3.1 405B on Google Cloud Vertex AI</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 19 Aug 2024 &bull; ⏱️ 9 min read (1819 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>Industry observers note that meta Llama 3.1 is the latest open LLM from Meta, released in July 2024.</li><li style='margin-bottom:6px;'>In this blog you will learn how to programmatically deploy meta-llama/Meta-Llama-3.1-405B-Instruct-FP8, the FP8 quantized variant of meta-llama/Meta-Llama-3.1-405B-Instruct, in a Google Cloud A3 node with 8 x H100 NVIDIA GPUs on Vertex AI with Text Generation Inference (TGI) using the Hugging Face purpose-built Deep Learning Containers (DLCs) for Google Cloud.</li><li style='margin-bottom:6px;'>Alternatively, you can deploy meta-llama/Meta-Llama-3.1-405B-Instruct-FP8 without writing any code directly from the Hub or from Vertex Model Garden!</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-23247"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-23247"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-23247"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Deploy Meta Llama 3.1 405B on Google Cloud Vertex AI" loading="lazy" src="https://huggingface.co/blog/assets/llama31-on-vertex-ai/thumbnail.png" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-23247">Industry observers note that meta Llama 3.1 is the latest open LLM from Meta, released in July 2024. Meta Llama 3.1 comes in three sizes: 8B for efficient deployment and development on consumer-size GPU, 70B for large-scale AI native applications, and 405B for synthetic data, LLM as a Judge or distillation; among other use cases. Some of its key features include: a large context length of 128K tokens (vs original 8K), multilingual capabilities, tool usage capabilities, and a more permissive license.</p>
+<p>In this blog you will learn how to programmatically deploy meta-llama/Meta-Llama-3.1-405B-Instruct-FP8, the FP8 quantized variant of meta-llama/Meta-Llama-3.1-405B-Instruct, in a Google Cloud A3 node with 8 x H100 NVIDIA GPUs on Vertex AI with Text Generation Inference (TGI) using the Hugging Face purpose-built Deep Learning Containers (DLCs) for Google Cloud.</p>
+<p>Alternatively, you can deploy meta-llama/Meta-Llama-3.1-405B-Instruct-FP8 without writing any code directly from the Hub or from Vertex Model Garden!</p>
+<p>Recent findings suggest that lets get started! 🚀 Alternatively, you can follow along from this Jupyter Notebook.</p>
+<p>Vertex AI is a machine learning (ML) platform that lets you train and deploy ML models and AI applications, and customize Large Language Models (LLMs) for use in your AI-powered applications. Vertex AI combines data engineering, data science, and ML engineering workflows, enabling your teams to collaborate using a common toolset and scale your applications using the benefits of Google Cloud.</p>
+<p>Industry observers note that this blog will be focused on deploying an already fine-tuned model from the Hugging Face Hub using a pre-built container to get real-time online predictions. Thus, we'll demonstrate the use of Vertex AI for inference.</p>
+<p>More information at Vertex AI - Documentation - Introduction to Vertex AI.</p>
+<p>Meta Llama 3.1 brings exciting advancements. However, running these models requires careful consideration of your hardware resources. For inference, the memory requirements depend on the model size and the precision of the weights. Here's a table showing the approximate memory needed for different configurations:.</p>
+<p>Note: The above-quoted numbers indicate the GPU VRAM required just to load the model checkpoint. They don’t include torch reserved space for kernels or CUDA graphs.</p>
+<p>As an example, an H100 node (8 H100s with 80GB each) has a total of ~640GB of VRAM, so the 405B model would need to be run in a multi-node setup or run at a lower precision (e.g. FP8), which would be the recommended approach. Read more about it in the Hugging Face Blog for Meta Llama 3.1.</p>
+<p>Recent findings suggest that the A3 accelerator-optimized machine series in Google Cloud comes with 8 H100s 80GB NVIDIA GPUs, 208 vCPUs, and 1872 GB of memory. This machine series is optimized for compute and memory intensive, network bound ML training, and HPC workloads. Read more about the A3 machines availability announcement at Announcing A3 supercomputers with NVIDIA H100 GPUs, purpose-built for AI and about the A3 machine series at Compute Engine - Accelerator-optimized machine family.</p>
+<p>Even if the A3 machines are available within Google Cloud, you will still need to request a custom quota increase in Google Cloud, as those need a specific approval. Note that the A3 machines are only available in some zones, so make sure to check the availability of both A3 High or even A3 Mega per zone at Compute Engine - GPU regions and zones.</p>
+<p>In this case, to request a quota increase to use the A3 High GPU machine type you will need to increase the following quotas:.</p>
+<p>Read more on how to request a quota increase at Google Cloud Documentation - View and manage quotas.</p>
+<p>Before proceeding, we will set the following environment variables for convenience:.</p>
+<p>Once the Google Cloud SDK is installed, you need to enable the Google Cloud APIs required to use Vertex AI from a Deep Learning Container (DLC) within their Artifact Registry for Docker.</p>
+<p>Then you will also need to install google-cloud-aiplatform, required to programmatically interact with Google Cloud Vertex AI from Python.</p>
+<p>To then initialize it via Python as follows:.</p>
+<p>Alternatively, you can also skip the huggingface_hub installation and just generate a Hugging Face Fine-grained Token with read-only permissions for meta-llama/Meta-Llama-3.1-405B-Instruct-FP8 or any other model under the meta-llama organization, to be selected under e.g. Repository permissions -&gt; meta-llama/Meta-Llama-3.1-405B-Instruct-FP8 -&gt; Read access to contents of selected repos. And either set that token within the HF_TOKEN environment variable or just provide it manually to the notebook_login method as follows:.</p>
+<p>To register the Meta Llama 3.1 405B model on Vertex AI, you will need to use the google-cloud-aiplatform Python SDK. But before proceeding, you need to first define which DLC you are going to use, which in this case will be the latest Hugging Face TGI DLC for GPU.</p>
+<p>According to recent reports, as of the current date (August 2024), the latest available Hugging Face TGI DLC, i.e. us-docker.pkg.dev/deeplearning-platform-release/gcr.io/huggingface-text-generation-inference-cu121.2-2.ubuntu2204.py310 uses TGI v2.2. This version comes with support for the Meta Llama 3.1 architecture, which needs a different RoPE scaling method than its predecessor, Meta Llama 3.</p>
+<p>To check which Hugging Face DLCs are available in Google Cloud you can either navigate to Google Cloud Artifact Registry and filter by "huggingface-text-generation-inference", or use the following gcloud command:.</p>
+<p>Then you need to define the configuration for the container, which are the environment variables that the text-generation-launcher expects as arguments (as per the official documentation), which in this case are the following:.</p>
+<p id="sec-mid-23247">Additionally, as a recommendation you should also define HF_XET_HIGH_PERFORMANCE=1 to enable a faster download speed via the hf_xet utility, as Meta Llama 3.1 405B is around 400 GiB and downloading the weights may take longer otherwise.</p>
+<p>Then you can already register the model within Vertex AI's Model Registry via the google-cloud-aiplatform Python SDK as follows:.</p>
+<p>Once Meta Llama 3.1 405B is registered on Vertex AI Model Registry, then you can create a Vertex AI Endpoint and deploy the model to the endpoint, with the Hugging Face DLC for TGI as the serving container.</p>
+<p>It has been revealed that as mentioned before, since Meta Llama 3.1 405B in FP8 takes ~400 GiB of disk space, that means we need at least 400 GiB of GPU VRAM to load the model, and the GPUs within the node need to support the FP8 data type. In this case, an A3 instance with 8 x NVIDIA H100 80GB with a total of ~640 GiB of VRAM will be used to load the model while also leaving some free VRAM for the KV Cache and the CUDA Graphs.</p>
+<p>Note that the Meta Llama 3.1 405B deployment on Vertex AI may take around 25-30 minutes to deploy, as it needs to allocate the resources on Google Cloud, download the weights from the Hugging Face Hub (~10 minutes), and load them for inference in TGI (~2 minutes).</p>
+<p>According to recent reports, congrats, you already deployed Meta Llama 3.1 405B in your Google Cloud account! 🔥 Now is time to put the model to the test.</p>
+<p>Vertex AI will expose an online prediction endpoint within the /predict route that is serving the text generation from Text Generation Inference (TGI) DLC, making sure that the I/O data is compliant with Vertex AI payloads (read more about Vertex AI I/O payloads in Vertex AI Documentation - Get online predictions from a custom trained model).</p>
+<p>As /generate is the endpoint that is being exposed, you will need to format the messages with the chat template before sending the request to Vertex AI, so it's recommended to install 🤗transformers to use the apply_chat_template method from the PreTrainedTokenizerFast tokenizer instance.</p>
+<p>And then apply the chat template to a conversation using the tokenizer as follows:.</p>
+<p>Now you have a string out of the initial conversation messages, formatted using the default chat template for Meta Llama 3.1:.</p>
+<p>&lt;|begin_of_text|&gt;&lt;|start_header_id|&gt;system&lt;|end_header_id|&gt;\n\nYou are an assistant that responds as a pirate.&lt;|eot_id|&gt;&lt;|start_header_id|&gt;user&lt;|end_header_id|&gt;\n\nWhat's the Theory of Relativity?&lt;|eot_id|&gt;&lt;|start_header_id|&gt;assistant&lt;|end_header_id|&gt;\n\n.</p>
+<p>Which is what you will be sending within the payload to the deployed Vertex AI Endpoint, as well as the generation arguments as in Consuming Text Generation Inference (TGI) -&gt; Generate.</p>
+<p>If you are willing to run the online prediction within the current session i.e. the same one as the one used to deploy the model, you can send requests programmatically via the aiplatform.Endpoint returned as of the aiplatform.Model.deploy method as in the following snippet.</p>
+<p>Producing the following output:.</p>
+<p>Prediction(predictions=["Yer want ta know about them fancy science things, eh? Alright then, matey, settle yerself down with a pint o' grog and listen close. I be tellin' ye about the Theory o' Relativity, as proposed by that swashbucklin' genius, Albert Einstein.\n\nNow, ye see, Einstein remarked that time and space be connected like the sea and the wind. Ye can't have one without the other, savvy? And he proposed that how ye see time and space depends on how fast ye be movin' and where ye be standin'. That be called relativity, me"], deployed_model_id='', metadata=None, model_version_id='1', model_resource_name='projects//locations//models/', explanations=None).</p>
+<p>If the Vertex AI Endpoint was deployed in a different session and you just want to use it, but don't have access to the deployed_model variable returned by the aiplatform.Model.deploy method, then you can also run the following snippet to instantiate the deployed aiplatform.Endpoint via its resource name that can be found either within the Vertex AI Online Prediction UI, from the aiplatform.Endpoint instantiated above, or just replacing the values in projects/{PROJECT_ID}/locations/{LOCATION}/endpoints/{ENDPOINT_ID}.</p>
+<p>Producing the following output:.</p>
+<p>Prediction(predictions=["Yer lookin' fer a treasure trove o' knowledge about them fancy physics, eh? Alright then, matey, settle yerself down with a pint o' grog and listen close, as I spin ye the yarn o' Einstein's Theory o' Relativity.\n\nIt be a tale o' two parts, me hearty: Special Relativity and General Relativity. Now, I know what ye be thinkin': what in blazes be the difference? Well, matey, let me break it down fer ye.\n\nSpecial Relativity be the idea that time and space be connected like the sea and the sky."], deployed_model_id='', metadata=None, model_version_id='1', model_resource_name='projects//locations//models/', explanations=None).</p>
+<p>Alternatively, for testing purposes you can also use the Vertex AI Online Prediction UI, that provides a field that expects the JSON payload formatted according to the Vertex AI specification (as in the examples above) being:.</p>
+<p>So that the output is generated and printed within the UI too.</p>
+<p>When you're done, you can release the resources that you've created as follows, to avoid unnecessary costs.</p>
+<p>Alternatively, you can also remove those from the Google Cloud Console following the steps:.</p>
+<p>Industry observers note that that's it! You have already registered and deployed Meta Llama 3.1 405B Instruct FP8 on Google Cloud Vertex AI, then ran online prediction both programmatically and via the Google Cloud Console, and finally cleaned up the resources used to avoid unnecessary costs.</p>
+<p id="sec-end-23247">Thanks to the Hugging Face DLCs for Text Generation Inference (TGI), and Google Cloud Vertex AI, deploying a high-performance text generation container for serving Large Language Models (LLMs) has never been easier. And we’re not going to stop here – stay tuned as we enable more experiences to build AI with open models on Google Cloud!</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/llama31-on-vertex-ai" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="deploy-google-cloud-in-a-few-clicks-with-rad-lab-ui-google-cloud-33115.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #33115. Deploy Google Cloud in a few clicks with RAD Lab UI - Google Cloud
+        </a>
+        
+        <a href="singapore-government-first-in-asia-to-deploy-agentic-ai-on-google-28485.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #28485. Singapore government first in Asia to deploy agentic AI on Google’s air-gapped cloud - GovInsider
+        </a>
+        
+        <a href="tech-report-pelico-joins-google-clouds-sovereign-ai-summit-to-add-38325.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #38325. Tech Report: Pelico Joins Google Cloud's Sovereign AI Summit to address AI and Data sovereignty in Manufacturing - PR Newswire UK
+        </a>
+        
+        <a href="frontline-intelligence-analysis-of-unc1549-ttps-custom-tools-and--38204.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #38204. Frontline Intelligence: Analysis of UNC1549 TTPs, Custom Tools, and Malware Targeting the Aerospace and Defense Ecosystem - Google Cloud
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

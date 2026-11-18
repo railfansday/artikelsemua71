@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Report: Google releases Gemma 2 2B, ShieldGemma and Gemma Scope</title>
+    <meta name="description" content="One month after the release of Gemma 2, Google has expanded their set of Gemma models to include the following new additions:. Let’s take a look at each of">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/tech-report-google-releases-gemma-2-2b-shieldgemma-and-gemma-scop-23332.html">
+    <meta property="og:title" content="Tech Report: Google releases Gemma 2 2B, ShieldGemma and Gemma Scope">
+    <meta property="og:description" content="One month after the release of Gemma 2, Google has expanded their set of Gemma models to include the following new additions:. Let’s take a look at each of">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/gemma-july-update/thumbnail.jpg">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/tech-report-google-releases-gemma-2-2b-shieldgemma-and-gemma-scop-23332.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Tech Report: Google releases Gemma 2 2B, ShieldGemma and Gemma Scope", "image": ["https://huggingface.co/blog/assets/gemma-july-update/thumbnail.jpg"], "datePublished": "2024-07-31T00:00:00", "dateModified": "2026-11-18T05:48:41.777197", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/tech-report-google-releases-gemma-2-2b-shieldgemma-and-gemma-scop-23332.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">AI & Tech</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Tech Report: Google releases Gemma 2 2B, ShieldGemma and Gemma Scope</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 31 Jul 2024 &bull; ⏱️ 6 min read (1156 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>One month after the release of Gemma 2, Google has expanded their set of Gemma models to include the following new additions:.</li><li style='margin-bottom:6px;'>It has been revealed that for those who missed the previous launches, Gemma is a family of lightweight, state-of-the-art open models from Google, built from the same research and technology used to create the Gemini models.</li><li style='margin-bottom:6px;'>In a recent development, gemma 2 2B shares the same architecture as the other models in the Gemma 2 family, and therefore leverages technical features like sliding attention and logit soft-capping.</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-23332"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-23332"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-23332"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Tech Report: Google releases Gemma 2 2B, ShieldGemma and Gemma Scope" loading="lazy" src="https://huggingface.co/blog/assets/gemma-july-update/thumbnail.jpg" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-23332">One month after the release of Gemma 2, Google has expanded their set of Gemma models to include the following new additions:.</p>
+<p>Let’s take a look at each of these in turn!</p>
+<p>It has been revealed that for those who missed the previous launches, Gemma is a family of lightweight, state-of-the-art open models from Google, built from the same research and technology used to create the Gemini models. They are text-to-text, decoder-only large language models, available in English, with open weights for both pre-trained variants and instruction-tuned variants. This release introduces the 2.6B parameter version of Gemma 2 (base and instruction-tuned), complementing the existing 9B and 27B variants.</p>
+<p>In a recent development, gemma 2 2B shares the same architecture as the other models in the Gemma 2 family, and therefore leverages technical features like sliding attention and logit soft-capping. You can check more details in this section of our previous blog post. Like in the other Gemma 2 models, we recommend you use bfloat16 for inference.</p>
+<p>In a recent development, with Transformers, you can use Gemma and leverage all the tools within the Hugging Face ecosystem. To use Gemma models with transformers, make sure to use transformers from main for the latest fixes and optimizations:.</p>
+<p>You can then use gemma-2-2b-it with transformers as follows:.</p>
+<p>Sources indicate that ahoy, matey! I be Gemma, a digital scallywag, a language-slingin' parrot of the digital seas. I be here to help ye with yer wordy woes, answer yer questions, and spin ye yarns of the digital world. So, what be yer pleasure, eh? 🦜.</p>
+<p>For more details on using the models with transformers, please check the model cards.</p>
+<p>You can run Gemma 2 on-device (on your Mac, Windows, Linux and more) using llama.cpp in just a few minutes.</p>
+<p>Recent findings suggest that on a Mac you can directly install llama.cpp with brew. To set up llama.cpp on other devices, please take a look here: https://github.com/ggerganov/llama.cpp?tab=readme-ov-file#usage.</p>
+<p>Note: if you are building llama.cpp from scratch then remember to pass the LLAMA_CURL=1 flag.</p>
+<p>Additionally, you can run a local llama.cpp server that complies with the OpenAI chat specs:.</p>
+<p>After running the server you can simply invoke the endpoint as below:.</p>
+<p>It has been revealed that note: The above example runs the inference using the official GGUF weights provided by Google in fp32. You can create and share custom quants using the GGUF-my-repo space!</p>
+<p>According to recent reports, you can chat with the Gemma 2 2B Instruct model on Hugging Face Spaces! Check it out here.</p>
+<p id="sec-mid-23332">In addition to this you can run the Gemma 2 2B Instruct model directly from a colab here.</p>
+<p>The base model has no prompt format. Like other base models, it can be used to continue an input sequence with a plausible continuation or for zero-shot/few-shot inference. The instruct version has a very simple conversation structure:.</p>
+<p>It has been revealed that this format has to be exactly reproduced for effective use. In a previous section we highlighted how easy it is to reproduce the instruct prompt with the chat template available in transformers.</p>
+<p>Gemma 2 2B seems to be better at knowledge-related and instructions following (for the instruct version) tasks than other models of the same size.</p>
+<p>According to recent reports, one powerful use case of the small Gemma 2 2B model is assisted generation (also known as speculative decoding), where a smaller model can be used to speed up generation of a larger model. The idea behind it is pretty simple: LLMs are faster at confirming that they would generate a certain sequence than they are at generating that sequence themselves (unless you’re using very large batch sizes). Small models with the same tokenizer trained in a similar fashion can be used to rapidly generate candidate sequences aligned with the large model, which the large model can validate and accept as its own generated text.</p>
+<p>Recent findings suggest that for this reason, Gemma 2 2B can be used for assisted generation with the pre-existing Gemma 2 27B model. In assisted generation, there is a sweet spot in terms of model size for the smaller assistant model. If the assistant model is too large, generating the candidate sequences with it will be nearly as expensive as generating with the larger model. On the other hand, if the assistant model is too small, it will lack predictive power, and its candidate sequences will be rejected most of the time. In practice, we recommend the use of an assistant model with 10 to 100 times fewer parameters than our target LLM. It’s almost a free lunch: at the expense of a tiny bit of memory, you can get up to a 3x speedup on your larger model without any quality loss!</p>
+<p>In a recent development, assisted generation is a novelty with the release of Gemma 2 2B, but it does not come at the expense of other LLM optimization techniques! Check our reference page for other transformers LLM optimizations you can add to Gemma 2 2B here.</p>
+<p>ShieldGemma is a series of safety content moderation models built upon Gemma 2 that target several harm categories (including sexually explicit, dangerous content, hate or harassment). They are text-to-text, decoder-only large language models, available in English, with open weights, and available in 3 variants: 2B, 9B and 27B parameters.</p>
+<p>In a recent development, shieldGemma is intended to detect harmful requests (according to the indicated categories) to an LLM, as well as offending responses from the LLM. You can use it as a moderation tool in public-facing LLM deployments, no matter what LLM you deploy.</p>
+<p>The prompt pattern contains the following components, in order:.</p>
+<p>Here is an example of a prompt used to evaluate the user prompt [User Prompt]:.</p>
+<p>You can use shieldgemma-2b with transformers as follows:.</p>
+<p>These models were evaluated against both internal and external datasets. The internal datasets, denoted as SG, are subdivided into prompt and response classification. Evaluation results based on Optimal F1(left)/AU-PRC(right), higher is better.</p>
+<p>Industry observers note that gemma Scope is a comprehensive, open suite of sparse autoencoders (SAEs) trained on every layer of the Gemma 2 2B and 9B models. SAEs are a newly introduced technique in mechanistic interpretability that aim to find interpretable directions within large language models. You can think of them as a "microscope" of sorts, helping us break down a model’s internal activations into the underlying concepts, just like how biologists use microscopes to study the individual cells of plants and animals. This approach was used to create Golden Gate Claude, a popular research demo by Anthropic that explored interpretability and feature activation within Claude.</p>
+<p id="sec-end-23332">Since SAEs are a tool (with learned weights) for interpreting language models and not language models themselves, we cannot use Hugging Face transformers to run them. Instead, they can be run using SAELens, a popular library for training, analyzing, and interpreting sparse autoencoders. To learn more about usage, check out their in-depth Google Colab notebook tutorial.</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/gemma-july-update" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="tech-report-welcome-gemma-3-googles-all-fresh-multimodal-multilin-22620.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #22620. Tech Report: Welcome Gemma 3: Google's all fresh multimodal, multilingual, long context open LLM
+        </a>
+        
+        <a href="google-drops-1b-on-form-energys-100-hour-battery-tech-the-tech-bu-39312.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #39312. Google Drops $1B on Form Energy's 100-Hour Battery Tech - The Tech Buzz
+        </a>
+        
+        <a href="tech-report-pelico-joins-google-clouds-sovereign-ai-summit-to-add-38325.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #38325. Tech Report: Pelico Joins Google Cloud's Sovereign AI Summit to address AI and Data sovereignty in Manufacturing - PR Newswire UK
+        </a>
+        
+        <a href="two-defense-tech-companies-out-cite-the-five-largest-us-defense-p-38299.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #38299. Two Defense Tech Companies Out-Cite the Five Largest U.S. Defense Primes Combined Across ChatGPT, Claude, Gemini, Perplexity, and Google AI Overviews, New 5W Benchmark Finds - PR Newswire
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

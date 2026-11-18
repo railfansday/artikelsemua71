@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Falcon Mamba: The first strong attention-free 7B model</title>
+    <meta name="description" content="Falcon Mamba is a new model by Technology Innovation Institute (TII) in Abu Dhabi released under the TII Falcon Mamba 7B License 1.0. The model is open acc">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/welcome-falcon-mamba-the-first-strong-attention-free-7b-model-23263.html">
+    <meta property="og:title" content="Welcome Falcon Mamba: The first strong attention-free 7B model">
+    <meta property="og:description" content="Falcon Mamba is a new model by Technology Innovation Institute (TII) in Abu Dhabi released under the TII Falcon Mamba 7B License 1.0. The model is open acc">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/falconmamba/thumbnail.png">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/welcome-falcon-mamba-the-first-strong-attention-free-7b-model-23263.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Welcome Falcon Mamba: The first strong attention-free 7B model", "image": ["https://huggingface.co/blog/assets/falconmamba/thumbnail.png"], "datePublished": "2024-08-12T00:00:00", "dateModified": "2026-11-18T05:48:32.982838", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/welcome-falcon-mamba-the-first-strong-attention-free-7b-model-23263.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Welcome Falcon Mamba: The first strong attention-free 7B model</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 12 Aug 2024 &bull; ⏱️ 6 min read (1137 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>Falcon Mamba is a new model by Technology Innovation Institute (TII) in Abu Dhabi released under the TII Falcon Mamba 7B License 1.0.</li><li style='margin-bottom:6px;'>In this blog, we will go through the design decisions behind the model, how the model is competitive with respect to other existing SoTA models, and how to use it within the Hugging Face ecosystem.</li><li style='margin-bottom:6px;'>Transformers, based on the attention mechanism, are the dominant architecture used in all the strongest large language models today.</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-23263"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-23263"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-23263"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Welcome Falcon Mamba: The first strong attention-free 7B model" loading="lazy" src="https://huggingface.co/blog/assets/falconmamba/thumbnail.png" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-23263">Falcon Mamba is a new model by Technology Innovation Institute (TII) in Abu Dhabi released under the TII Falcon Mamba 7B License 1.0. The model is open access and available within the Hugging Face ecosystem here for anyone to use for their research or application purposes.</p>
+<p>In this blog, we will go through the design decisions behind the model, how the model is competitive with respect to other existing SoTA models, and how to use it within the Hugging Face ecosystem.</p>
+<p>Transformers, based on the attention mechanism, are the dominant architecture used in all the strongest large language models today. Yet, the attention mechanism is fundamentally limited in processing large sequences due to the increase in compute and memory costs with sequence length. Various alternative architectures, in particular State Space Language Models (SSLMs), tried to address the sequence scaling limitation but fell back in performance compared to SoTA transformers.</p>
+<p>According to recent reports, with Falcon Mamba, we demonstrate that sequence scaling limitation can indeed be overcome without loss in performance. Falcon Mamba is based on the original Mamba architecture, proposed in Mamba: Linear-Time Sequence Modeling with Selective State Spaces, with the addition of extra RMS normalization layers to ensure stable training at scale. This choice of architecture ensures that Falcon Mamba:.</p>
+<p>Falcon Mamba was trained with ~ 5500GT of data, mainly composed of RefinedWeb data with addition of high-quality technical data and code data from public sources. We used constant learning rate for the most of the training, followed by a relatively short learning rate decay stage. In this last stage, we also added a small portion of high-quality curated data to further enhance model performance.</p>
+<p>We evaluate our model on all benchmarks of the upcoming leaderboard's version using the lm-evaluation-harness package and then normalize the evaluation results with Hugging Face score normalization.</p>
+<p>Also, we evaluate our model on the benchmarks of the first version of the LLM Leaderboard using lighteval.</p>
+<p>For the models marked by star, we evaluated the tasks internally, while for the models marked by two stars, the results were taken from paper or model card.</p>
+<p>Industry observers note that following theoretical efficiency SSM models in processing large sequences, we perform a comparison of memory usage and generation throughput between Falcon Mamba and popular transfomer models using the
+optimum-benchmark library. For a fair comparison, we rescaled the vocabulary size of all transformer models to match Falcon Mamba since it has a substantial impact on the memory requirements of the model.</p>
+<p>Before going to the results, let's first discuss the difference between the prompt (prefill) and generated (decode) parts of the sequence. As we will see, the details of prefill are more important for state space models than for transformer models. When a transformer generates the next token, it needs to attend to the keys and values of all previous tokens in the context. This implies linear scaling of both memory requirements and generation time with context length. A state space model attends to and stores only its recurrent state and, therefore, doesn't need additional memory or time to generate large sequences. While this explains the claimed advantage of SSMs over transformers in the decode stage, the prefill stage requires additional effort to fully utilize SSM architecture.</p>
+<p>A standard approach for prefill is to process the whole prompt in parallel to fully utilize GPU. This approach is used in optimum-benchmark library and we will refer to it as parallel prefill. Parallel prefill needs to store in memory the hidden states of each token in the prompt. For transformers, this additional memory is dominated by the memory of stored KV caches. For SSM models, no caching is required, and the memory for storing hidden states becomes the only component proportional to the prompt length. As a result, the memory requirement will scale with prompt length, and SSM models will lose the ability to process arbitrary long sequences, similar to transformers.</p>
+<p id="sec-mid-23263">An alternative to parallel prefill is to process the prompt token by token, which we will refer to as sequential prefill. Akin to sequence parallelism, it can also be done on larger chunks of the prompt instead of individual tokens for better GPU usage. While sequential prefill makes little sense for transformers, it brings back the possibility of processing arbitrary long prompts by SSM models.</p>
+<p>According to recent reports, with these remarks in mind, we first test the largest sequence length that can fit on a single 24 GB A10 GPU, putting the results on the figure below. The batch size is fixed at 1, and we are using float32 precision. Even for parallel prefill, Falcon Mamba can fit larger sequences than a transformer, while in sequential prefill, it unlocks its full potential and can process arbitrary long prompt.</p>
+<p>Sources indicate that next, we measure the generation throughput in a setting with a prompt of length 1 and up to 130k generated tokens, using batch size 1 and H100 GPU. The results are reported in the figure below. We observe that our Falcon Mamba is generating all the tokens at constant throughput and without any increase in CUDA peak memory. For the transformer model, the peak memory grows, and generation speed slows down as the number of generated tokens grows.</p>
+<p>Industry observers note that the Falcon Mamba architecture will be available in the next release of the Hugging Face transformers library (&gt;4.45.0). To use the model, make sure to install the latest version of Hugging Face transformers or install the library from the source.</p>
+<p>Falcon Mamba is compatible with most of the APIs Hugging Face offers, which you are familiar with, such as AutoModelForCausalLM or pipeline :.</p>
+<p>As the model is large, it also supports features such as bitsandbytes quantization to run the model on smaller GPU memory constraints, e.g.:.</p>
+<p>Sources indicate that we are also pleased to introduce the instruction-tuned version of Falcon Mamba, which has been fine-tuned with an additional 5 billion tokens of supervised fine-tuning (SFT) data. This extended training enhances the model's ability to perform instructional tasks with better precision and effectiveness. You can experience the capabilities of the instruct model through our demo, available here. For the chat template we use the following format:.</p>
+<p>You can also directly use the 4-bit converted version of both the base model and the instruct model. Make sure to have access to a GPU that is compatible with bitsandbytes library to run the quantized model.</p>
+<p>You can also benefit from faster inference using torch.compile; simply call model = torch.compile(model) once you have loaded the model.</p>
+<p>The authors of this blog post would like to thank the Hugging Face team for their smooth support and integration within their ecosystem, in particular.</p>
+<p id="sec-end-23263">The authors would also like to thank Tri Dao and Albert Gu for implementing and open-sourcing Mamba architecture to the community.</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/falconmamba" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="tech-report-solid-state-battery-patent-holdings-topped-by-toyota--36727.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #36727. Tech Report: Solid-state battery patent holdings topped by Toyota as it prepares to be first with solid-state cell EV model in mass production - Notebookcheck
+        </a>
+        
+        <a href="researchers-develop-worlds-first-anode-free-sodium-solid-state-ba-36194.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #36194. Researchers Develop World’s First Anode-Free Sodium Solid-State Battery - Technology Networks
+        </a>
+        
+        <a href="st-introduces-the-worlds-first-mcu-edge-ai-developer-cloud-with-m-33993.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #33993. ST Introduces "the World's First MCU Edge AI Developer Cloud," with Model Zoo, Benchmark Farm - Hackster.io
+        </a>
+        
+        <a href="tech-report-prime-minister-carney-announces-the-canada-strong-fun-28747.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #28747. Tech Report: Prime Minister Carney announces the Canada Strong Fund – Canada’s first sovereign wealth fund - Prime Minister of Canada
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>
