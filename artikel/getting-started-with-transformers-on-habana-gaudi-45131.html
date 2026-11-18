@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started with Transformers on Habana Gaudi</title>
+    <meta name="description" content="A couple of weeks ago, we've had the pleasure to announce that Habana Labs and Hugging Face would partner to accelerate Transformer model training. Habana ">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/getting-started-with-transformers-on-habana-gaudi-45131.html">
+    <meta property="og:title" content="Getting Started with Transformers on Habana Gaudi">
+    <meta property="og:description" content="A couple of weeks ago, we've had the pleasure to announce that Habana Labs and Hugging Face would partner to accelerate Transformer model training. Habana ">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/61_getting_started_habana/habana01.png">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/getting-started-with-transformers-on-habana-gaudi-45131.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Getting Started with Transformers on Habana Gaudi", "image": ["https://huggingface.co/blog/assets/61_getting_started_habana/habana01.png"], "datePublished": "2022-04-26T00:00:00", "dateModified": "2026-11-18T15:08:11.861603", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/getting-started-with-transformers-on-habana-gaudi-45131.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Getting Started with Transformers on Habana Gaudi</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 26 Apr 2022 &bull; ⏱️ 4 min read (782 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>A couple of weeks ago, we've had the pleasure to announce that Habana Labs and Hugging Face would partner to accelerate Transformer model training.</li><li style='margin-bottom:6px;'>Habana Gaudi accelerators deliver up to 40% better price performance for training machine learning models compared to the latest GPU-based Amazon EC2 instances.</li><li style='margin-bottom:6px;'>In this hands-on post, I'll show you how to quickly set up a Habana Gaudi instance on Amazon Web Services, and then fine-tune a BERT model for text classification.</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-45131"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-45131"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-45131"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Getting Started with Transformers on Habana Gaudi" loading="lazy" src="https://huggingface.co/blog/assets/61_getting_started_habana/habana01.png" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-45131">A couple of weeks ago, we've had the pleasure to announce that Habana Labs and Hugging Face would partner to accelerate Transformer model training.</p>
+<p>Habana Gaudi accelerators deliver up to 40% better price performance for training machine learning models compared to the latest GPU-based Amazon EC2 instances. We are super excited to bring this price performance advantages to Transformers 🚀.</p>
+<p>In this hands-on post, I'll show you how to quickly set up a Habana Gaudi instance on Amazon Web Services, and then fine-tune a BERT model for text classification. As usual, all code is provided so that you may reuse it in your projects.</p>
+<p>Industry observers note that the simplest way to work with Habana Gaudi accelerators is to launch an Amazon EC2 DL1 instance. These instances are equipped with 8 Habana Gaudi processors that can easily be put to work thanks to the Habana Deep Learning Amazon Machine Image (AMI). This AMI comes preinstalled with the Habana SynapseAI® SDK, and the tools required to run Gaudi accelerated Docker containers. If you'd like to use other AMIs or containers, instructions are available in the Habana documentation.</p>
+<p>Starting from the EC2 console in the us-east-1 region, I first click on Launch an instance and define a name for the instance ("habana-demo-julsimon").</p>
+<p>Then, I search the Amazon Marketplace for Habana AMIs.</p>
+<p>I pick the Habana Deep Learning Base AMI (Ubuntu 20.04).</p>
+<p>Next, I pick the dl1.24xlarge instance size (the only size available).</p>
+<p>Then, I select the keypair that I'll use to connect to the instance with ssh. If you don't have a keypair, you can create one in place.</p>
+<p>According to recent reports, as a next step, I make sure that the instance allows incoming ssh traffic. I do not restrict the source address for simplicity, but you should definitely do it in your account.</p>
+<p>By default, this AMI will start an instance with 8GB of Amazon EBS storage, which won't be enough here. I bump storage to 50GB.</p>
+<p>Sources indicate that next, I assign an Amazon IAM role to the instance. In real life, this role should have the minimum set of permissions required to run your training job, such as the ability to read data from one of your Amazon S3 buckets. This role is not needed here as the dataset will be downloaded from the Hugging Face hub. If you're not familiar with IAM, I highly recommend reading the Getting Started documentation.</p>
+<p>Then, I ask EC2 to provision my instance as a Spot Instance, a great way to reduce the $13.11 per hour cost.</p>
+<p id="sec-mid-45131">It has been revealed that finally, I launch the instance. A couple of minutes later, the instance is ready and I can connect to it with ssh. Windows customers can do the same with PuTTY by following the documentation.</p>
+<p>According to recent reports, on this instance, the last setup step is to pull the Habana container for PyTorch, which is the framework I'll use to fine-tune my model. You can find information on other prebuilt containers and on how to build your own in the Habana documentation.</p>
+<p>Once the image has been pulled to the instance, I run it in interactive mode.</p>
+<p>I'm now ready to fine-tune my model.</p>
+<p>I first clone the Optimum Habana repository inside the container I've just started.</p>
+<p>Then, I install the Optimum Habana package from source.</p>
+<p>Then, I move to the subdirectory containing the text classification example and install the required Python packages.</p>
+<p>I can now launch the training job, which downloads the bert-large-uncased-whole-word-masking model from the Hugging Face hub, and fine-tunes it on the MRPC task of the GLUE benchmark.</p>
+<p>It has been revealed that please note that I'm fetching the Habana Gaudi configuration for BERT from the Hugging Face hub, and you could also use your own. In addition, other popular models are supported, and you can find their configuration file in the Habana organization.</p>
+<p>After 2 minutes and 12 seconds, the job is complete and has achieved an excellent F1 score of 0.9181, which could certainly improve with more epochs.</p>
+<p>Recent findings suggest that last but not least, I terminate the EC2 instance to avoid unnecessary charges. Looking at the Savings Summary in the EC2 console, I see that I saved 70% thanks to Spot Instances, paying only $3.93 per hour instead of $13.11.</p>
+<p>Industry observers note that as you can see, the combination of Transformers, Habana Gaudi, and AWS instances is powerful, simple, and cost-effective. Give it a try and let us know what you think. We definitely welcome your questions and feedback on the Hugging Face Forum.</p>
+<p id="sec-end-45131">Please reach out to Habana to learn more about training Hugging Face models on Gaudi processors.</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/getting-started-habana" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="getting-started-with-hugging-face-transformers-for-ipus-with-opti-45404.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #45404. Getting Started with Hugging Face Transformers for IPUs with Optimum
+        </a>
+        
+        <a href="pre-train-bert-with-hugging-face-transformers-and-habana-gaudi-44819.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #44819. Pre-Train BERT with Hugging Face Transformers and Habana Gaudi
+        </a>
+        
+        <a href="getting-started-with-zero-trust-security-ibm-58497.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #58497. Getting started with zero trust security - IBM
+        </a>
+        
+        <a href="breaking-getting-started-with-edge-ai-on-nvidia-jetson-llms-vlms--53855.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #53855. Breaking: Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics - NVIDIA Developer
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

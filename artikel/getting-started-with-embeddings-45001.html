@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started With Embeddings</title>
+    <meta name="description" content="Check out this tutorial with the Notebook Companion:. An embedding is a numerical representation of a piece of information, for example, text, documents, i">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/getting-started-with-embeddings-45001.html">
+    <meta property="og:title" content="Getting Started With Embeddings">
+    <meta property="og:description" content="Check out this tutorial with the Notebook Companion:. An embedding is a numerical representation of a piece of information, for example, text, documents, i">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/80_getting_started_with_embeddings/thumbnail.png">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/getting-started-with-embeddings-45001.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Getting Started With Embeddings", "image": ["https://huggingface.co/blog/assets/80_getting_started_with_embeddings/thumbnail.png"], "datePublished": "2022-06-23T00:00:00", "dateModified": "2026-11-18T15:07:53.045609", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/getting-started-with-embeddings-45001.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Getting Started With Embeddings</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 23 Jun 2022 &bull; ⏱️ 8 min read (1600 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>Check out this tutorial with the Notebook Companion:.</li><li style='margin-bottom:6px;'>An embedding is a numerical representation of a piece of information, for example, text, documents, images, audio, etc.</li><li style='margin-bottom:6px;'>Given the text "What is the main benefit of voting?", an embedding of the sentence could be represented in a vector space, for example, with a list of 384 numbers (for example, [0.84, 0.42, ..., 0.02]).</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-45001"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-45001"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-45001"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Getting Started With Embeddings" loading="lazy" src="https://huggingface.co/blog/assets/80_getting_started_with_embeddings/thumbnail.png" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-45001">Check out this tutorial with the Notebook Companion:.</p>
+<p>An embedding is a numerical representation of a piece of information, for example, text, documents, images, audio, etc. The representation captures the semantic meaning of what is being embedded, making it robust for many industry applications.</p>
+<p>Given the text "What is the main benefit of voting?", an embedding of the sentence could be represented in a vector space, for example, with a list of 384 numbers (for example, [0.84, 0.42, ..., 0.02]). Since this list captures the meaning, we can do exciting things, like calculating the distance between different embeddings to determine how well the meaning of two sentences matches.</p>
+<p>Sources indicate that embeddings are not limited to text! You can also create an embedding of an image (for example, a list of 384 numbers) and compare it with a text embedding to determine if a sentence describes the image. This concept is under powerful systems for image search, classification, description, and more!</p>
+<p>How are embeddings generated? The open-source library called Sentence Transformers allows you to create state-of-the-art embeddings from images and text for free. This blog indicates an example with this library.</p>
+<p>Sources indicate that "[...] once you understand this ML multitool (embedding), you'll be able to build everything from search engines to recommendation systems to chatbots and a whole lot more. You don't have to be a data scientist with ML expertise to use them, nor do you need a huge labeled dataset." - Dale Markowitz, Google Cloud.</p>
+<p>Once a piece of information (a sentence, a document, an image) is embedded, the creativity starts; several interesting industrial applications use embeddings. E.g., Google Search uses embeddings to match text to text and text to images; Snapchat uses them to "serve the right ad to the right user at the right time"; and Meta (Facebook) uses them for their social search.</p>
+<p>Industry observers note that before they could get intelligence from embeddings, these companies had to embed their pieces of information. An embedded dataset allows algorithms to search quickly, sort, group, and more. However, it can be expensive and technically complicated. In this post, we use simple open-source tools to show how easy it can be to embed and analyze a dataset.</p>
+<p>We will create a small Frequently Asked Questions (FAQs) engine: receive a query from a user and identify which FAQ is the most similar. We will use the US Social Security Medicare FAQs.</p>
+<p>But first, we need to embed our dataset (other texts use the terms encode and embed interchangeably). The Hugging Face Inference API allows us to embed a dataset using a quick POST call easily.</p>
+<p>In a recent development, since the embeddings capture the semantic meaning of the questions, it is possible to compare different embeddings and see how different or similar they are. Thanks to this, you can get the most similar embedding to a query, which is equivalent to finding the most similar FAQ. Check out our semantic search tutorial for a more detailed explanation of how this mechanism works.</p>
+<p>In a recent development, the first step is selecting an existing pre-trained model for creating the embeddings. We can choose a model from the Sentence Transformers library. In this case, let's use the "sentence-transformers/all-MiniLM-L6-v2" because it's a small but powerful model. In a future post, we will examine other models and their trade-offs.</p>
+<p>To generate the embeddings you can use the https://api-inference.huggingface.co/pipeline/feature-extraction/{model_id} endpoint with the headers {"Authorization": f"Bearer {hf_token}"}. Here is a function that receives a dictionary with the texts and returns a list with embeddings.</p>
+<p>The first time you generate the embeddings, it may take a while (approximately 20 seconds) for the API to return them. We use the retry decorator (install with pip install retry) so that if on the first try, output = query(dict(inputs = texts)) doesn't work, wait 10 seconds and try three times again. This happens because, on the first request, the model needs to be downloaded and installed on the server, but subsequent calls are much faster.</p>
+<p>According to recent reports, the current API does not enforce strict rate limitations. Instead, Hugging Face balances the loads evenly between all our available resources and favors steady flows of requests. If you need to embed several texts or images, the Hugging Face Accelerated Inference API would speed the inference and let you choose between using a CPU or GPU.</p>
+<p>As a response, you get back a list of lists. Each list contains the embedding of a FAQ. The model, "sentence-transformers/all-MiniLM-L6-v2", is encoding the input questions to 13 embeddings of size 384 each. Let's convert the list to a Pandas DataFrame of shape (13x384).</p>
+<p>It looks similar to this matrix:.</p>
+<p>According to recent reports, 🤗 Datasets is a library for rapidly accessing and sharing datasets. Let's host the embeddings dataset in the Hub using the user interface (UI). Then, anyone can load it with a single line of code. You can also use the terminal to share datasets; see the documentation for the steps. In the notebook companion of this entry, you will be able to use the terminal to share the dataset. If you want to skip this section, check out the ITESM/embedded_faqs_medicare repo with the embedded FAQs.</p>
+<p>Recent findings suggest that first, we export our embeddings from a Pandas DataFrame to a CSV. You can save your dataset in any way you prefer, e.g., zip or pickle; you don't need to use Pandas or CSV. Since our embeddings file is not large, we can store it in a CSV, which is easily inferred by the datasets.load_dataset() function we will employ in the next section (see the Datasets documentation), i.e., we don't need to create a loading script. We will save the embeddings with the name embeddings.csv.</p>
+<p>Follow the next steps to host embeddings.csv in the Hub.</p>
+<p id="sec-mid-45001">Now the dataset is hosted on the Hub for free. You (or whoever you want to share the embeddings with) can quickly load them. Let's see how.</p>
+<p>According to recent reports, suppose a Medicare customer asks, "How can Medicare help me?". We will find which of our FAQs could best answer our user query. We will create an embedding of the query that can represent its semantic meaning. We then compare it to each embedding in our FAQ dataset to identify which is closest to the query in vector space.</p>
+<p>In a recent development, install the 🤗 Datasets library with pip install datasets. Then, load the embedded dataset from the Hub and convert it to a PyTorch FloatTensor. Note that this is not the only way to operate on a Dataset; for example, you could use NumPy, Tensorflow, or SciPy (refer to the Documentation). If you want to practice with a real dataset, the ITESM/embedded_faqs_medicare repo contains the embedded FAQs, or you can use the companion notebook to this blog.</p>
+<p>We use the query function we defined before to embed the customer's question and convert it to a PyTorch FloatTensor to operate over it efficiently. Note that after the embedded dataset is loaded, we could use the add_faiss_index and search methods of a Dataset to identify the closest FAQ to an embedded query using the faiss library. Here is a nice tutorial of the alternative.</p>
+<p>You can use the util.semantic_search function in the Sentence Transformers library to identify which of the FAQs are closest (most similar) to the user's query. This function uses cosine similarity as the default function to determine the proximity of the embeddings. However, you could also use other functions that measure the distance between two points in a vector space, for example, the dot product.</p>
+<p>Install sentence-transformers with pip install -U sentence-transformers, and search for the five most similar FAQs to the query.</p>
+<p>util.semantic_search identifies how close each of the 13 FAQs is to the customer query and returns a list of dictionaries with the top top_k FAQs. hits looks like this:.</p>
+<p>The values ​​in corpus_id allow us to index the list of texts we defined in the first section and get the five most similar FAQs:.</p>
+<p>Here are the 5 FAQs that come closest to the customer's query:.</p>
+<p>Industry observers note that this list represents the 5 FAQs closest to the customer's query. Nice! We used here PyTorch and Sentence Transformers as our main numerical tools. However, we could have defined the cosine similarity and ranking functions by ourselves using tools such as NumPy and SciPy.</p>
+<p>If you want to know more about the Sentence Transformers library:.</p>
+<p>Once you're comfortable with using embedding models, you may want to train or finetune your own, or explore related techniques:.</p>
+<p>Hibelow is the error message I have when I try to run the code of the post,{'error': "SentenceSimilarityPipeline.call() missing 1 required positional argument: 'sentences'"}.</p>
+<p>My codemodel_id = "sentence-transformers/all-MiniLM-L6-v2"api_url = f"https://api-inference.huggingface.co/models/{model_id}".</p>
+<p>hf_token = os.environ['access_token']headers = {"Authorization": f"Bearer {hf_token}"}.</p>
+<p>def query(texts):    response = requests.post(api_url, headers=headers, json={"inputs": texts, "options":{"wait_for_model":True}})    return response.json().</p>
+<p>texts = ["How do I get a replacement Medicare card?",        "What is the monthly premium for Medicare Part B?",        "How do I terminate my Medicare Part B (medical insurance)?"].</p>
+<p>output = query(texts)print(output).</p>
+<p>I adjusted my query function with the help of claude.ai like below and I can see output with a free tier.</p>
+<p>def query(sentence_pairs):    response = requests.post(        api_url,        headers=headers,        json={"inputs": {"source_sentence": sentence_pairs[0], "sentences": sentence_pairs[1:]}}    )    return response.json().</p>
+<p id="sec-end-45001">According to recent reports, for your awareness, I believe the API URL for the all-MiniLM-L6-v2 transformer has now changed, meaning that the Google Colab Notebook doesn't work as written. The fresh URL is provided in the Hugging Face forum post here and updating to the new URL seems to fix the concern: https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/discussions/116.</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/getting-started-with-embeddings" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="getting-started-with-zero-trust-security-ibm-58497.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #58497. Getting started with zero trust security - IBM
+        </a>
+        
+        <a href="breaking-getting-started-with-edge-ai-on-nvidia-jetson-llms-vlms--53855.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #53855. Breaking: Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics - NVIDIA Developer
+        </a>
+        
+        <a href="steps-to-getting-started-with-edge-ai-nvidia-developer-53840.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #53840. Steps to Getting Started with Edge AI - NVIDIA Developer
+        </a>
+        
+        <a href="getting-started-on-oracle-cloud-infrastructure-console-oracle-52591.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #52591. Getting Started on Oracle Cloud Infrastructure Console - Oracle
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

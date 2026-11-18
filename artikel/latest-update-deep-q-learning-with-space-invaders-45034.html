@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Update: Deep Q-Learning with Space Invaders</title>
+    <meta name="description" content="⚠️ A new updated version of this article is available here 👉 https://huggingface.co/deep-rl-course/unit1/introduction. This article is part of the Deep Rei">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/latest-update-deep-q-learning-with-space-invaders-45034.html">
+    <meta property="og:title" content="Latest Update: Deep Q-Learning with Space Invaders">
+    <meta property="og:description" content="⚠️ A new updated version of this article is available here 👉 https://huggingface.co/deep-rl-course/unit1/introduction. This article is part of the Deep Rei">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/78_deep_rl_dqn/thumbnail.gif">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/latest-update-deep-q-learning-with-space-invaders-45034.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Latest Update: Deep Q-Learning with Space Invaders", "image": ["https://huggingface.co/blog/assets/78_deep_rl_dqn/thumbnail.gif"], "datePublished": "2022-06-07T00:00:00", "dateModified": "2026-11-18T15:07:58.599703", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/latest-update-deep-q-learning-with-space-invaders-45034.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Latest Update: Deep Q-Learning with Space Invaders</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 07 Jun 2022 &bull; ⏱️ 9 min read (1853 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>⚠️ A new updated version of this article is available here 👉 https://huggingface.co/deep-rl-course/unit1/introduction.</li><li style='margin-bottom:6px;'>This article is part of the Deep Reinforcement Learning Class.</li><li style='margin-bottom:6px;'>⚠️ A newly introduced updated version of this article is available here 👉 https://huggingface.co/deep-rl-course/unit1/introduction.</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-45034"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-45034"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-45034"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Latest Update: Deep Q-Learning with Space Invaders" loading="lazy" src="https://huggingface.co/blog/assets/78_deep_rl_dqn/thumbnail.gif" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-45034">⚠️ A new updated version of this article is available here 👉 https://huggingface.co/deep-rl-course/unit1/introduction.</p>
+<p>This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus here.</p>
+<p>⚠️ A newly introduced updated version of this article is available here 👉 https://huggingface.co/deep-rl-course/unit1/introduction.</p>
+<p>This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus here.</p>
+<p>In the last unit, we learned our first reinforcement learning algorithm: Q-Learning, implemented it from scratch, and trained it in two environments, FrozenLake-v1 ☃️ and Taxi-v3 🚕.</p>
+<p>Sources indicate that we got excellent results with this simple algorithm. But these environments were relatively simple because the State Space was discrete and small (14 different states for FrozenLake-v1 and 500 for Taxi-v3).</p>
+<p>But as we'll see, producing and updating a Q-table can become ineffective in large state space environments.</p>
+<p>So today, we'll study our first Deep Reinforcement Learning agent: Deep Q-Learning. Instead of using a Q-table, Deep Q-Learning uses a Neural Network that takes a state and approximates Q-values for each action based on that state.</p>
+<p>And we'll train it to play Space Invaders and other Atari environments using RL-Zoo, a training framework for RL using Stable-Baselines that provides scripts for training, evaluating agents, tuning hyperparameters, plotting results, and recording videos.</p>
+<p>To be able to understand this unit, you need to understand Q-Learning first.</p>
+<p>We learned that Q-Learning is an algorithm we use to train our Q-Function, an action-value function that determines the value of being at a particular state and taking a specific action at that state.</p>
+<p>The Q comes from "the Quality" of that action at that state.</p>
+<p>It has been revealed that internally, our Q-function has a Q-table, a table where each cell corresponds to a state-action pair value. Think of this Q-table as the memory or cheat sheet of our Q-function.</p>
+<p>Sources indicate that the problem is that Q-Learning is a tabular method. Aka, a problem in which the state and actions spaces are small enough to approximate value functions to be represented as arrays and tables. And this is not scalable.</p>
+<p>Q-Learning was working well with small state space environments like:.</p>
+<p>But think of what we're going to do today: we will train an agent to learn to play Space Invaders using the frames as input.</p>
+<p>As Nikita Melkozerov mentioned, Atari environments have an observation space with a shape of (210, 160, 3), containing values ranging from 0 to 255 so that gives us 256^(210x160x3) = 256^100800 (for comparison, we have approximately 10^80 atoms in the observable universe).</p>
+<p>Therefore, the state space is gigantic; hence creating and updating a Q-table for that environment would not be efficient. In this case, the best idea is to approximate the Q-values instead of a Q-table using a parametrized Q-function  Qθ(s,a)Q_{\theta}(s,a)Qθ​(s,a)  .</p>
+<p>This neural network will approximate, given a state, the different Q-values for each possible action at that state. And that's exactly what Deep Q-Learning does.</p>
+<p>Now that we understand Deep Q-Learning, let's dive deeper into the Deep Q-Network.</p>
+<p>This is the architecture of our Deep Q-Learning network:.</p>
+<p>As input, we take a stack of 4 frames passed through the network as a state and output a vector of Q-values for each possible action at that state. Then, like with Q-Learning, we just need to use our epsilon-greedy policy to select which action to take.</p>
+<p>When the Neural Network is initialized, the Q-value estimation is terrible. But during training, our Deep Q-Network agent will associate a situation with appropriate action and learn to play the game well.</p>
+<p>We mentioned that we preprocess the input. It’s an essential step since we want to reduce the complexity of our state to reduce the computation time needed for training.</p>
+<p>So what we do is reduce the state space to 84x84 and grayscale it (since the colors in Atari environments don't add important information). This is an essential saving since we reduce our three color channels (RGB) to 1.</p>
+<p>Recent findings suggest that we can also crop a part of the screen in some games if it does not contain vital information. Then we stack four frames together.</p>
+<p>Sources indicate that why do we stack four frames together? We stack frames together because it helps us handle the problem of temporal limitation. Let’s take an example with the game of Pong. When you see this frame:.</p>
+<p>Can you tell me where the ball is going? No, because one frame is not enough to have a sense of motion! But what if I add three more frames? Here you can see that the ball is going to the right.</p>
+<p>Then, the stacked frames are processed by three convolutional layers. These layers allow us to capture and exploit spatial relationships in images. But also, because frames are stacked together, you can exploit some spatial properties across those frames.</p>
+<p>Finally, we have a couple of fully connected layers that output a Q-value for each possible action at that state.</p>
+<p>So, we see that Deep Q-Learning is using a neural network to approximate, given a state, the different Q-values for each possible action at that state. Let’s now study the Deep Q-Learning algorithm.</p>
+<p>We learned that Deep Q-Learning uses a deep neural network to approximate the different Q-values for each possible action at a state (value-function estimation).</p>
+<p>The difference is that, during the training phase, instead of updating the Q-value of a state-action pair directly as we have done with Q-Learning:.</p>
+<p>In Deep Q-Learning, we create a Loss function between our Q-value prediction and the Q-target and use Gradient Descent to update the weights of our Deep Q-Network to approximate our Q-values better.</p>
+<p>The Deep Q-Learning training algorithm has two phases:.</p>
+<p id="sec-mid-45034">But, this is not the only change compared with Q-Learning. Deep Q-Learning training might suffer from instability, mainly because of combining a non-linear Q-value function (Neural Network) and bootstrapping (when we update targets with existing estimates and not an actual complete return).</p>
+<p>To help us stabilize the training, we implement three different solutions:.</p>
+<p>Why do we create a replay memory?</p>
+<p>Experience Replay in Deep Q-Learning has two functions:.</p>
+<p>⇒ This allows us to learn from individual experiences multiple times.</p>
+<p>In a recent development, the solution is to create a Replay Buffer that stores experience tuples while interacting with the environment and then sample a small batch of tuples. This prevents the network from only learning about what it has immediately done.</p>
+<p>Experience replay also has other benefits. By randomly sampling the experiences, we remove correlation in the observation sequences and avoid action values from oscillating or diverging catastrophically.</p>
+<p>In the Deep Q-Learning pseudocode, we see that we initialize a replay memory buffer D from capacity N (N is an hyperparameter that you can define). We then store experiences in the memory and sample a minibatch of experiences to feed the Deep Q-Network during the training phase.</p>
+<p>When we want to calculate the TD error (aka the loss), we calculate the difference between the TD target (Q-Target) and the current Q-value (estimation of Q).</p>
+<p>But we don’t have any idea of the real TD target. We need to estimate it. Using the Bellman equation, we saw that the TD target is just the reward of taking that action at that state plus the discounted highest Q value for the next state.</p>
+<p>Sources indicate that however, the problem is that we are using the same parameters (weights) for estimating the TD target and the Q value. Consequently, there is a significant correlation between the TD target and the parameters we are changing.</p>
+<p>Therefore, it means that at every step of training, our Q values shift but also the target value shifts. So, we’re getting closer to our target, but the target is also moving. It’s like chasing a moving target! This led to a significant oscillation in training.</p>
+<p>It’s like if you were a cowboy (the Q estimation) and you want to catch the cow (the Q-target), you must get closer (reduce the error).</p>
+<p>At each time step, you’re trying to approach the cow, which also moves at each time step (because you use the same parameters).</p>
+<p>Instead, what we see in the pseudo-code is that we:.</p>
+<p>In a recent development, double DQNs, or Double Learning, were introduced by Hado van Hasselt. This method handles the problem of the overestimation of Q-values.</p>
+<p>To understand this problem, remember how we calculate the TD Target:.</p>
+<p>We face a simple problem by calculating the TD target: how are we sure that the best action for the next state is the action with the highest Q-value?</p>
+<p>We know that the accuracy of Q values depends on what action we tried and what neighboring states we explored.</p>
+<p>Consequently, we don’t have enough information about the best action to take at the beginning of the training. Therefore, taking the maximum Q value (which is noisy) as the best action to take can lead to false positives. If non-optimal actions are regularly given a higher Q value than the optimal best action, the learning will be complicated.</p>
+<p>The solution is: when we compute the Q target, we use two networks to decouple the action selection from the target Q value generation. We:.</p>
+<p>Therefore, Double DQN helps us reduce the overestimation of q values and, as a consequence, helps us train faster and have more stable learning.</p>
+<p>Since these three improvements in Deep Q-Learning, many have been added such as Prioritized Experience Replay, Dueling Deep Q-Learning. They’re out of the scope of this course but if you’re interested, check the links we put in the reading list. 👉 https://github.com/huggingface/deep-rl-class/blob/main/unit3/README.md.</p>
+<p>Now that you've studied the theory behind Deep Q-Learning, you’re ready to train your Deep Q-Learning agent to play Atari Games. We'll start with Space Invaders, but you'll be able to use any Atari game you want 🔥.</p>
+<p>We're using the RL-Baselines-3 Zoo integration, a vanilla version of Deep Q-Learning with no extensions such as Double-DQN, Dueling-DQN, and Prioritized Experience Replay.</p>
+<p>Start the tutorial here 👉 https://colab.research.google.com/github/huggingface/deep-rl-class/blob/main/unit3/unit3.ipynb.</p>
+<p>The leaderboard to compare your results with your classmates 🏆 👉 https://huggingface.co/spaces/chrisjay/Deep-Reinforcement-Learning-Leaderboard.</p>
+<p>According to recent reports, congrats on finishing this chapter! There was a lot of information. And congrats on finishing the tutorial. You’ve just trained your first Deep Q-Learning agent and shared it on the Hub 🥳.</p>
+<p>Recent findings suggest that that’s normal if you still feel confused with all these elements. This was the same for me and for all people who studied RL.</p>
+<p>Take time to really grasp the material before continuing.</p>
+<p>Don't hesitate to train your agent in other environments (Pong, Seaquest, QBert, Ms Pac Man). The best way to learn is to try things on your own!</p>
+<p>We published additional readings in the syllabus if you want to go deeper 👉 https://github.com/huggingface/deep-rl-class/blob/main/unit3/README.md.</p>
+<p>In the next unit, we’re going to learn about Policy Gradients methods.</p>
+<p>And don't forget to share with your friends who want to learn 🤗 !</p>
+<p id="sec-end-45034">In a recent development, finally, we want to improve and patch the course iteratively with your feedback. If you have some, please fill this form 👉 https://forms.gle/3HgA7bEHwAmmLfwh9.</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/deep-rl-dqn" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="cycle-based-state-of-health-estimation-of-lithium-ion-cells-using-55168.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #55168. Cycle based state of health estimation of lithium ion cells using deep learning architectures - Nature
+        </a>
+        
+        <a href="deep-learning-framework-for-interpretable-supply-chain-forecastin-54875.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #54875. Deep learning framework for interpretable supply chain forecasting using SOM ANN and SHAP - Nature
+        </a>
+        
+        <a href="edge-ai-enabled-mimo-mc-cdma-for-6g-optimizing-spectrum-and-energ-54474.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #54474. Edge AI enabled MIMO MC-CDMA for 6G optimizing spectrum and energy efficiency with SIC and deep reinforcement learning | Scientific Reports - Nature
+        </a>
+        
+        <a href="kinara-and-nxp-collaborate-to-provide-customers-with-scalable-ai--54447.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #54447. Kinara and NXP Collaborate to Provide Customers with Scalable AI Solutions Optimized for Deep Learning at the Edge - Business Wire
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

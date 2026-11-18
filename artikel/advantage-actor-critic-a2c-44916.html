@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advantage Actor Critic (A2C)</title>
+    <meta name="description" content="⚠️ A latest updated version of this article is available here 👉 https://huggingface.co/deep-rl-course/unit1/introduction. It has been revealed that this ar">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/advantage-actor-critic-a2c-44916.html">
+    <meta property="og:title" content="Advantage Actor Critic (A2C)">
+    <meta property="og:description" content="⚠️ A latest updated version of this article is available here 👉 https://huggingface.co/deep-rl-course/unit1/introduction. It has been revealed that this ar">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/89_deep_rl_a2c/thumbnail.gif">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/advantage-actor-critic-a2c-44916.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Advantage Actor Critic (A2C)", "image": ["https://huggingface.co/blog/assets/89_deep_rl_a2c/thumbnail.gif"], "datePublished": "2022-07-22T00:00:00", "dateModified": "2026-11-18T15:07:35.304686", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/advantage-actor-critic-a2c-44916.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Advantage Actor Critic (A2C)</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 22 Jul 2022 &bull; ⏱️ 6 min read (1151 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>⚠️ A latest updated version of this article is available here 👉 https://huggingface.co/deep-rl-course/unit1/introduction.</li><li style='margin-bottom:6px;'>It has been revealed that this article is part of the Deep Reinforcement Learning Class.</li><li style='margin-bottom:6px;'>⚠️ A newly introduced updated version of this article is available here 👉 https://huggingface.co/deep-rl-course/unit1/introduction.</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-44916"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-44916"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-44916"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Advantage Actor Critic (A2C)" loading="lazy" src="https://huggingface.co/blog/assets/89_deep_rl_a2c/thumbnail.gif" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-44916">⚠️ A latest updated version of this article is available here 👉 https://huggingface.co/deep-rl-course/unit1/introduction.</p>
+<p>It has been revealed that this article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus here.</p>
+<p>⚠️ A newly introduced updated version of this article is available here 👉 https://huggingface.co/deep-rl-course/unit1/introduction.</p>
+<p>This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus here.</p>
+<p>It has been revealed that in Unit 5, we learned about our first Policy-Based algorithm called Reinforce. In Policy-Based methods, we aim to optimize the policy directly without using a value function. More precisely, Reinforce is part of a subclass of Policy-Based Methods called Policy-Gradient methods. This subclass optimizes the policy directly by estimating the weights of the optimal policy using Gradient Ascent.</p>
+<p>We saw that Reinforce worked well. However, because we use Monte-Carlo sampling to estimate return (we use an entire episode to calculate the return), we have significant variance in policy gradient estimation.</p>
+<p>Remember that the policy gradient estimation is the direction of the steepest increase in return. Aka, how to patch our policy weights so that actions that lead to good returns have a higher probability of being taken. The Monte Carlo variance, which we will further study in this unit, leads to slower training since we need a lot of samples to mitigate it.</p>
+<p>Today we'll study Actor-Critic methods, a hybrid architecture combining a value-based and policy-based methods that help to stabilize the training by reducing the variance:.</p>
+<p>We'll study one of these hybrid methods called Advantage Actor Critic (A2C), and train our agent using Stable-Baselines3 in robotic environments. Where we'll train two agents to walk:.</p>
+<p>It has been revealed that sounds exciting? Let's get started!</p>
+<p>In Reinforce, we want to increase the probability of actions in a trajectory proportional to how high the return is.</p>
+<p>This return R(τ)R(\tau)R(τ) is calculated using a Monte-Carlo sampling. Indeed, we collect a trajectory and calculate the discounted return, and use this score to increase or decrease the probability of every action taken in that trajectory. If the return is good, all actions will be “reinforced” by increasing their likelihood of being taken.</p>
+<p>R(τ)=Rt+1+γRt+2+γ2Rt+3+...R(\tau) = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + ...R(τ)=Rt+1​+γRt+2​+γ2Rt+3​+...</p>
+<p>The advantage of this method is that it’s unbiased. Since we’re not estimating the return, we use only the true return we obtain.</p>
+<p>According to recent reports, but the problem is that the variance is high, since trajectories can lead to different returns due to stochasticity of the environment (random events during episode) and stochasticity of the policy. Consequently, the same starting state can lead to very different returns. Because of this, the return starting at the same state can vary significantly across episodes.</p>
+<p>The solution is to mitigate the variance by using a large number of trajectories, hoping that the variance introduced in any one trajectory will be reduced in aggregate and provide a "true" estimation of the return.</p>
+<p>Sources indicate that however, increasing the batch size significantly reduces sample efficiency. So we need to find additional mechanisms to reduce the variance.</p>
+<p>The solution to reducing the variance of Reinforce algorithm and training our agent faster and better is to use a combination of policy-based and value-based methods: the Actor-Critic method.</p>
+<p>Recent findings suggest that to understand the Actor-Critic, imagine you play a video game. You can play with a friend that will provide you some feedback. You’re the Actor, and your friend is the Critic.</p>
+<p>You don’t know how to play at the beginning, so you try some actions randomly. The Critic observes your action and provides feedback.</p>
+<p>Learning from this feedback, you’ll update your policy and be better at playing that game.</p>
+<p>On the other hand, your friend (Critic) will also upgrade their way to provide feedback so it can be better next time.</p>
+<p>In a recent development, this is the idea behind Actor-Critic. We learn two function approximations:.</p>
+<p id="sec-mid-44916">A policy that controls how our agent acts: πθ(s,a) \pi_{\theta}(s,a) πθ​(s,a).</p>
+<p>A value function to assist the policy upgrade by measuring how good the action taken is: q^w(s,a) \hat{q}_{w}(s,a) q^​w​(s,a).</p>
+<p>Now that we have seen the Actor Critic's major picture, let's dive deeper to understand how Actor and Critic improve together during the training.</p>
+<p>As we saw, with Actor-Critic methods there are two function approximations (two neural networks):.</p>
+<p>Let's see the training process to understand how Actor and Critic are optimized:.</p>
+<p>At each timestep, t, we get the current state St S_tSt​ from the environment and pass it as input through our Actor and Critic.</p>
+<p>Our Policy takes the state and outputs an action At A_t At​.</p>
+<p>Thanks to its updated parameters, the Actor produces the next action to take at At+1 A_{t+1} At+1​ given the new state St+1 S_{t+1} St+1​.</p>
+<p>The Critic then updates its value parameters.</p>
+<p>We can stabilize learning further by using the Advantage function as Critic instead of the Action value function.</p>
+<p>Industry observers note that the idea is that the Advantage function calculates how better taking that action at a state is compared to the average value of the state. It’s subtracting the mean value of the state from the state action pair:.</p>
+<p>In other words, this function calculates the extra reward we get if we take this action at that state compared to the mean reward we get at that state.</p>
+<p>The extra reward is what's beyond the expected value of that state.</p>
+<p>In a recent development, the problem with implementing this advantage function is that it requires two value functions —  Q(s,a) Q(s,a)Q(s,a) and  V(s) V(s)V(s). Fortunately, we can use the TD error as a good estimator of the advantage function.</p>
+<p>Now that you've studied the theory behind Advantage Actor Critic (A2C), you're ready to train your A2C agent using Stable-Baselines3 in robotic environments.</p>
+<p>Start the tutorial here 👉 https://colab.research.google.com/github/huggingface/deep-rl-class/blob/main/unit7/unit7.ipynb.</p>
+<p>The leaderboard to compare your results with your classmates 🏆 👉 https://huggingface.co/spaces/chrisjay/Deep-Reinforcement-Learning-Leaderboard.</p>
+<p>In a recent development, congrats on finishing this chapter! There was a lot of information. And congrats on finishing the tutorial. 🥳.</p>
+<p>According to recent reports, it's normal if you still feel confused with all these elements. This was the same for me and for all people who studied RL.</p>
+<p>Take time to grasp the material before continuing. Look also at the additional reading materials we provided in this article and the syllabus to go deeper 👉 https://github.com/huggingface/deep-rl-class/blob/main/unit7/README.md.</p>
+<p>In a recent development, don't hesitate to train your agent in other environments. The best way to learn is to try things on your own!</p>
+<p>In the next unit, we will learn to improve Actor-Critic Methods with Proximal Policy Optimization.</p>
+<p>And don't forget to share with your friends who want to learn 🤗!</p>
+<p id="sec-end-44916">Industry observers note that finally, with your feedback, we want to improve and enhancement the course iteratively. If you have some, please fill this form 👉 https://forms.gle/3HgA7bEHwAmmLfwh9.</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/deep-rl-a2c" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="asymmetric-actor-critic-for-image-based-robot-learning-46533.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #46533. Asymmetric actor critic for image-based robot learning
+        </a>
+        
+        <a href="stable-transformer-actor-critic-model-predictive-control-a-contra-41748.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #41748. Stable Transformer-Actor-Critic Model Predictive Control: A Contraction Analysis Approach
+        </a>
+        
+        <a href="arming-for-advantage-how-canadas-defence-agenda-can-spark-a-manuf-58104.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #58104. Arming for advantage: How Canada’s defence agenda can spark a manufacturing renaissance - EY
+        </a>
+        
+        <a href="weaponizing-supply-chains-how-ad-leaders-can-seize-the-advantage--57866.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #57866. Weaponizing supply chains: How A&D leaders can seize the advantage with a strategic approach - PwC
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

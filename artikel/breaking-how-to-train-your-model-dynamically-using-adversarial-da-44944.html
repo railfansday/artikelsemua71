@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breaking: How to train your model dynamically using adversarial data</title>
+    <meta name="description" content="Static benchmarks, while being a widely-used way to evaluate your model's performance, are fraught with many issues: they saturate, have biases or loophole">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/breaking-how-to-train-your-model-dynamically-using-adversarial-da-44944.html">
+    <meta property="og:title" content="Breaking: How to train your model dynamically using adversarial data">
+    <meta property="og:description" content="Static benchmarks, while being a widely-used way to evaluate your model's performance, are fraught with many issues: they saturate, have biases or loophole">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/88_mnist_adversarial/mnist-adversarial.png">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/breaking-how-to-train-your-model-dynamically-using-adversarial-da-44944.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Breaking: How to train your model dynamically using adversarial data", "image": ["https://huggingface.co/blog/assets/88_mnist_adversarial/mnist-adversarial.png"], "datePublished": "2022-07-16T00:00:00", "dateModified": "2026-11-18T15:07:43.360325", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/breaking-how-to-train-your-model-dynamically-using-adversarial-da-44944.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Breaking: How to train your model dynamically using adversarial data</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 16 Jul 2022 &bull; ⏱️ 4 min read (803 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>Static benchmarks, while being a widely-used way to evaluate your model's performance, are fraught with many issues: they saturate, have biases or loopholes, and often lead researchers to chase increment in metrics instead of building trustworthy models that can be used by humans 1.</li><li style='margin-bottom:6px;'>Dynamic adversarial data collection (DADC) holds great promise as an approach to mitigate some of the challenges of static benchmarks.</li><li style='margin-bottom:6px;'>This process of fooling and training the model on the adversarially collected data is repeated over multiple rounds leading to a more robust model that is aligned with humans1 .</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-44944"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-44944"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-44944"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Breaking: How to train your model dynamically using adversarial data" loading="lazy" src="https://huggingface.co/blog/assets/88_mnist_adversarial/mnist-adversarial.png" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-44944">Static benchmarks, while being a widely-used way to evaluate your model's performance, are fraught with many issues: they saturate, have biases or loopholes, and often lead researchers to chase increment in metrics instead of building trustworthy models that can be used by humans 1.</p>
+<p>Dynamic adversarial data collection (DADC) holds great promise as an approach to mitigate some of the challenges of static benchmarks. In DADC, humans create examples to fool state-of-the-art (SOTA) models. This process offers two benefits:.</p>
+<p>This process of fooling and training the model on the adversarially collected data is repeated over multiple rounds leading to a more robust model that is aligned with humans1 .</p>
+<p>Here I will walk you through dynamically collecting adversarial data from people and training your model on them - using the MNIST handwritten digit recognition task.</p>
+<p>In the MNIST handwritten digit recognition task, the model is trained to predict the number given a 28x28 grayscale image input of the handwritten digit (see examples in the figure below). The numbers range from 0 to 9.</p>
+<p>Image source: mnist | Tensorflow Datasets.</p>
+<p>This task is widely regarded as the hello world of computer vision and it is very easy to train models that achieve high accuracy on the standard (and static) benchmark test set. Nevertheless, it has been shown that these SOTA models still find it difficult to predict the correct digits when humans write them (and give them as input to the model): researchers opine that this is largely because the static test set does not adequately represent the very diverse ways humans write. Therefore humans are needed in the loop to provide the models with adversarial samples which will help them generalize better.</p>
+<p>This walkthrough will be divided into the following sections:.</p>
+<p>First of all, you need to define your model architecture. My simple model architecture below is made up of two convolutional networks connected to a 50 dimensional fully connected layer and a final layer for the 10 classes. Finally, we use the softmax activation function to turn the model's output into a probability distribution over the classes.</p>
+<p id="sec-mid-44944">Now that you have defined the structure of your model, you need to train it on the standard MNIST train/dev dataset.</p>
+<p>Industry observers note that at this point we assume you have your trained model. Although this model is trained, we aim to make it robust using human-in-the-loop adversarial data. For that, you need a way for owners to interact with it: specifically you want users to be able to write/draw numbers from 0-9 on a canvas and have the model try to classify it. You can do all that with 🤗 Spaces which allows you to quickly and easily build a demo for your ML models. Learn more about Spaces and how to build them here.</p>
+<p>Below is a simple Space to interact with the MNIST_Model which I trained for 20 epochs (achieved 89% accuracy on the test set). You draw a number on the white canvas and the model predicts the number from your image. The full Space can be accessed here. Try to fool this model😁. Use your funniest handwriting; write on the sides of the canvas; go wild!</p>
+<p>It has been revealed that were you able to fool the model above?😀 If yes, then it's time to flag your adversarial example. Flagging entails:.</p>
+<p>In a recent development, I have written a custom flag function to do all that. For more details feel free to peruse the full code here.</p>
+<p>Sources indicate that note: Gradio has a built-in flaggiing callback that allows you easily flag adversarial samples of your model. Read more about it here.</p>
+<p>It has been revealed that the final step is to put all the three components (configuring the model, interacting with it and flagging it) together as one demo Space! To that end, I have created the MNIST Adversarial Space for dynamic adversarial data collection for the MNIST handwritten recognition task. Feel free to test it out below.</p>
+<p>Dynamic Adversarial Data Collection (DADC) has been gaining traction in the machine learning community as a way to gather diverse non-saturating human-aligned datasets, and improve model evaluation and task performance. By dynamically collecting human-generated adversarial data with models in the loop, we can improve the generalization potential of our models.</p>
+<p>This process of fooling and training the model on the adversarially collected data should be repeated over multiple rounds1. Eric Wallace et al, in their experiments on natural language inference tasks, show that while in the short term standard non-adversarial data collection performs better, in the long term however dynamic adversarial data collection leads to the highest accuracy by a noticeable margin.</p>
+<p id="sec-end-44944">Using the 🤗 Spaces, it becomes relatively easy to build a platform to dynamically collect adversarial data for your model and train on them.</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/mnist-adversarial" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="how-to-train-a-fresh-language-model-from-scratch-using-transforme-45669.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #45669. How to train a fresh language model from scratch using Transformers and Tokenizers
+        </a>
+        
+        <a href="tech-report-accelerate-large-model-training-using-pytorch-fully-s-45100.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #45100. Tech Report: Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel
+        </a>
+        
+        <a href="breaking-ransomware-mitigation-using-amazon-workdocs-to-protect-e-58754.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #58754. Breaking: Ransomware mitigation: Using Amazon WorkDocs to protect end-user data - Amazon Web Services (AWS)
+        </a>
+        
+        <a href="a-data-plane-security-model-of-sr-bete-based-on-zero-trust-archit-58671.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #58671. A data plane security model of SR-BE/TE based on zero-trust architecture - Nature
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

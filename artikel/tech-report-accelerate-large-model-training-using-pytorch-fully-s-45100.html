@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Report: Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel</title>
+    <meta name="description" content="In this post we will look at how we can leverage Accelerate Library for training large models which enables people to leverage the latest features of PyTor">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/tech-report-accelerate-large-model-training-using-pytorch-fully-s-45100.html">
+    <meta property="og:title" content="Tech Report: Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel">
+    <meta property="og:description" content="In this post we will look at how we can leverage Accelerate Library for training large models which enables people to leverage the latest features of PyTor">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/62_pytorch_fsdp/fsdp-thumbnail.png">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/tech-report-accelerate-large-model-training-using-pytorch-fully-s-45100.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Tech Report: Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel", "image": ["https://huggingface.co/blog/assets/62_pytorch_fsdp/fsdp-thumbnail.png"], "datePublished": "2022-05-02T00:00:00", "dateModified": "2026-11-18T15:08:06.494994", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/tech-report-accelerate-large-model-training-using-pytorch-fully-s-45100.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Tech Report: Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 02 May 2022 &bull; ⏱️ 9 min read (1849 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>In this post we will look at how we can leverage Accelerate Library for training large models which enables people to leverage the latest features of PyTorch FullyShardedDataParallel (FSDP).</li><li style='margin-bottom:6px;'>Industry observers note that with the ever increasing scale, size and parameters of the Machine Learning (ML) models, ML practitioners are finding it difficult to train or even load such large models on their hardware.</li><li style='margin-bottom:6px;'>Distributed training is the key to enable training such large ML models.</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-45100"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-45100"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-45100"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Tech Report: Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel" loading="lazy" src="https://huggingface.co/blog/assets/62_pytorch_fsdp/fsdp-thumbnail.png" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-45100">In this post we will look at how we can leverage Accelerate Library for training large models which enables people to leverage the latest features of PyTorch FullyShardedDataParallel (FSDP).</p>
+<p>Industry observers note that with the ever increasing scale, size and parameters of the Machine Learning (ML) models, ML practitioners are finding it difficult to train or even load such large models on their hardware. On one hand, it has been found that large models learn quickly (data and compute efficient) and are significantly more performant when compared to smaller models [1]; on the other hand, it  becomes prohibitive to train such models on most of the available hardware.</p>
+<p>Distributed training is the key to enable training such large ML models. There have been major recent advances in the field of Distributed Training at Scale. Few the most notable advances are given below:.</p>
+<p>In this post we will look at Data Parallelism using ZeRO and more specifically the latest PyTorch feature FullyShardedDataParallel (FSDP). DeepSpeed and FairScale have implemented the core ideas of the ZERO paper. These have already been integrated in transformers Trainer and accompanied by great blog Fit More and Train Faster With ZeRO via DeepSpeed and FairScale [10]. PyTorch recently upstreamed the Fairscale FSDP into PyTorch Distributed with additional optimizations.</p>
+<p>We will look at the task of Causal Language Modelling using GPT-2 Large (762M) and XL (1.5B) model variants.</p>
+<p>It has been revealed that below is the code for pre-training GPT-2 model. It is similar to the official causal language modeling example here with the addition of 2 arguments n_train (2000) and n_val (500) to prevent preprocessing/training on entire data in order to perform quick proof of concept benchmarks.</p>
+<p>Sample FSDP config after running the command accelerate config:.</p>
+<p>Here, we experiment on the Single-Node Multi-GPU setting. We compare the performance of Distributed Data Parallel (DDP) and FSDP in various configurations. First, GPT-2 Large(762M) model is used wherein DDP works with certain batch sizes without throwing Out Of Memory (OOM) errors. Next, GPT-2 XL (1.5B) model is used wherein DDP fails with OOM error even on batch size of 1. We observe that FSDP enables larger batch sizes for GPT-2 Large model and it enables training the GPT-2 XL model with decent batch size unlike DDP.</p>
+<p>Hardware setup: 2X24GB NVIDIA Titan RTX GPUs.</p>
+<p>Command for training GPT-2 Large Model (762M parameters):.</p>
+<p>Table 1: Benchmarking FSDP on GPT-2 Large (762M) model.</p>
+<p>With respect to DDP, from Table 1 we can observe that FSDP enables larger batch sizes, up to 2X-3X without and with CPU offload setting, respectively. In terms of train time, DDP with mixed precision is the fastest followed by FSDP using ZERO Stage 2 and Stage 3, respectively. As the task of causal language modelling always has fixed context sequence length (--block_size), the train time speedup with FSDP wasn’t that great. For applications with dynamic batching, FSDP which enables larger batch sizes will likely have considerable speed up in terms of train time. FSDP mixed precision support right now has few challenges with transformer. Once this is supported, the training time speed up will further improve considerably.</p>
+<p>Command for training GPT-2 XL Model (1.5B parameters):.</p>
+<p>Table 2: Benchmarking FSDP on GPT-2 XL (1.5B) model.</p>
+<p>From Table 2, we can observe that DDP (w and w/o fp16) isn’t even able to run with batch size of 1 and results in CUDA OOM error. FSDP with Zero-Stage 3 is able to be run on 2 GPUs with batch size of 5 (effective batch size =10 (5 X 2)). FSDP with CPU offload can further increase the max batch size to 14 per GPU when using 2 GPUs. FSDP with CPU offload enables training GPT-2 1.5B model on a single GPU with a batch size of 10. This enables ML practitioners with minimal compute resources to train such large models, thereby democratizing large model training.</p>
+<p>Let’s dive into the current support that Accelerate provides for FSDP integration and the known limitations.</p>
+<p>Required PyTorch version for FSDP support: PyTorch Nightly (or 1.12.0 if you read this after it has been released) as the model saving with FSDP activated is only available with recent fixes.</p>
+<p>For more control, users can leverage the FullyShardedDataParallelPlugin wherein they can specify auto_wrap_policy, backward_prefetch and ignored_modules.</p>
+<p>After creating an instance of this class, users can pass it when creating the Accelerator object.</p>
+<p>For more information on these options, please refer to the PyTorch FullyShardedDataParallel code.</p>
+<p>Next, we will see the importance of the min_num_params config. Below is an excerpt from [8] detailing the importance of FSDP Auto Wrap Policy.</p>
+<p>When using the default_auto_wrap_policy, a layer is wrapped in FSDP module if the number of parameters in that layer is more than the min_num_params . The code for finetuning BERT-Large (330M) model on the GLUE MRPC task is the official complete NLP example outlining how to properly use FSDP feature with the addition of utilities for tracking peak memory usage.</p>
+<p>According to recent reports, we leverage the tracking functionality support in Accelerate to log the train and evaluation peak memory usage along with evaluation metrics. Below is the snapshot of the plots from wandb run.</p>
+<p id="sec-mid-45100">Recent findings suggest that we can observe that the DDP takes twice as much memory as FSDP with auto wrap. FSDP without auto wrap takes more memory than FSDP with auto wrap but considerably less than that of DDP. FSDP with auto wrap with min_num_params=2k takes marginally less memory when compared to setting with min_num_params=1M. This highlights the importance of the FSDP Auto Wrap Policy and users should play around with the min_num_params to find the setting which considerably saves memory and isn’t resulting in lot of communication overhead. PyTorch team is working on auto tuning tool for this config as mentioned in [8].</p>
+<p>Sources indicate that pyTorch FSDP auto wraps sub-modules, flattens the parameters and shards the parameters in place. Due to this, any optimizer created before model wrapping gets broken and occupies more memory. Hence, it is highly recommended and efficient to prepare model before creating optimizer. Accelerate will automatically wrap the model and create an optimizer for you in case of single model with a warning message.</p>
+<p>FSDP Warning: When using FSDP, it is efficient and recommended to call prepare for the model before creating the optimizer.</p>
+<p>However, below is the recommended way to prepare model and optimizer while using FSDP:.</p>
+<p>In case of a single model, if you have created optimizer with multiple parameter groups and called prepare with them together, then the parameter groups will be lost and the following warning is displayed:.</p>
+<p>FSDP Warning: When using FSDP, several parameter groups will be conflated into a single one due to nested module wrapping and parameter flattening.</p>
+<p>This is because parameter groups created before wrapping will have no meaning post wrapping due parameter flattening of nested FSDP modules into 1D arrays (which can consume many layers). For instance, below are the named parameters of FSDP model on GPU 0 (When using 2 GPUs. Around 55M (110M/2) params in 1D arrays as this will have the 1st shard of the parameters). Here, if one has applied no weight decay for [bias, LayerNorm.weight] named parameters of unwrapped BERT-Base model, it can’t be applied to the below FSDP wrapped model as there are no named parameters with either of those strings and the parameters of those layers are concatenated with parameters of various other layers. More details mentioned in this problem (The original model parameters' .grads are not set, meaning that they cannot be optimized separately (which is why we cannot support multiple parameter groups)).</p>
+<p>In case of multiple models, it is necessary to prepare the models before creating optimizers else it will throw an error.</p>
+<p>Mixed precision is currently not supported with FSDP as we wait for PyTorch to fix support for it.</p>
+<p>Industry observers note that the above workflow gives an overview of what happens behind the scenes when FSDP is activated. Let's first understand how DDP works and how FSDP improves it. In DDP, each worker/accelerator/GPU has a replica of the entire model parameters, gradients and optimizer states. Each worker gets a different batch of data, it goes through the forwards pass, a loss is computed followed by the backward pass to generate gradients. Now, an all-reduce operation is performed wherein each worker gets the gradients from the remaining workers and averaging is done. In this way, each worker now has the same global gradients which are used by the optimizer to revision the model parameters. We can see that having full replicas consume a lot of redundant memory on each GPU, which limits the batch size as well as the size of the models.</p>
+<p>FSDP precisely addresses this by sharding the optimizer states, gradients and model parameters across the data parallel workers. It further facilitates CPU offloading of all those tensors, thereby enabling loading large models which won't fit the available GPU memory. Similar to DDP, each worker gets a different batch of data. During the forward pass, if the CPU offload is enabled, the parameters of the local shard are first copied to the GPU/accelerator. Then, each worker performs all-gather operation for a given FSDP wrapped module/layer(s) to all get the needed parameters, computation is performed followed by releasing/emptying the parameter shards of other workers. This continues for all the FSDP modules. The loss gets computed after the forward pass and during the backward pass, again an all-gather operation is performed to get all the needed parameters for a given FSDP module, computation is performed to get local gradients followed by releasing the shards of other workers. Now, the local gradients are averaged and sharded to each relevant workers using reduce-scatter operation. This allows each worker to upgrade the parameters of its local shard. If CPU offload is activated, the gradients are passed to CPU for updating parameters directly on CPU.</p>
+<p>Please refer [7, 8, 9] for all the in-depth details on the workings of the PyTorch FSDP and the extensive experimentation carried out using this feature.</p>
+<p>If you encounter any issues with the integration part of PyTorch FSDP, please open an Concern in accelerate.</p>
+<p>But if you have problems with PyTorch FSDP configuration, and deployment - you need to ask the experts in their domains, therefore, please, open a PyTorch Problem instead.</p>
+<p>[1] Train Large, Then Compress: Rethinking Model Size for Efficient Training and Inference of Transformers.</p>
+<p>[2] ZeRO: Memory Optimizations Toward Training Trillion Parameter Models.</p>
+<p>[3] DeepSpeed: Extreme-scale model training for everyone - Microsoft Research.</p>
+<p>[4] Megatron-LM: Training Multi-Billion Parameter Language Models Using
+Model Parallelism.</p>
+<p>[5] Introducing GPipe, an Open Source Library for Efficiently Training Large-scale Neural Network Models.</p>
+<p>[6] Which hardware do you need to train a 176B parameters model?</p>
+<p>[7] Introducing PyTorch Fully Sharded Data Parallel (FSDP) API | PyTorch.</p>
+<p>[8] Getting Started with Fully Sharded Data Parallel(FSDP) — PyTorch Tutorials 1.11.0+cu102 documentation.</p>
+<p>[9] Training a 1 Trillion Parameter Model With PyTorch Fully Sharded Data Parallel on AWS | by PyTorch | PyTorch | Mar, 2022 | Medium.</p>
+<p id="sec-end-45100">[10] Fit More and Train Faster With ZeRO via DeepSpeed and FairScale.</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/pytorch-fsdp" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="accelerate-large-model-training-using-deepspeed-44988.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #44988. Accelerate Large Model Training using DeepSpeed
+        </a>
+        
+        <a href="tech-report-from-pytorch-ddp-to-accelerate-to-trainer-mastery-of--44701.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #44701. Tech Report: From PyTorch DDP to Accelerate to Trainer, mastery of distributed training with ease
+        </a>
+        
+        <a href="tech-report-sample-efficient-personalization-of-large-language-mo-40223.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #40223. Tech Report: Sample-efficient Personalization of Large Language Model Alignment with Multidimensional User Preference Data
+        </a>
+        
+        <a href="tech-report-global-data-center-access-control-market-outlook-2026-58424.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #58424. Tech Report: Global Data Center Access Control Market Outlook 2026-2030 Featuring Profiles of Cisco Systems, Honeywell and Johnson Controls - Market to Reach $2.34 Billion by 2030 as Security Investments Accelerate - Yahoo Finance UK
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

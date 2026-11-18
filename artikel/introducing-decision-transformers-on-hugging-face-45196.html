@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducing Decision Transformers on Hugging Face 🤗</title>
+    <meta name="description" content="Sources indicate that at Hugging Face, we are contributing to the ecosystem for Deep Reinforcement Learning researchers and enthusiasts. Recently, we have ">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/introducing-decision-transformers-on-hugging-face-45196.html">
+    <meta property="og:title" content="Introducing Decision Transformers on Hugging Face 🤗">
+    <meta property="og:description" content="Sources indicate that at Hugging Face, we are contributing to the ecosystem for Deep Reinforcement Learning researchers and enthusiasts. Recently, we have ">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/58_decision-transformers/thumbnail.jpg">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/introducing-decision-transformers-on-hugging-face-45196.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Introducing Decision Transformers on Hugging Face 🤗", "image": ["https://huggingface.co/blog/assets/58_decision-transformers/thumbnail.jpg"], "datePublished": "2022-03-28T00:00:00", "dateModified": "2026-11-18T15:08:18.479333", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/introducing-decision-transformers-on-hugging-face-45196.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Introducing Decision Transformers on Hugging Face 🤗</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 28 Mar 2022 &bull; ⏱️ 6 min read (1123 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>Sources indicate that at Hugging Face, we are contributing to the ecosystem for Deep Reinforcement Learning researchers and enthusiasts.</li><li style='margin-bottom:6px;'>And today we are happy to announce that we integrated the Decision Transformer, an Offline Reinforcement Learning method, into the 🤗 transformers library and the Hugging Face Hub.</li><li style='margin-bottom:6px;'>According to recent reports, deep Reinforcement Learning (RL) is a framework to build decision-making agents.</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-45196"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-45196"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-45196"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Introducing Decision Transformers on Hugging Face 🤗" loading="lazy" src="https://huggingface.co/blog/assets/58_decision-transformers/thumbnail.jpg" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-45196">Sources indicate that at Hugging Face, we are contributing to the ecosystem for Deep Reinforcement Learning researchers and enthusiasts. Recently, we have integrated Deep RL frameworks such as Stable-Baselines3.</p>
+<p>And today we are happy to announce that we integrated the Decision Transformer, an Offline Reinforcement Learning method, into the 🤗 transformers library and the Hugging Face Hub. We have some exciting prepares for improving accessibility in the field of Deep RL and we are looking forward to sharing them with you over the coming weeks and months.</p>
+<p>According to recent reports, deep Reinforcement Learning (RL) is a framework to build decision-making agents. These agents aim to learn optimal behavior (policy) by interacting with the environment through trial and error and receiving rewards as unique feedback.</p>
+<p>Sources indicate that the agent’s goal is to maximize its cumulative reward, called return. Because RL is based on the reward hypothesis: all goals can be described as the maximization of the expected cumulative reward.</p>
+<p>Deep Reinforcement Learning agents learn with batches of experience. The question is, how do they collect it?:.</p>
+<p>A comparison between Reinforcement Learning in an Online and Offline setting, figure taken from this post.</p>
+<p>In a recent development, in online reinforcement learning, the agent gathers data directly: it collects a batch of experience by interacting with the environment. Then, it uses this experience immediately (or via some replay buffer) to learn from it (update its policy).</p>
+<p>Sources indicate that but this implies that either you train your agent directly in the real world or have a simulator. If you don’t have one, you need to build it, which can be very complex (how to reflect the complex reality of the real world in an environment?), expensive, and insecure since if the simulator has flaws, the agent will exploit them if they provide a competitive advantage.</p>
+<p>On the other hand, in offline reinforcement learning, the agent only uses data collected from other agents or human demonstrations. It does not interact with the environment.</p>
+<p>This method has one drawback: the counterfactual queries problem. What do we do if our agent decides to do something for which we don’t have the data? For instance, turning right on an intersection but we don’t have this trajectory.</p>
+<p>There’s already exists some solutions on this topic, but if you want to know more about offline reinforcement learning you can watch this video.</p>
+<p>Recent findings suggest that the Decision Transformer model was introduced by “Decision Transformer: Reinforcement Learning via Sequence Modeling” by Chen L. et al. It abstracts Reinforcement Learning as a conditional-sequence modeling problem.</p>
+<p>It has been revealed that the main idea is that instead of training a policy using RL methods, such as fitting a value function, that will tell us what action to take to maximize the return (cumulative reward), we use a sequence modeling algorithm (Transformer) that, given a desired return, past states, and actions, will generate future actions to achieve this desired return. It’s an autoregressive model conditioned on the desired return, past states, and actions to generate future actions that achieve the desired return.</p>
+<p>This is a complete shift in the Reinforcement Learning paradigm since we use generative trajectory modeling (modeling the joint distribution of the sequence of states, actions, and rewards) to replace conventional RL algorithms. It means that in Decision Transformers, we don’t maximize the return but rather generate a series of future actions that achieve the desired return.</p>
+<p>It has been revealed that decision Transformer architecture. States, actions, and returns are fed into modality specific linear embeddings and a positional episodic timestep encoding is added. Tokens are fed into a GPT architecture which predicts actions autoregressively using a causal self-attention mask. Figure from [1].</p>
+<p id="sec-mid-45196">Recent findings suggest that the Decision Transformer model is now available as part of the 🤗 transformers library. In addition, we share nine pre-trained model checkpoints for continuous control tasks in the Gym environment.</p>
+<p>An “expert” Decision Transformers model, learned using offline RL in the Gym Walker2d environment.</p>
+<p>According to recent reports, using the Decision Transformer is relatively easy, but as it is an autoregressive model, some care has to be taken in order to prepare the model’s inputs at each time-step. We have prepared both a Python script and a Colab notebook that demonstrates how to use this model.</p>
+<p>Loading a pretrained Decision Transformer is simple in the 🤗 transformers library:.</p>
+<p>It has been revealed that we provide pretrained checkpoints for the Gym Hopper, Walker2D and Halfcheetah. Checkpoints for Atari environments will soon be available.</p>
+<p>Industry observers note that the model performs an autoregressive prediction; that is to say that predictions made at the current time-step t are sequentially conditioned on the outputs from previous time-steps. This function is quite meaty, so we will aim to explain it in the comments.</p>
+<p>In order to evaluate the model, we need some additional information; the mean and standard deviation of the states that were used during training. Fortunately, these are available for each of the checkpoint’s model card on the Hugging Face Hub!</p>
+<p>Sources indicate that we also need a target return for the model. This is the power of return conditioned Offline Reinforcement Learning: we can use the target return to control the performance of the policy. This could be really powerful in a multiplayer setting, where we would like to adjust the performance of an opponent bot to be at a suitable difficulty for the player. The authors show a great plot of this in their paper!</p>
+<p>Sources indicate that sampled (evaluation) returns accumulated by Decision Transformer when conditioned on
+the specified target (desired) returns. Top: Atari. Bottom: D4RL medium-replay datasets. Figure from [1].</p>
+<p>You will find a more detailed example, with the creation of videos of the agent in our Colab notebook.</p>
+<p>According to recent reports, in addition to Decision Transformers, we want to support more use cases and tools from the Deep Reinforcement Learning community. Therefore, it would be great to hear your feedback on the Decision Transformer model, and more generally anything we can build with you that would be useful for RL. Feel free to reach out to us.</p>
+<p>In the coming weeks and months, we plan on supporting other tools from the ecosystem:.</p>
+<p>The best way to keep in touch is to join our discord server to exchange with us and with the community.</p>
+<p>According to recent reports, [1] Chen, Lili, et al. "Decision transformer: Reinforcement learning via sequence modeling." Advances in neural information processing systems 34 (2021).</p>
+<p>[2] Agarwal, Rishabh, Dale Schuurmans, and Mohammad Norouzi. "An optimistic perspective on offline reinforcement learning." International Conference on Machine Learning. PMLR, 2020.</p>
+<p id="sec-end-45196">We would like to thank the paper’s first authors, Kevin Lu and Lili Chen, for their constructive conversations.</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/decision-transformers" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="faster-tensorflow-models-in-hugging-face-transformers-45621.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #45621. Faster TensorFlow models in Hugging Face Transformers
+        </a>
+        
+        <a href="hugging-face-reads-feb-2021-long-range-transformers-45585.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #45585. Hugging Face Reads, Feb. 2021 - Long-range Transformers
+        </a>
+        
+        <a href="fine-tune-wav2vec2-for-english-asr-in-hugging-face-with-transform-45581.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #45581. Fine-Tune Wav2Vec2 for English ASR in Hugging Face with 🤗 Transformers
+        </a>
+        
+        <a href="industry-news-sentence-transformers-in-the-hugging-face-hub-45506.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #45506. Industry News: Sentence Transformers in the Hugging Face Hub
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

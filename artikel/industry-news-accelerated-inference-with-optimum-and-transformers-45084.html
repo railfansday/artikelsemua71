@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industry News: Accelerated Inference with Optimum and Transformers Pipelines</title>
+    <meta name="description" content="Inference has landed in Optimum with support for Hugging Face Transformers pipelines, including text-generation using ONNX Runtime. In a recent development">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/industry-news-accelerated-inference-with-optimum-and-transformers-45084.html">
+    <meta property="og:title" content="Industry News: Accelerated Inference with Optimum and Transformers Pipelines">
+    <meta property="og:description" content="Inference has landed in Optimum with support for Hugging Face Transformers pipelines, including text-generation using ONNX Runtime. In a recent development">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/66_optimum_inference/thumbnail.png">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/industry-news-accelerated-inference-with-optimum-and-transformers-45084.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Industry News: Accelerated Inference with Optimum and Transformers Pipelines", "image": ["https://huggingface.co/blog/assets/66_optimum_inference/thumbnail.png"], "datePublished": "2022-05-10T00:00:00", "dateModified": "2026-11-18T15:08:05.430650", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/industry-news-accelerated-inference-with-optimum-and-transformers-45084.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Industry News: Accelerated Inference with Optimum and Transformers Pipelines</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 10 May 2022 &bull; ⏱️ 8 min read (1564 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>Inference has landed in Optimum with support for Hugging Face Transformers pipelines, including text-generation using ONNX Runtime.</li><li style='margin-bottom:6px;'>In a recent development, the adoption of BERT and Transformers continues to grow.</li><li style='margin-bottom:6px;'>According to recent reports, companies are now moving from the experimentation and research phase to the production phase in order to use Transformer models for large-scale workloads.</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-45084"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-45084"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-45084"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Industry News: Accelerated Inference with Optimum and Transformers Pipelines" loading="lazy" src="https://huggingface.co/blog/assets/66_optimum_inference/thumbnail.png" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-45084">Inference has landed in Optimum with support for Hugging Face Transformers pipelines, including text-generation using ONNX Runtime.</p>
+<p>In a recent development, the adoption of BERT and Transformers continues to grow. Transformer-based models are now not only achieving state-of-the-art performance in Natural Language Processing but also for Computer Vision, Speech, and Time-Series. 💬 🖼 🎤 ⏳.</p>
+<p>According to recent reports, companies are now moving from the experimentation and research phase to the production phase in order to use Transformer models for large-scale workloads. But by default BERT and its friends are relatively slow, massive, and complex models compared to traditional Machine Learning algorithms.</p>
+<p>To solve this challenge, we created Optimum –  an extension of Hugging Face Transformers to accelerate the training and inference of Transformer models like BERT.</p>
+<p>In this blog post, you'll learn:.</p>
+<p>Hugging Face Optimum is an open-source library and an extension of Hugging Face Transformers, that provides a unified API of performance optimization tools to achieve maximum efficiency to train and run models on accelerated hardware, including toolkits for optimized performance on Graphcore IPU and Habana Gaudi. Optimum can be used for accelerated training, quantization, graph optimization, and now inference as well with support for transformers pipelines.</p>
+<p>With release of Optimum 1.2, we are adding support for inference and transformers pipelines. This allows Optimum users to leverage the same API they are used to from transformers with the power of accelerated runtimes, like ONNX Runtime.</p>
+<p>In a recent development, switching from Transformers to Optimum Inference
+The Optimum Inference models are API compatible with Hugging Face Transformers models. This means you can just replace your AutoModelForXxx class with the corresponding ORTModelForXxx class in Optimum. For example, this is how you can use a question answering model in Optimum:.</p>
+<p>According to recent reports, in the first release, we added support for ONNX Runtime but there is more to come! These fresh ORTModelForXX can now be used with the transformers pipelines. They are also fully integrated into the Hugging Face Hub to push and pull optimized checkpoints from the community. In addition to this, you can use the ORTQuantizer and ORTOptimizer to first quantize and optimize your model and then run inference on it. Check out End-to-End Tutorial on accelerating RoBERTa for question-answering including quantization and optimization for more details.</p>
+<p>In this End-to-End tutorial on accelerating RoBERTa for question-answering, you will learn how to:.</p>
+<p>This tutorial was created and run on an m5.xlarge AWS EC2 Instance.</p>
+<p>Our first step is to install  Optimum with the onnxruntime utilities.</p>
+<p>According to recent reports, this will install all required packages for us including transformers, torch, and onnxruntime. If you are going to use a GPU you can install optimum with pip install optimum[onnxruntime-gpu].</p>
+<p>Before we can start optimizing we need to convert our vanilla transformers model to the onnx format. To do this we will use the fresh ORTModelForQuestionAnswering class calling the from_pretrained() method with the from_transformers attribute. The model we are using is the deepset/roberta-base-squad2 a fine-tuned RoBERTa model on the SQUAD2 dataset achieving an F1 score of 82.91 and as the feature (task) question-answering.</p>
+<p>According to recent reports, we successfully converted our vanilla transformers to onnx and used the model with the transformers.pipelines to run the first prediction. Now let's optimize it. 🏎.</p>
+<p>If you want to learn more about exporting transformers model check-out the documentation: Export 🤗 Transformers Models.</p>
+<p>After we saved our onnx checkpoint to onnx/ we can now use the ORTOptimizer to apply graph optimization such as operator fusion and constant folding to accelerate latency and inference.</p>
+<p>Recent findings suggest that to test performance we can use the ORTModelForQuestionAnswering class again and provide an additional file_name parameter to load our optimized model. (This also works for models available on the hub).</p>
+<p>We will evaluate the performance changes in step 3.6 Evaluate the performance and speed in detail.</p>
+<p>After we have optimized our model we can accelerate it even more by quantizing it using the ORTQuantizer. The ORTOptimizer can be used to apply dynamic quantization to decrease the size of the model size and accelerate latency and inference.</p>
+<p>We use the avx512_vnni since the instance is powered by an intel cascade-lake CPU supporting avx512.</p>
+<p>We can now compare this model size as well as some latency performance.</p>
+<p>Industry observers note that we decreased the size of our model by almost 50% from 473MB to 291MB. To run inference we can use the ORTModelForQuestionAnswering class again and provide an additional file_name parameter to load our quantized model. (This also works for models available on the hub).</p>
+<p>Industry observers note that nice! The model predicted the same answer.</p>
+<p id="sec-mid-45084">Recent findings suggest that optimum has built-in support for transformers pipelines. This allows us to leverage the same API that we know from using PyTorch and TensorFlow models. We have already used this feature in steps 3.2,3.3 &amp; 3.4 to test our converted and optimized models. At the time of writing this, we are supporting ONNX Runtime with more to come in the future. An example of how to use the transformers pipelines can be found below.</p>
+<p>In addition to this we added a pipelines API to Optimum to guarantee more safety for your accelerated models. Meaning if you are trying to use optimum.pipelines with an unsupported model or task you will see an error. You can use optimum.pipelines as a replacement for transformers.pipelines.</p>
+<p>During this End-to-End tutorial on accelerating RoBERTa for Question-Answering including quantization and optimization, we created 3 different models. A vanilla converted model, an optimized model, and a quantized model.</p>
+<p>As the last step of the tutorial, we want to take a detailed look at the performance and accuracy of our model. Applying optimization techniques, like graph optimizations or quantization not only impact performance (latency) those also might have an impact on the accuracy of the model. So accelerating your model comes with a trade-off.</p>
+<p>Let's evaluate our models. Our transformers model deepset/roberta-base-squad2 was fine-tuned on the SQUAD2 dataset. This will be the dataset we use to evaluate our models.</p>
+<p>We can now leverage the map function of datasets to iterate over the validation set of squad 2 and run prediction for each data point. Therefore we write a evaluate helper method which uses our pipelines and applies some transformation to work with the squad v2 metric.</p>
+<p>This can take quite a while (1.5h).</p>
+<p>Our optimized &amp; quantized model achieved an exact match of 78.75% and an f1 score of 81.83% which is 99.61% of the original accuracy. Achieving 99% of the original model is very good especially since we used dynamic quantization.</p>
+<p>Okay, let's test the performance (latency) of our optimized and quantized model.</p>
+<p>But first, let’s extend our context and question to a more meaningful sequence length of 128.</p>
+<p>To keep it simple, we are going to use a python loop and calculate the avg/mean latency for our vanilla model and for the optimized and quantized model.</p>
+<p>Recent findings suggest that we managed to accelerate our model latency from 117.61ms to 64.94ms or roughly 2x while keeping 99.61% of the accuracy. Something we should keep in mind is that we used a mid-performant CPU instance with 2 physical cores. By switching to GPU or a more performant CPU instance, e.g. ice-lake powered you can decrease the latency number down to a few milliseconds.</p>
+<p>According to recent reports, we just started supporting inference in https://github.com/huggingface/optimum so we would like to share current limitations as well. All of those limitations are on the roadmap and will be resolved in the near future.</p>
+<p>According to recent reports, you can find a list of all supported tasks in the documentation. At the moment support pipelines tasks are feature-extraction, text-classification, token-classification, question-answering, zero-shot-classification, text-generation.</p>
+<p>Any model that can be exported with transformers.onnx and has a supported task can be used, this includes among others BERT, ALBERT, GPT2, RoBERTa, XLM-RoBERTa, DistilBERT ....</p>
+<p>It has been revealed that at the moment, ONNX Runtime is supported. We are working on adding more in the future. Let us know if you are interested in a specific runtime.</p>
+<p>How can I use Optimum with Transformers?</p>
+<p>You can find an example and instructions in our documentation.</p>
+<p>To be able to use GPUs you simply need to install optimum[onnxruntine-gpu] which will install the required GPU providers and use them by default.</p>
+<p>How can I use a quantized and optimized model with pipelines?</p>
+<p>It has been revealed that you can load the optimized or quantized model using the upcoming ORTModelForXXX classes using the from_pretrained method. You can learn more about it in our documentation.</p>
+<p>According to recent reports, what’s next for Optimum you ask? A lot of things. We are focused on making Optimum the reference open-source toolkit to work with transformers for acceleration &amp; optimization. To be able to achieve this we will solve the current limitations, improve the documentation, create more content and examples and push the limits for accelerating and optimizing transformers.</p>
+<p>Some notable features on the roadmap for Optimum amongst the current limitations are:.</p>
+<p>Recent findings suggest that thanks for reading! If you are as excited as I am about accelerating Transformers, make them efficient and scale them to billions of requests. You should apply, we are hiring.🚀.</p>
+<p id="sec-end-45084">In a recent development, if you have any questions, feel free to contact me, through Github, or on the forum. You can also connect with me on Twitter or LinkedIn.</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/optimum-inference" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="industry-news-why-distributed-inference-is-becoming-the-backbone--54423.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #54423. Industry News: Why distributed inference is becoming the backbone of scalable AI at the edge - EdgeIR
+        </a>
+        
+        <a href="industry-news-ai-security-cameras-are-ditching-the-cloud-its-now--53686.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #53686. Industry News: AI Security Cameras are Ditching the Cloud. It's Now All About Edge Inference - Analytics India Magazine
+        </a>
+        
+        <a href="industry-news-gpu-accelerated-decoder-enables-low-latency-decodin-46422.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #46422. Industry News: GPU-Accelerated Decoder Enables Low-Latency Decoding - Quantum Zeitgeist
+        </a>
+        
+        <a href="industry-news-diraq-and-quantum-machines-integrate-nvidia-dgx-qua-46417.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #46417. Industry News: Diraq and Quantum Machines Integrate NVIDIA DGX Quantum for Low-Latency AI-Accelerated Quantum Control - Quantum Computing Report
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducing Hugging Face for Education 🤗</title>
+    <meta name="description" content="Sources indicate that given that machine learning will make up the overwhelming majority of software development and that non-technical people will be expo">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/introducing-hugging-face-for-education-45133.html">
+    <meta property="og:title" content="Introducing Hugging Face for Education 🤗">
+    <meta property="og:description" content="Sources indicate that given that machine learning will make up the overwhelming majority of software development and that non-technical people will be expo">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/61_education/thumbnail.png">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/introducing-hugging-face-for-education-45133.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Introducing Hugging Face for Education 🤗", "image": ["https://huggingface.co/blog/assets/61_education/thumbnail.png"], "datePublished": "2022-04-25T00:00:00", "dateModified": "2026-11-18T15:08:12.201079", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/introducing-hugging-face-for-education-45133.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Introducing Hugging Face for Education 🤗</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 25 Apr 2022 &bull; ⏱️ 3 min read (517 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>Sources indicate that given that machine learning will make up the overwhelming majority of software development and that non-technical people will be exposed to AI systems more and more, one of the main challenges of AI is adapting and enhancing employee skills.</li><li style='margin-bottom:6px;'>As an open-source company democratizing machine learning, Hugging Face believes it is essential to educate people from all backgrounds worldwide.</li><li style='margin-bottom:6px;'>It has been revealed that we launched the ML demo.cratization tour in March 2022, where experts from Hugging Face taught hands-on classes on Building Machine Learning Collaboratively to more than 1000 students from 16 countries.</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-45133"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-45133"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-45133"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Introducing Hugging Face for Education 🤗" loading="lazy" src="https://huggingface.co/blog/assets/61_education/thumbnail.png" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-45133">Sources indicate that given that machine learning will make up the overwhelming majority of software development and that non-technical people will be exposed to AI systems more and more, one of the main challenges of AI is adapting and enhancing employee skills. It is also becoming necessary to support teaching staff in proactively taking AI's ethical and critical issues into account.</p>
+<p>As an open-source company democratizing machine learning, Hugging Face believes it is essential to educate people from all backgrounds worldwide.</p>
+<p>It has been revealed that we launched the ML demo.cratization tour in March 2022, where experts from Hugging Face taught hands-on classes on Building Machine Learning Collaboratively to more than 1000 students from 16 countries. Our new goal: to teach machine learning to 5 million people by the end of 2023.</p>
+<p>This blog post provides a high-level description of how we will reach our goals around education.</p>
+<p>Industry observers note that 🗣️ Our goal is to make the potential and limitations of machine learning understandable to everyone. We believe that doing so will help evolve the field in a direction where the application of these technologies will lead to net benefits for society as a whole.</p>
+<p>Some examples of our existing efforts:.</p>
+<p>🗣️ We want to lower the barrier to becoming a machine learning engineer by providing online courses, hands-on workshops, and other innovative techniques.</p>
+<p>Apart from those efforts, many team members are involved in other educational efforts such as:.</p>
+<p id="sec-mid-45133">🗣️ We want to empower educators with tools and offer collaborative spaces where students can build machine learning using open-source technologies and state-of-the-art machine learning models.</p>
+<p>Sources indicate that we provide to educators free infrastructure and resources to quickly introduce real-world applications of ML to theirs students and make learning more fun and interesting. By creating a classroom for free from the hub, instructors can turn their classes into collaborative environments where students can learn and build ML-powered applications using free open-source technologies and state-of-the-art models.</p>
+<p>We’ve assembled a free toolkit translated to 8 languages that instructors of machine learning or Data Science can use to easily prepare labs, homework, or classes. The content is self-contained so that it can be easily incorporated into an existing curriculum. This content is free and uses well-known Open Source technologies (🤗 transformers, gradio, etc). Feel free to pick a tutorial and teach it!</p>
+<p>1️⃣ A Tour through the Hugging Face Hub.</p>
+<p>2️⃣ Build and Host Machine Learning Demos with Gradio &amp; Hugging Face.</p>
+<p>3️⃣ Getting Started with Transformers.</p>
+<p>Sources indicate that we're organizing a dedicated, free workshop (June 6) on how to teach our educational resources in your machine learning and data science classes. Do not hesitate to register.</p>
+<p>We are currently doing a worldwide tour in collaboration with university instructors to teach more than 10000 students one of our core topics: How to build machine learning collaboratively? You can request someone on the Hugging Face team to run the session for your class via the ML demo.cratization tour initiative.</p>
+<p id="sec-end-45133">🔥 We are presently working on more content in the course, and more! Stay tuned!</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/education" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="introducing-decision-transformers-on-hugging-face-45196.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #45196. Introducing Decision Transformers on Hugging Face 🤗
+        </a>
+        
+        <a href="introducing-bertopic-integration-with-the-hugging-face-hub-44210.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #44210. Introducing BERTopic Integration with the Hugging Face Hub
+        </a>
+        
+        <a href="breaking-introducing-the-hugging-face-llm-inference-container-for-44191.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #44191. Breaking: Introducing the Hugging Face LLM Inference Container for Amazon SageMaker
+        </a>
+        
+        <a href="introducing-prodigy-hf-a-direct-integration-with-hugging-face-43936.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #43936. Introducing Prodigy-HF: a direct integration with Hugging Face
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

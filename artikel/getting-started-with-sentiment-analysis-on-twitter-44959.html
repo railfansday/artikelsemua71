@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started with Sentiment Analysis on Twitter</title>
+    <meta name="description" content="According to recent reports, sentiment analysis is the automatic process of classifying text data according to their polarity, such as positive, negative a">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/getting-started-with-sentiment-analysis-on-twitter-44959.html">
+    <meta property="og:title" content="Getting Started with Sentiment Analysis on Twitter">
+    <meta property="og:description" content="According to recent reports, sentiment analysis is the automatic process of classifying text data according to their polarity, such as positive, negative a">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/85_sentiment_analysis_twitter/thumbnail.png">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/getting-started-with-sentiment-analysis-on-twitter-44959.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Getting Started with Sentiment Analysis on Twitter", "image": ["https://huggingface.co/blog/assets/85_sentiment_analysis_twitter/thumbnail.png"], "datePublished": "2022-07-07T00:00:00", "dateModified": "2026-11-18T15:07:47.820123", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/getting-started-with-sentiment-analysis-on-twitter-44959.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Getting Started with Sentiment Analysis on Twitter</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 07 Jul 2022 &bull; ⏱️ 11 min read (2295 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>According to recent reports, sentiment analysis is the automatic process of classifying text data according to their polarity, such as positive, negative and neutral.</li><li style='margin-bottom:6px;'>In this guide, we will cover everything you need to learn to get started with sentiment analysis on Twitter.</li><li style='margin-bottom:6px;'>Read along or jump to the section that sparks 🌟 your interest:.</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-44959"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-44959"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-44959"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Getting Started with Sentiment Analysis on Twitter" loading="lazy" src="https://huggingface.co/blog/assets/85_sentiment_analysis_twitter/thumbnail.png" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-44959">According to recent reports, sentiment analysis is the automatic process of classifying text data according to their polarity, such as positive, negative and neutral. Companies leverage sentiment analysis of tweets to get a sense of how customers are talking about their products and services, get insights to drive business decisions, and identify product concerns and potential PR crises early on.</p>
+<p>In this guide, we will cover everything you need to learn to get started with sentiment analysis on Twitter. We'll share a step-by-step process to do sentiment analysis, for both, coders and non-coders. If you are a coder, you'll learn how to use the Inference API, a plug &amp; play machine learning API for doing sentiment analysis of tweets at scale in just a few lines of code. If you don't know how to code, don't worry! We'll also cover how to do sentiment analysis with Zapier, a no-code tool that will enable you to gather tweets, analyze them with the Inference API, and finally send the results to Google Sheets ⚡️.</p>
+<p>Read along or jump to the section that sparks 🌟 your interest:.</p>
+<p>In a recent development, buckle up and enjoy the ride! 🤗.</p>
+<p>It has been revealed that sentiment analysis uses machine learning to automatically identify how people are talking about a given topic. The most common use of sentiment analysis is detecting the polarity of text data, that is, automatically identifying if a tweet, product review or support ticket is talking positively, negatively, or neutral about something.</p>
+<p>As an example, let's check out some tweets mentioning @Salesforce and see how they would be tagged by a sentiment analysis model:.</p>
+<p>It has been revealed that "The more I use @salesforce the more I dislike it. It's slow and full of bugs. There are elements of the UI that look like they haven't been updated since 2006. Current frustration: app exchange pages won't stop refreshing every 10 seconds" --&gt; This first tweet would be tagged as "Negative".</p>
+<p>"That’s what I love about @salesforce. That it’s about relationships and about caring about people and it’s not only about business and money. Thanks for caring about #TrailblazerCommunity" --&gt; In contrast, this tweet would be classified as "Positive".</p>
+<p>It has been revealed that "Coming Home: #Dreamforce Returns to San Francisco for 20th Anniversary. Learn more: http://bit.ly/3AgwO0H via @Salesforce" --&gt; Lastly, this tweet would be tagged as "Neutral" as it doesn't contain an opinion or polarity.</p>
+<p>According to recent reports, up until recently, analyzing tweets mentioning a brand, product or service was a very manual, hard and tedious process; it required someone to manually go over relevant tweets, and read and label them according to their sentiment. As you can imagine, not only this doesn't scale, it is expensive and very time-consuming, but it is also prone to human error.</p>
+<p>In a recent development, luckily, recent advancements in AI allowed companies to use machine learning models for sentiment analysis of tweets that are as good as humans. By using machine learning, companies can analyze tweets in real-time 24/7, do it at scale and analyze thousands of tweets in seconds, and more importantly, get the insights they are looking for when they need them.</p>
+<p>Sources indicate that why do sentiment analysis on Twitter? Companies use this for a wide variety of use cases, but the two of the most common use cases are analyzing user feedback and monitoring mentions to detect potential concerns early on.</p>
+<p>According to recent reports, listening to customers is key for detecting insights on how you can improve your product or service. Although there are multiple sources of feedback, such as surveys or public reviews, Twitter offers raw, unfiltered feedback on what your audience thinks about your offering.</p>
+<p>By analyzing how people talk about your brand on Twitter, you can understand whether they like a fresh feature you just introduced. You can also get a sense if your pricing is clear for your target audience. You can also see what aspects of your offering are the most liked and disliked to make business decisions (e.g. customers loving the simplicity of the user interface but hate how slow customer support is).</p>
+<p>Monitor Twitter Mentions to Detect Challenges.</p>
+<p>Recent findings suggest that twitter has become the default way to share a bad customer experience and express frustrations whenever something goes wrong while using a product or service. This is why companies monitor how users mention their brand on Twitter to detect any issues early on.</p>
+<p>By implementing a sentiment analysis model that analyzes incoming mentions in real-time, you can automatically be alerted about sudden spikes of negative mentions. Most times, this is caused is an ongoing situation that needs to be addressed asap (e.g. an app not working because of server outages or a really bad experience with a customer support representative).</p>
+<p>Now that we covered what is sentiment analysis and why it's useful, let's get our hands dirty and actually do sentiment analysis of tweets!💥.</p>
+<p>Nowadays, getting started with sentiment analysis on Twitter is quite easy and straightforward 🙌.</p>
+<p>It has been revealed that with a few lines of code, you can automatically get tweets, run sentiment analysis and visualize the results. And you can learn how to do all these things in just a few minutes!</p>
+<p>In this section, we'll show you how to do it with a cool little project: we'll do sentiment analysis of tweets mentioning Notion!</p>
+<p>First, you'll use Tweepy, an open source Python library to get tweets mentioning @NotionHQ using the Twitter API. Then you'll use the Inference API for doing sentiment analysis. Once you get the sentiment analysis results, you will create some charts to visualize the results and detect some interesting insights.</p>
+<p>You can use this Google Colab notebook to follow this tutorial.</p>
+<p>Recent findings suggest that as a first step, you'll need to install the required dependencies. You'll use Tweepy for gathering tweets, Matplotlib for building some charts and WordCloud for building a visualization with the most common keywords:.</p>
+<p>Then, you need to set up the Twitter API credentials so you can authenticate with Twitter and then gather tweets automatically using their API:.</p>
+<p>According to recent reports, now you are ready to start collecting data from Twitter! 🎉 You will use Tweepy Cursor to automatically collect 1,000 tweets mentioning Notion:.</p>
+<p>Industry observers note that now that you have data, you are ready to analyze the tweets with sentiment analysis! 💥.</p>
+<p>In a recent development, you will be using Inference API, an easy-to-use API for integrating machine learning models via simple API calls. With the Inference API, you can use state-of-the-art models for sentiment analysis without the hassle of building infrastructure for machine learning or dealing with model scalability. You can serve the latest (and greatest!) open source models for sentiment analysis while staying out of MLOps. 🤩.</p>
+<p>For using the Inference API, first you will need to define your model id and your Hugging Face API Token:.</p>
+<p>Recent findings suggest that the model ID is to specify which model you want to use for making predictions. Hugging Face has more than 400 models for sentiment analysis in multiple languages, including various models specifically fine-tuned for sentiment analysis of tweets. For this particular tutorial, you will use twitter-roberta-base-sentiment-latest, a sentiment analysis model trained on ≈124 million tweets and fine-tuned for sentiment analysis.</p>
+<p>You'll also need to specify your Hugging Face token; you can get one for free by signing up here and then copying your token on this page.</p>
+<p>Next, you will create the API call using the model id and hf_token:.</p>
+<p id="sec-mid-44959">It has been revealed that now, you are ready to do sentiment analysis on each tweet. 🔥🔥🔥.</p>
+<p>Recent findings suggest that wondering if people on Twitter are talking positively or negatively about Notion? Or what do customers discuss when talking positively or negatively about Notion? We'll use some data visualization to explore the results of the sentiment analysis and find out!</p>
+<p>First, let's see examples of tweets that were labeled for each sentiment to get a sense of the different polarities of these tweets:.</p>
+<p>Next, you'll count the number of tweets that were tagged as positive, negative and neutral:.</p>
+<p>Remarkably, most of the tweets about Notion are positive:.</p>
+<p>Then, let's create a pie chart to visualize each sentiment in relative terms:.</p>
+<p>It's cool to see that 50% of all tweets are positive and only 8.2% are negative:.</p>
+<p>As a last step, let's create some wordclouds to see which words are the most used for each sentiment:.</p>
+<p>Curiously, some of the words that stand out from the positive tweets include "notes", "cron", and "paid":.</p>
+<p>In contrast, "figma", "enterprise" and "account" are some of the most used words from the negatives tweets:.</p>
+<p>Sources indicate that with just a few lines of code, you were able to automatically gather tweets mentioning Notion using Tweepy, analyze them with a sentiment analysis model using the Inference API, and finally create some visualizations to analyze the results. 💥.</p>
+<p>Sources indicate that are you interested in doing more? As a next step, you could use a second text classifier to classify each tweet by their theme or topic. This way, each tweet will be labeled with both sentiment and topic, and you can get more granular insights (e.g. are users praising how easy to use is Notion but are complaining about their pricing or customer support?).</p>
+<p>To get started with sentiment analysis, you don't need to be a developer or know how to code. 🤯.</p>
+<p>There are some amazing no-code solutions that will enable you to easily do sentiment analysis in just a few minutes.</p>
+<p>In this section, you will use Zapier, a no-code tool that enables users to connect 5,000+ apps with an easy to use user interface. You will create a Zap, that is triggered whenever someone mentions Notion on Twitter. Then the Zap will use the Inference API to analyze the tweet with a sentiment analysis model and finally it will save the results on Google Sheets:.</p>
+<p>No worries, it won't take much time; in under 10 minutes, you'll create and activate the zap, and will start seeing the sentiment analysis results pop up in Google Sheets.</p>
+<p>To get started, you'll need to create a Zap, and configure the first step of your Zap, also called the "Trigger" step. In your case, you will need to set it up so that it triggers the Zap whenever someone mentions Notion on Twitter. To set it up, follow the following steps:.</p>
+<p>Now that your Zap can gather tweets mentioning Notion, let's add a second step to do the sentiment analysis. 🤗.</p>
+<p>According to recent reports, you will be using Inference API, an easy-to-use API for integrating machine learning models. For using the Inference API, you will need to define your "model id" and your "Hugging Face API Token":.</p>
+<p>In a recent development, the model ID is to tell the Inference API which model you want to use for making predictions. For this guide, you will use twitter-roberta-base-sentiment-latest, a sentiment analysis model trained on ≈124 million tweets and fine-tuned for sentiment analysis. You can explore the more than 400 models for sentiment analysis available on the Hugging Face Hub in case you want to use a different model (e.g. doing sentiment analysis on a different language).</p>
+<p>You'll also need to specify your Hugging Face token; you can get one for free by signing up here and then copying your token on this page.</p>
+<p>Once you have your model ID and your Hugging Face token ID, go back to your Zap and follow these instructions to set up the second step of the zap:.</p>
+<p>Industry observers note that as the last step to your Zap, you will save the results of the sentiment analysis on a spreadsheet on Google Sheets and visualize the results. 📊.</p>
+<p>First, create a upcoming spreadsheet on Google Sheets, and define the following columns:.</p>
+<p>Then, follow these instructions to configure this last step:.</p>
+<p>Recent findings suggest that at this point, you have completed all the steps of your zap! 🔥.</p>
+<p>It has been revealed that now, you just need to turn it on so it can start gathering tweets, analyzing them with sentiment analysis, and store the results on Google Sheets. ⚡️.</p>
+<p>To turn it on, just click on "Publish" button at the bottom of your screen:.</p>
+<p>Recent findings suggest that after a few minutes, you will see how your spreadsheet starts populating with tweets and the results of sentiment analysis. You can also create a graph that can be updated in real-time as tweets come in:.</p>
+<p>Industry observers note that twitter is the public town hall where people share their thoughts about all kinds of topics. From people talking about politics, sports or tech, customers sharing their feedback about a new shiny app, or passengers complaining to an Airline about a canceled flight, the amount of data on Twitter is massive. Sentiment analysis allows making sense of all that data in real-time to uncover insights that can drive business decisions.</p>
+<p>Recent findings suggest that luckily, tools like the Inference API makes it super easy to get started with sentiment analysis on Twitter. No matter if you know or don't know how to code and/or you don't have experience with machine learning, in a few minutes, you can set up a process that can gather tweets in real-time, analyze them with a state-of-the-art model for sentiment analysis, and explore the results with some cool visualizations. 🔥🔥🔥.</p>
+<p id="sec-end-44959">Recent findings suggest that if you have questions, you can ask them in the Hugging Face forum so the Hugging Face community can help you out and others can benefit from seeing the discussion. You can also join our Discord server to talk with us and the entire Hugging Face community.</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/sentiment-analysis-twitter" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="getting-started-with-sentiment-analysis-using-python-45253.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #45253. Getting Started with Sentiment Analysis using Python
+        </a>
+        
+        <a href="getting-started-with-zero-trust-security-ibm-58497.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #58497. Getting started with zero trust security - IBM
+        </a>
+        
+        <a href="breaking-getting-started-with-edge-ai-on-nvidia-jetson-llms-vlms--53855.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #53855. Breaking: Getting Started with Edge AI on NVIDIA Jetson: LLMs, VLMs, and Foundation Models for Robotics - NVIDIA Developer
+        </a>
+        
+        <a href="steps-to-getting-started-with-edge-ai-nvidia-developer-53840.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #53840. Steps to Getting Started with Edge AI - NVIDIA Developer
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

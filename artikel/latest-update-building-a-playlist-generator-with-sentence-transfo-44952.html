@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Update: Building a Playlist Generator with Sentence Transformers</title>
+    <meta name="description" content="A short while ago I published a playlist generator that I’d built using Sentence Transformers and Gradio, and I followed that up with a reflection on how I">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/latest-update-building-a-playlist-generator-with-sentence-transfo-44952.html">
+    <meta property="og:title" content="Latest Update: Building a Playlist Generator with Sentence Transformers">
+    <meta property="og:description" content="A short while ago I published a playlist generator that I’d built using Sentence Transformers and Gradio, and I followed that up with a reflection on how I">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/87_playlist_generator/thumbnail.png">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/latest-update-building-a-playlist-generator-with-sentence-transfo-44952.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Latest Update: Building a Playlist Generator with Sentence Transformers", "image": ["https://huggingface.co/blog/assets/87_playlist_generator/thumbnail.png"], "datePublished": "2022-07-13T00:00:00", "dateModified": "2026-11-18T15:07:47.504242", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/latest-update-building-a-playlist-generator-with-sentence-transfo-44952.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Latest Update: Building a Playlist Generator with Sentence Transformers</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 13 Jul 2022 &bull; ⏱️ 7 min read (1309 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>A short while ago I published a playlist generator that I’d built using Sentence Transformers and Gradio, and I followed that up with a reflection on how I try to use my projects as effective learning experiences.</li><li style='margin-bottom:6px;'>Industry observers note that as we’ve explored in previous posts on the Hugging Face blog, Sentence Transformers (ST) is a library that gives us tools to generate sentence embeddings, which have a variety of uses.</li><li style='margin-bottom:6px;'>We’ll be looking at a slightly advanced use of Gradio, so if you’re a beginner to the library I recommend reading the Introduction to Blocks before tackling the Gradio-specific parts of this post.</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-44952"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-44952"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-44952"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Latest Update: Building a Playlist Generator with Sentence Transformers" loading="lazy" src="https://huggingface.co/blog/assets/87_playlist_generator/thumbnail.png" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-44952">A short while ago I published a playlist generator that I’d built using Sentence Transformers and Gradio, and I followed that up with a reflection on how I try to use my projects as effective learning experiences. But how did I actually build the playlist generator? In this post we’ll break down that project and look at two technical details: how the embeddings were generated, and how the multi-step Gradio demo was built.</p>
+<p>Industry observers note that as we’ve explored in previous posts on the Hugging Face blog, Sentence Transformers (ST) is a library that gives us tools to generate sentence embeddings, which have a variety of uses. Since I had access to a dataset of song lyrics, I decided to leverage ST’s semantic search functionality to generate playlists from a given text prompt. Specifically, the goal was to create an embedding from the prompt, use that embedding for a semantic search across a set of pre-generated lyrics embeddings to generate a relevant set of songs. This would all be wrapped up in a Gradio app using the new Blocks API, hosted on Hugging Face Spaces.</p>
+<p>We’ll be looking at a slightly advanced use of Gradio, so if you’re a beginner to the library I recommend reading the Introduction to Blocks before tackling the Gradio-specific parts of this post. Also, note that while I won’t be releasing the lyrics dataset, the lyrics embeddings are available on the Hugging Face Hub for you to play around with. Let’s jump in! 🪂.</p>
+<p>Embeddings are key in Sentence Transformers! We’ve learned about what embeddings are and how we generate them in a previous article, and I recommend checking that out before continuing with this post.</p>
+<p>According to recent reports, sentence Transformers offers a large collection of pre-trained embedding models! It even includes tutorials for fine-tuning those models with our own training data, but for many use-cases (such semantic search over a corpus of song lyrics) the pre-trained models will perform excellently right out of the box. With so many embedding models available, though, how do we know which one to use?</p>
+<p>The ST documentation highlights many of the choices, along with their evaluation metrics and some descriptions of their intended use-cases. The MS MARCO models are trained on Bing search engine queries, but since they also perform well on other domains I decided any one of these could be a good choice for this project. All we need for the playlist generator is to find songs that have some semantic similarity, and since I don’t really care about hitting a particular performance metric I arbitrarily chose sentence-transformers/msmarco-MiniLM-L-6-v3.</p>
+<p>Each model in ST has a configurable input sequence length (up to a maximum), after which your inputs will be truncated. The model I chose had a max sequence length of 512 word pieces, which, as I found out, is often not enough to embed entire songs. Luckily, there’s an easy way for us to split lyrics into smaller chunks that the model can digest – verses! Once we’ve chunked our songs into verses and embedded each verse, we’ll find that the search works much better.</p>
+<p>To actually generate the embeddings, you can call the .encode() method of the Sentence Transformers model and pass it a list of strings. Then you can save the embeddings however you like – in this case I opted to pickle them.</p>
+<p>Industry observers note that to be able to share you embeddings with others, you can even upload the Pickle file to a Hugging Face dataset. Read this tutorial to learn more, or visit the Datasets documentation to try it out yourself! In short, once you've created a latest Dataset on the Hub, you can simply manually upload your Pickle file by clicking the "Add file" button, shown below.</p>
+<p>The last thing we need to do now is actually use the embeddings for semantic search! The following code loads the embeddings, generates a new embedding for a given string, and runs a semantic search over the lyrics embeddings to find the closest hits. To make it easier to work with the results, I also like to put them into a Pandas DataFrame.</p>
+<p id="sec-mid-44952">It has been revealed that since we’re searching for any verse that matches the text prompt, there’s a good chance that the semantic search will find multiple verses from the same song. When we drop the duplicates, we might only end up with a few distinct songs. If we increase the number of verse embeddings that util.semantic_search fetches with the top_k parameter, we can increase the number of songs that we'll find. Experimentally, I found that when I set top_k=20, I almost always get at least 9 distinct songs.</p>
+<p>In a recent development, for the demo, I wanted users to enter a text prompt (or choose from some examples), and conduct a semantic search to find the top 9 most relevant songs. Then, users should be able to select from the resulting songs to be able to see the lyrics, which might give them some insight into why the particular songs were chosen. Here’s how we can do that!</p>
+<p>At the top of the Gradio demo we load the embeddings, mappings, and lyrics from Hugging Face datasets when the app starts up.</p>
+<p>Sources indicate that the Gradio Blocks API lets you build multi-step interfaces, which means that you’re free to create quite complex sequences for your demos. We’ll take a look at some example code snippets here, but check out the project code to see it all in action. For this project, we want users to choose a text prompt and then, after the semantic search is complete, users should have the ability to choose a song from the results to inspect the lyrics. With Gradio, this can be built iteratively by starting off with defining the initial input components and then registering a click event on the button. There’s also a Radio component, which will get updated to show the names of the songs for the playlist.</p>
+<p>This way, when the button gets clicked, Gradio grabs the current value of the TextArea and passes it to a function, shown below:.</p>
+<p>Industry observers note that in that function, we use the text prompt to conduct the semantic search. As seen above, to push updates to the Gradio components in the app, the function just needs to return components created with the .update() method. Since we connected the song_option Radio component to fetch_songs.click with its output parameter, generate_playlist can control the choices for the Radio component!</p>
+<p>Industry observers note that you can even do something similar to the Radio component in order to let customers choose which song lyrics to view. Visit the code on Hugging Face Spaces to see it in detail!</p>
+<p>In a recent development, sentence Transformers and Gradio are great choices for this kind of project! ST has the utility functions that we need for rapidly generating embeddings, as well as for running semantic search with minimal code. Having access to a large collection of pre-trained models is also extremely helpful, since we don’t need to create and train our own models for this kind of stuff. Building our demo in Gradio means we only have to focus on coding in Python, and deploying Gradio projects to Hugging Face Spaces is also super simple!</p>
+<p>There’s a ton of other stuff I wish I’d had the time to build into this project, such as these ideas that I might explore in the future:.</p>
+<p>While the song lyrics aren’t being released, I’ve published the verse embeddings along with the mappings to each song, so you’re free to play around and get creative!</p>
+<p id="sec-end-44952">Industry observers note that remember to drop by the Discord to ask questions and share your work! I’m excited to see what you end up doing with Sentence Transformers embeddings 🤗.</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/playlist-generator" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="industry-news-sentence-transformers-in-the-hugging-face-hub-45506.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #45506. Industry News: Sentence Transformers in the Hugging Face Hub
+        </a>
+        
+        <a href="train-and-fine-tune-sentence-transformers-models-44833.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #44833. Train and Fine-Tune Sentence Transformers Models
+        </a>
+        
+        <a href="training-and-finetuning-embedding-models-with-sentence-transforme-43478.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #43478. Training and Finetuning Embedding Models with Sentence Transformers
+        </a>
+        
+        <a href="train-400x-faster-static-embedding-models-with-sentence-transform-42970.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #42970. Train 400x faster Static Embedding Models with Sentence Transformers
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>
