@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breaking: Training and Finetuning Embedding Models with Sentence Transformers</title>
+    <meta name="description" content="According to recent reports, sentence Transformers is a Python library for using and training embedding models for a wide range of applications, such as re">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/breaking-training-and-finetuning-embedding-models-with-sentence-t-85509.html">
+    <meta property="og:title" content="Breaking: Training and Finetuning Embedding Models with Sentence Transformers">
+    <meta property="og:description" content="According to recent reports, sentence Transformers is a Python library for using and training embedding models for a wide range of applications, such as re">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/train-sentence-transformers/st-hf-thumbnail.png">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/breaking-training-and-finetuning-embedding-models-with-sentence-t-85509.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Breaking: Training and Finetuning Embedding Models with Sentence Transformers", "image": ["https://huggingface.co/blog/assets/train-sentence-transformers/st-hf-thumbnail.png"], "datePublished": "2024-05-28T00:00:00", "dateModified": "2026-11-19T15:16:30.730068", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/breaking-training-and-finetuning-embedding-models-with-sentence-t-85509.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Breaking: Training and Finetuning Embedding Models with Sentence Transformers</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 28 May 2024 &bull; ⏱️ 8 min read (1591 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>According to recent reports, sentence Transformers is a Python library for using and training embedding models for a wide range of applications, such as retrieval augmented generation, semantic search, semantic textual similarity, paraphrase mining, and more.</li><li style='margin-bottom:6px;'>Finetuning Sentence Transformers involves several components, including datasets, loss functions, training arguments, evaluators, and the trainer itself.</li><li style='margin-bottom:6px;'>Finetuning Sentence Transformer models can significantly enhance their performance on specific tasks.</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-85509"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-85509"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-85509"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Breaking: Training and Finetuning Embedding Models with Sentence Transformers" loading="lazy" src="https://huggingface.co/blog/assets/train-sentence-transformers/st-hf-thumbnail.png" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-85509">According to recent reports, sentence Transformers is a Python library for using and training embedding models for a wide range of applications, such as retrieval augmented generation, semantic search, semantic textual similarity, paraphrase mining, and more. In this blogpost, I'll show you how to use it to finetune Sentence Transformer models to improve their performance on specific tasks. You can also use this method to train newly introduced Sentence Transformer models from scratch.</p>
+<p>Finetuning Sentence Transformers involves several components, including datasets, loss functions, training arguments, evaluators, and the trainer itself. I'll go through each of these components in detail and provide examples of how to use them to train effective models.</p>
+<p>Finetuning Sentence Transformer models can significantly enhance their performance on specific tasks. This is because each task requires a unique notion of similarity. Let's consider a couple of news article headlines as an example:.</p>
+<p>According to recent reports, depending on the use case, we might want similar or dissimilar embeddings for these texts. For instance, a classification model for news articles could treat these texts as similar since they both belong to the Technology category. On the other hand, a semantic textual similarity or retrieval model should consider them dissimilar due to their distinct meanings.</p>
+<p>Training Sentence Transformer models involves the following components:.</p>
+<p>Now, let's dive into each of these components in more detail.</p>
+<p>Recent findings suggest that the SentenceTransformerTrainer uses datasets.Dataset or datasets.DatasetDict instances for training and evaluation. You can load data from the Hugging Face Datasets Hub or use local data in various formats such as CSV, JSON, Parquet, Arrow, or SQL.</p>
+<p>Note: Many Hugging Face datasets that work out of the box with Sentence Transformers have been tagged with sentence-transformers, allowing you to easily find them by browsing to https://huggingface.co/datasets?other=sentence-transformers. We strongly recommend that you browse these datasets to find training datasets that might be useful for your tasks.</p>
+<p>To load data from datasets in the Hugging Face Hub, use the load_dataset function:.</p>
+<p>Recent findings suggest that some datasets, like sentence-transformers/all-nli, have multiple subsets with different data formats. You need to specify the subset name along with the dataset name.</p>
+<p>If you have local data in common file formats, you can easily load it using load_dataset too:.</p>
+<p>If your local data requires pre-processing, you can use datasets.Dataset.from_dict to initialize your dataset with a dictionary of lists:.</p>
+<p>Each key in the dictionary becomes a column in the resulting dataset.</p>
+<p>According to recent reports, it's crucial to ensure that your dataset format matches your chosen loss function. This involves checking two things:.</p>
+<p>Sources indicate that for example, if your loss function accepts (anchor, positive, negative) triplets, then your first, second, and third dataset columns correspond with anchor, positive, and negative, respectively. This means that your first and second column must contain texts that should embed closely, and that your first and third column must contain texts that should embed far apart. That is why depending on your loss function, your dataset column order matters.</p>
+<p>Consider a dataset with columns ["text1", "text2", "label"], where the "label" column contains floating point similarity scores. This dataset can be used with CoSENTLoss, AnglELoss, and CosineSimilarityLoss because:.</p>
+<p>If the columns in your dataset are not ordered correctly, use Dataset.select_columns to reorder them. Additionally, remove any extraneous columns (e.g., sample_id, metadata, source, type) using Dataset.remove_columns, as they will be treated as inputs otherwise.</p>
+<p>Recent findings suggest that loss functions measure how well a model performs on a given batch of data and guide the optimization process. The choice of loss function depends on your available data and target task. Refer to the Loss Overview for a comprehensive list of options.</p>
+<p>Most loss functions can be initialized with just the SentenceTransformer model that you're training:.</p>
+<p>The SentenceTransformersTrainingArguments class allows you to specify parameters that influence training performance and tracking/debugging. While optional, experimenting with these arguments can help improve training efficiency and provide insights into the training process.</p>
+<p>In a recent development, in the Sentence Transformers documentation, I've outlined some of the most useful training arguments. I would recommend reading it in Training Overview &gt; Training Arguments.</p>
+<p>Here's an example of how to initialize SentenceTransformersTrainingArguments:.</p>
+<p>Industry observers note that note that eval_strategy was introduced in transformers version 4.41.0. Prior versions should use evaluation_strategy instead.</p>
+<p>You can provide the SentenceTransformerTrainer with an eval_dataset to get the evaluation loss during training, but it may be useful to get more concrete metrics during training, too. For this, you can use evaluators to assess the model's performance with useful metrics before, during, or after training. You can provide both an eval_dataset and an evaluator, one or the other, or neither. They evaluate based on the eval_strategy and eval_steps Training Arguments.</p>
+<p>Here are the implemented Evaluators that come with Sentence Transformers:.</p>
+<p id="sec-mid-85509">Additionally, you can use SequentialEvaluator to combine multiple evaluators into one, which can then be passed to the SentenceTransformerTrainer.</p>
+<p>If you don't have the necessary evaluation data but still want to track the model's performance on common benchmarks, you can use these evaluators with data from Hugging Face:.</p>
+<p>According to recent reports, the STS Benchmark (a.k.a. STSb) is a commonly used benchmarking dataset to measure the model's understanding of semantic textual similarity of short texts like "A man is feeding a mouse to a snake.".</p>
+<p>Feel free to browse the sentence-transformers/stsb dataset on Hugging Face.</p>
+<p>AllNLI is a concatenation of the SNLI and MultiNLI datasets, both of which are datasets for Natural Language Inference. This task is traditionally for determining whether two texts are an entailment, contradiction, or neither. It has since been adopted for training embedding models, as the entailing and contradictory sentences make for useful (anchor, positive, negative) triplets: a common format for training embedding models.</p>
+<p>According to recent reports, in this snippet, it is used to evaluate how frequently the model considers the anchor text and the entailing text to be more similar than the anchor text and the contradictory text. An example text is "An older man is drinking orange juice at a restaurant.".</p>
+<p>Feel free to browse the sentence-transformers/all-nli dataset on Hugging Face.</p>
+<p>The SentenceTransformerTrainer brings together the model, dataset, loss function, and other components for training:.</p>
+<p>Industry observers note that in this example I'm finetuning from microsoft/mpnet-base, a base model that is not yet a Sentence Transformer model. This requires more training data than finetuning an existing Sentence Transformer model, like all-mpnet-base-v2.</p>
+<p>After running this script, the tomaarsen/mpnet-base-all-nli-triplet model was uploaded for me. The triplet accuracy using cosine similarity, i.e. what percentage of the time cosine_similarity(anchor, positive) &gt; cosine_similarity(anchor, negative) is 90.04% for the development set and 91.5% for the testing set! For reference, the microsoft/mpnet-base model scored only 68.32% on the dev set before training.</p>
+<p>All of this information is stored in the automatically generated model card, including the base model, language, license, evaluation results, training &amp; evaluation dataset info, hyperparameters, training logs, and more. Without any effort, your uploaded models should contain all the information that your potential owners would need to determine whether your model is suitable for them.</p>
+<p>The Sentence Transformers trainer supports various transformers.TrainerCallback subclasses, including:.</p>
+<p>These are automatically used without you having to specify anything, as long as the required dependency is installed.</p>
+<p>Refer to the Transformers Callbacks documentation for more information on these callbacks and how to create your own.</p>
+<p>Top-performing models are often trained using multiple datasets simultaneously. The SentenceTransformerTrainer simplifies this process by allowing you to train with multiple datasets without converting them to the same format. You can even apply different loss functions to each dataset. Here are the steps for multi-dataset training:.</p>
+<p>Recent findings suggest that each training/evaluation batch will contain samples from only one of the datasets. The order in which batches are sampled from the multiple datasets is determined by the MultiDatasetBatchSamplers enum, which can be passed to the SentenceTransformersTrainingArguments via multi_dataset_batch_sampler. The valid options are:.</p>
+<p>Recent findings suggest that multi-task training has proven to be highly effective. For instance, Huang et al. 2024 employed MultipleNegativesRankingLoss, CoSENTLoss, and a variation of MultipleNegativesRankingLoss without in-batch negatives and only hard negatives to achieve state-of-the-art performance on Chinese. They also applied MatryoshkaLoss to enable the model to produce Matryoshka Embeddings.</p>
+<p>Here's an example of multi-dataset training:.</p>
+<p>Prior to the Sentence Transformer v3 release, all models would be trained using the SentenceTransformer.fit method. Rather than deprecating this method, starting from v3.0, this method will use the SentenceTransformerTrainer behind the scenes. This means that your old training code should still work, and should even be upgraded with the new features such as multi-gpu training, loss logging, etc. That noted, the new training approach is much more powerful, so it is recommended to write new training scripts using the new approach.</p>
+<p>It has been revealed that the following pages contain training examples with explanations as well as links to code. We recommend that you browse through these to familiarize yourself with the training loop:.</p>
+<p>Additionally, the following pages may be useful to learn more about Sentence Transformers:.</p>
+<p>And lastly, here are some advanced pages that might interest you:.</p>
+<p>For training other Sentence Transformers model types, or techniques that build on top of dense embeddings:.</p>
+<p>According to recent reports, @tomaarsen  ,kindly let us know how to to carryout finetuning qlora-peft combinations? It helps a lot.</p>
+<p>It would be great to close the loop here by showing how to properly load the model and use it for inference later.</p>
+<p id="sec-end-85509">It seems simple, but using the above, and then loading using model = SentenceTransformer(save_dir) I get different results with the model before and after saving and loading.</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/train-sentence-transformers" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="training-and-finetuning-sparse-embedding-models-with-sentence-tra-84387.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #84387. Training and Finetuning Sparse Embedding Models with Sentence Transformers
+        </a>
+        
+        <a href="industry-news-training-and-finetuning-multimodal-embedding-rerank-83224.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #83224. Industry News: Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers
+        </a>
+        
+        <a href="latest-update-training-and-finetuning-multi-vector-embedding-mode-81979.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #81979. Latest Update: Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers
+        </a>
+        
+        <a href="training-and-finetuning-reranker-models-with-sentence-transformer-84674.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #84674. Training and Finetuning Reranker Models with Sentence Transformers
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

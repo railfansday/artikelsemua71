@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industry News: Make your llama generation time fly with AWS Inferentia2</title>
+    <meta name="description" content="It has been revealed that enhancement (02/2024): Performance has improved even more! Check our updated benchmarks. In a previous post on the Hugging Face b">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/industry-news-make-your-llama-generation-time-fly-with-aws-infere-86283.html">
+    <meta property="og:title" content="Industry News: Make your llama generation time fly with AWS Inferentia2">
+    <meta property="og:description" content="It has been revealed that enhancement (02/2024): Performance has improved even more! Check our updated benchmarks. In a previous post on the Hugging Face b">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/inferentia-llama2/thumbnail.png">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/industry-news-make-your-llama-generation-time-fly-with-aws-infere-86283.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Industry News: Make your llama generation time fly with AWS Inferentia2", "image": ["https://huggingface.co/blog/assets/inferentia-llama2/thumbnail.png"], "datePublished": "2023-11-07T00:00:00", "dateModified": "2026-11-19T15:18:02.987394", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/industry-news-make-your-llama-generation-time-fly-with-aws-infere-86283.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Industry News: Make your llama generation time fly with AWS Inferentia2</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 07 Nov 2023 &bull; ⏱️ 5 min read (967 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>It has been revealed that enhancement (02/2024): Performance has improved even more!</li><li style='margin-bottom:6px;'>In a previous post on the Hugging Face blog, we introduced AWS Inferentia2, the second-generation AWS Inferentia accelerator, and explained how you could use optimum-neuron to quickly deploy Hugging Face models for standard text and vision tasks on AWS Inferencia 2 instances.</li><li style='margin-bottom:6px;'>In a further step of integration with the AWS Neuron SDK, it is now possible to use 🤗 optimum-neuron to deploy LLM models for text generation on AWS Inferentia2.</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-86283"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-86283"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-86283"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Industry News: Make your llama generation time fly with AWS Inferentia2" loading="lazy" src="https://huggingface.co/blog/assets/inferentia-llama2/thumbnail.png" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-86283">It has been revealed that enhancement (02/2024): Performance has improved even more! Check our updated benchmarks.</p>
+<p>In a previous post on the Hugging Face blog, we introduced AWS Inferentia2, the second-generation AWS Inferentia accelerator, and explained how you could use optimum-neuron to quickly deploy Hugging Face models for standard text and vision tasks on AWS Inferencia 2 instances.</p>
+<p>In a further step of integration with the AWS Neuron SDK, it is now possible to use 🤗 optimum-neuron to deploy LLM models for text generation on AWS Inferentia2.</p>
+<p>And what better model could we choose for that demonstration than Llama 2, one of the most popular models on the Hugging Face hub.</p>
+<p>Sources indicate that our recommendation is to use the Hugging Face Neuron Deep Learning AMI (DLAMI). The DLAMI comes with all required libraries pre-packaged for you, including the Optimum Neuron, Neuron Drivers, Transformers, Datasets, and Accelerate.</p>
+<p>Alternatively, you can use the Hugging Face Neuron SDK DLC to deploy on Amazon SageMaker.</p>
+<p>Note: stay tuned for an upcoming post dedicated to SageMaker deployment.</p>
+<p>Finally, these components can also be installed manually on a fresh Inferentia2 instance following the optimum-neuron installation instructions.</p>
+<p>As explained in the optimum-neuron documentation, models need to be compiled and exported to a serialized format before running them on Neuron devices.</p>
+<p>Fortunately, 🤗 optimum-neuron offers a very simple API to export standard 🤗 transformers models to the Neuron format.</p>
+<p>This deserves a little explanation:.</p>
+<p>Depending on your choice of parameters and inferentia host, this may take from a few minutes to more than an hour.</p>
+<p>Fortunately, you will need to do this only once because you can save your model and reload it later.</p>
+<p>Even better, you can push it to the Hugging Face hub.</p>
+<p>Once your model has been exported, you can generate text using the transformers library, as it has been described in detail in this previous post.</p>
+<p>Note: when passing multiple input prompts to a model, the resulting token sequences must be padded to the left with an end-of-stream token. The tokenizers saved with the exported models are configured accordingly.</p>
+<p>The following generation strategies are supported:.</p>
+<p>Most logits pre-processing/filters (such as repetition penalty) are supported.</p>
+<p>For those who like to keep it simple, there is an even simpler way to use an LLM model on AWS inferentia 2 using optimum-neuron pipelines.</p>
+<p>But how much efficient is text-generation on Inferentia2? Let's figure out!</p>
+<p>We have uploaded on the hub pre-compiled versions of the LLama 2 7B and 13B models with different configurations:.</p>
+<p>Note: all models are compiled with a maximum sequence length of 2048.</p>
+<p>The llama2 7B "budget" model is meant to be deployed on inf2.xlarge instance that has only one neuron device, and enough cpu memory to load the model.</p>
+<p>All other models are compiled to use the full extent of cores available on the inf2.48xlarge instance.</p>
+<p id="sec-mid-86283">Note: please refer to the inferentia2 product page for details on the available instances.</p>
+<p>We created two "latency" oriented configurations for the llama2 7B and llama2 13B models that can serve only one request at a time, but at full speed.</p>
+<p>We also created two "throughput" oriented configurations to serve up to four requests in parallel.</p>
+<p>Industry observers note that to evaluate the models, we generate tokens up to a total sequence length of 1024, starting from
+256 input tokens (i.e. we generate 256, 512 and 768 tokens).</p>
+<p>Note: the "budget" model numbers are reported but not included in the graphs for better readability.</p>
+<p>In a recent development, the encoding time is the time required to process the input tokens and generate the first output token. It is a very vital metric, as it corresponds to the latency directly perceived by the user when streaming generated tokens.</p>
+<p>We test the encoding time for increasing context sizes, 256 input tokens corresponding roughly to a typical Q/A usage,
+while 768 is more typical of a Retrieval Augmented Generation (RAG) use-case.</p>
+<p>The "budget" model (Llama2 7B-B) is deployed on an inf2.xlarge instance while other models are deployed on an inf2.48xlarge instance.</p>
+<p>Encoding time is expressed in seconds.</p>
+<p>We can see that all deployed models exhibit excellent response times, even for long contexts.</p>
+<p>The end-to-end latency corresponds to the total time to reach a sequence length of 1024 tokens.</p>
+<p>It therefore includes the encoding and generation time.</p>
+<p>The "budget" model (Llama2 7B-B) is deployed on an inf2.xlarge instance while other models are deployed on an inf2.48xlarge instance.</p>
+<p>Latency is expressed in seconds.</p>
+<p>All models deployed on the high-end instance exhibit a good latency, even those actually configured to optimize throughput.</p>
+<p>The "budget" deployed model latency is significantly higher, but still ok.</p>
+<p>Industry observers note that we adopt the same convention as other benchmarks to evaluate the throughput, by dividing the end-to-end
+latency by the sum of both input and output tokens. In other words, we divide the end-to-end latency by batch_size * sequence_length to obtain the number of generated tokens per second.</p>
+<p>The "budget" model (Llama2 7B-B) is deployed on an inf2.xlarge instance while other models are deployed on an inf2.48xlarge instance.</p>
+<p>Throughput is expressed in tokens/second.</p>
+<p>Again, the models deployed on the high-end instance have a very good throughput, even those optimized for latency.</p>
+<p>The "budget" model has a much lower throughput, but still ok for a streaming use-case, considering that an average reader reads around 5 words per-second.</p>
+<p>We have illustrated how easy it is to deploy llama2 models from the Hugging Face hub on
+AWS Inferentia2 using 🤗 optimum-neuron.</p>
+<p>The deployed models demonstrate very good performance in terms of encoding time, latency and throughput.</p>
+<p>Interestingly, the deployed models latency is not too sensitive to the batch size, which opens the way for their deployment on inference endpoints
+serving multiple requests in parallel.</p>
+<p id="sec-end-86283">There is still plenty of room for improvement though:.</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/inferentia-llama2" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="industry-news-20-year-treasury-rate-real-time-historical-yield-tr-103988.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #103988. Industry News: 20 Year Treasury Rate - Real-Time & Historical Yield Trends - YCharts
+        </a>
+        
+        <a href="industry-news-fsi-services-spotlight-aws-backup-amazon-web-servic-103424.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #103424. Industry News: FSI Services Spotlight: AWS Backup - Amazon Web Services (AWS)
+        </a>
+        
+        <a href="cohesity-secures-earliest-invented-patent-in-the-industry-for-gen-103226.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #103226. Cohesity Secures Earliest Invented Patent in the Industry for GenAI Retrieval-Augmented Generation (RAG) Platform Built on Secondary Data - Business Wire
+        </a>
+        
+        <a href="breaking-perimeter-security-vs-zero-trust-its-time-to-make-the-mo-103126.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #103126. Breaking: Perimeter security vs. zero trust: It’s time to make the move - TechTarget
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

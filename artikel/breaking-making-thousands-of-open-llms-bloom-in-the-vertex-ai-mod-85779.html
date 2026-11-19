@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breaking: Making thousands of open LLMs bloom in the Vertex AI Model Garden</title>
+    <meta name="description" content="In a recent development, today, we are thrilled to announce the launch of Deploy on Google Cloud, a fresh integration on the Hugging Face Hub to deploy tho">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/breaking-making-thousands-of-open-llms-bloom-in-the-vertex-ai-mod-85779.html">
+    <meta property="og:title" content="Breaking: Making thousands of open LLMs bloom in the Vertex AI Model Garden">
+    <meta property="og:description" content="In a recent development, today, we are thrilled to announce the launch of Deploy on Google Cloud, a fresh integration on the Hugging Face Hub to deploy tho">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/173_gcp-partnership/thumbnail.jpg">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/breaking-making-thousands-of-open-llms-bloom-in-the-vertex-ai-mod-85779.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Breaking: Making thousands of open LLMs bloom in the Vertex AI Model Garden", "image": ["https://huggingface.co/blog/assets/173_gcp-partnership/thumbnail.jpg"], "datePublished": "2024-04-10T00:00:00", "dateModified": "2026-11-19T15:17:14.926024", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/breaking-making-thousands-of-open-llms-bloom-in-the-vertex-ai-mod-85779.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">AI & Tech</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Breaking: Making thousands of open LLMs bloom in the Vertex AI Model Garden</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 10 Apr 2024 &bull; ⏱️ 4 min read (701 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>In a recent development, today, we are thrilled to announce the launch of Deploy on Google Cloud, a fresh integration on the Hugging Face Hub to deploy thousands of foundation models easily to Google Cloud using Vertex AI or Google Kubernetes Engine (GKE).</li><li style='margin-bottom:6px;'>With Deploy on Google Cloud, developers can build production-ready Generative AI applications without managing infrastructure and servers, directly within their secure Google Cloud environment.</li><li style='margin-bottom:6px;'>According to recent reports, this new experience expands upon the strategic partnership we revealed earlier this year to simplify the access and deployment of open Generative AI models for Google customers.</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-85779"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-85779"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-85779"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Breaking: Making thousands of open LLMs bloom in the Vertex AI Model Garden" loading="lazy" src="https://huggingface.co/blog/assets/173_gcp-partnership/thumbnail.jpg" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-85779">In a recent development, today, we are thrilled to announce the launch of Deploy on Google Cloud, a fresh integration on the Hugging Face Hub to deploy thousands of foundation models easily to Google Cloud using Vertex AI or Google Kubernetes Engine (GKE). Deploy on Google Cloud makes it easy to deploy open models as API Endpoints within your own Google Cloud account, either directly through Hugging Face model cards or within Vertex Model Garden, Google Cloud’s single place to discover, customize, and deploy a wide variety of models from Google and Google partners. Starting today, we are enabling the most popular open models on Hugging Face for inference powered by our production solution, Text Generation Inference.</p>
+<p>With Deploy on Google Cloud, developers can build production-ready Generative AI applications without managing infrastructure and servers, directly within their secure Google Cloud environment.</p>
+<p>According to recent reports, this new experience expands upon the strategic partnership we revealed earlier this year to simplify the access and deployment of open Generative AI models for Google customers. One of the main problems developers and organizations face is the time and resources it takes to deploy models securely and reliably. Deploy on Google Cloud offers an easy, managed solution to these challenges, providing dedicated configurations and assets to Hugging Face Models. It’s a simple click-through experience to create a production-ready Endpoint on Google Cloud’s Vertex AI.</p>
+<p>“Vertex AI’s Model Garden integration with the Hugging Face Hub makes it seamless to discover and deploy open models on Vertex AI and GKE, whether you start your journey on the Hub or directly in the Google Cloud Console” states Wenming Ye, Product Manager at Google. “We can’t wait to see what Google Developers build with Hugging Face models”.</p>
+<p>It has been revealed that deploying Hugging Face Models on Google Cloud is super easy. Below, you will find step-by-step instructions on how to deploy Zephyr Gemma. Starting today, all models with the “text-generation-inference” tag will be supported.</p>
+<p>In a recent development, open the “Deploy” menu, and select “Google Cloud”. This will now bring you straight into the Google Cloud Console, where you can deploy Zephyr Gemma in 1 click on Vertex AI, or GKE.</p>
+<p id="sec-mid-85779">Once you are in the Vertex Model Garden, you can select Vertex AI or GKE as your deployment environment. With Vertex AI you can deploy the model with 1-click on “Deploy”. For GKE, you can follow instructions and manifest templates on how to deploy the model on a new or running Kubernetes Cluster.</p>
+<p>It has been revealed that vertex Model Garden is where Google Developers can find ready-to-use models for their Generative AI projects. Starting today, the Vertex Model Garden offers a new experience to easily deploy the most popular open LLMs available on Hugging Face!</p>
+<p>You can find the latest “Deploy From Hugging Face” option inside Google Vertex AI Model Garden, which allows you to search and deploy Hugging Face models directly within your Google Cloud console.</p>
+<p>Sources indicate that when you click on “Deploy From Hugging Face”, a form will appear where you can promptly search for model IDs. Hundreds of the most popular open LLMs on Hugging Face are available with ready-to-use, tested hardware configurations.</p>
+<p>Recent findings suggest that once you find the model you want to deploy, select it, and Vertex AI will prefill all required configurations to deploy your model to Vertex AI or GKE. You can even ensure you selected the right model by “viewing it on Hugging Face.” If you’re using a gated model, make sure to provide your Hugging Face access token so the model download can be authorized.</p>
+<p>And that’s it! Deploying a model like Zephyr Gemma directly, from the Vertex Model Garden onto your own Google Cloud account is just a couple of clicks.</p>
+<p id="sec-end-85779">Recent findings suggest that we are excited to collaborate with Google Cloud to make AI more open and accessible for everyone. Deploying open models on Google Cloud has never been easier, whether you start from the Hugging Face Hub, or within the Google Cloud console. And we’re not going to stop there – stay tuned as we enable more experiences to build AI with open models on Google Cloud!</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/google-cloud-model-garden" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="industry-news-introducing-the-worlds-largest-open-multilingual-la-87545.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #87545. Industry News: Introducing The World's Largest Open Multilingual Language Model: BLOOM
+        </a>
+        
+        <a href="breaking-how-microsoft-is-making-ai-development-ethical-and-open--97976.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #97976. Breaking: How Microsoft is Making AI Development Ethical and Open - Procurement Magazine
+        </a>
+        
+        <a href="unifying-edge-ai-how-coral-npus-open-standard-brings-portable-ene-96932.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #96932. Unifying Edge AI: How Coral NPU’s open standard brings portable, energy-viable intelligence from model to silicon - Google for Developers Blog
+        </a>
+        
+        <a href="re-imagining-edge-data-analysis-with-llms-and-open-source-technol-96046.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #96046. Re-imagining edge data analysis with LLMs and open-source technologies - Oracle Blogs
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

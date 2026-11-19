@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifting 3D Gaussians: A Wavelet Multiresolution Representation for Scalable Gaussian Splatting Streaming</title>
+    <meta name="description" content="In a recent development, arXiv:2606.07179v2 Announce Type: replace Abstract: 3D Gaussian Splatting (3DGS) represents a scene as an unstructured set of prim">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/lifting-3d-gaussians-a-wavelet-multiresolution-representation-for-83431.html">
+    <meta property="og:title" content="Lifting 3D Gaussians: A Wavelet Multiresolution Representation for Scalable Gaussian Splatting Streaming">
+    <meta property="og:description" content="In a recent development, arXiv:2606.07179v2 Announce Type: replace Abstract: 3D Gaussian Splatting (3DGS) represents a scene as an unstructured set of prim">
+    <meta property="og:image" content="/static/browse/0.3.4/images/arxiv-logo-fb.png">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/lifting-3d-gaussians-a-wavelet-multiresolution-representation-for-83431.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Lifting 3D Gaussians: A Wavelet Multiresolution Representation for Scalable Gaussian Splatting Streaming", "image": ["/static/browse/0.3.4/images/arxiv-logo-fb.png"], "datePublished": "2026-11-19T05:00:00", "dateModified": "2026-11-19T15:12:35.615957", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/lifting-3d-gaussians-a-wavelet-multiresolution-representation-for-83431.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Lifting 3D Gaussians: A Wavelet Multiresolution Representation for Scalable Gaussian Splatting Streaming</h1>
+        <div class="meta-line">🌐 Source: <strong>Arxiv</strong> &bull; 📅 19 Nov 2026 &bull; ⏱️ 1 min read (240 words, 📖 Standard)</div>
+        
+        
+            <div style="text-align:center; margin-bottom:20px;"><img src="/static/browse/0.3.4/images/arxiv-logo-fb.png" alt="Lifting 3D Gaussians: A Wavelet Multiresolution Representation for Scalable Gaussian Splatting Streaming" style="max-width:100%; height:auto; border-radius:8px;" loading="lazy"></div>
+            
+<div style="text-align:center; margin:20px 0;">
+    <script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+    <script type="text/javascript" src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js"></script>
+</div>
+
+            <div class="article-body" style="line-height: 1.8;">
+                <p>In a recent development, arXiv:2606.07179v2 Announce Type: replace 
+Abstract: 3D Gaussian Splatting (3DGS) represents a scene as an unstructured set of primitives optimized at a single scale, offering no native support for progressive delivery to heterogeneous devices. Existing scalable approaches organize these primitives into independent quality layers or spatial hierarchies. However, maintaining separate splat representations across scales introduces redundancy, while independent layers have limited ability to correct coarse geometry as finer detail arrives. We present LiftGS, a multiresolution representation that organizes a scene into a coarse Gaussian set and a tree of refinements. Each refinement replaces one coarse Gaussian with two finer children whose attributes are learned relative to their parent. Inspired by wavelet lifting, we encode these changes using a shared detail vector and per-attribute factors that allow the two children to differ asymmetrically from the parent. A client first receives the coarse set, then reconstructs and substitutes children as refinement data arrives. This construction reuses previously transmitted attributes to encode finer detail and removes replaced parents from the active rendering set, reducing both refinement payload and rendering memory. Extensive experiments on four benchmark datasets show LiftGS cuts splat redundancy from over 65% to under 25%, reduces transmission payload and GPU memory by up to 2.4x and 5.5x over state-of-the-art scalable-3DGS baselines, achieves smooth quality transitions in simulated progressive delivery, and compresses a further 8.7x with standard coding at negligible quality loss. Project website: https://yuang-ian.github.io/liftgs/.</p>
+                <p style="margin-top: 25px;">
+                    <a href="https://arxiv.org/abs/2606.07179" target="_blank" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;">
+                        &rarr; Read original article
+                    </a>
+                </p>
+            </div>
+            
+<div style="text-align:center; margin:20px 0;">
+    <script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+    <script type="text/javascript" src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js"></script>
+</div>
+
+            
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="scalable-ai-sensor-streaming-with-multi-gpu-and-multi-node-capabi-98006.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #98006. Scalable AI Sensor Streaming with Multi-GPU and Multi-Node Capabilities in NVIDIA Holoscan 0.6 - NVIDIA Developer
+        </a>
+        
+        <a href="introduction-to-3d-gaussian-splatting-86362.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #86362. Introduction to 3D Gaussian Splatting
+        </a>
+        
+        <a href="radiative-gaussian-splatting-for-efficient-x-ray-novel-view-synth-83963.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #83963. Radiative Gaussian Splatting for Efficient X-ray Novel View Synthesis
+        </a>
+        
+        <a href="octreesplat-hierarchical-octree-guided-feed-forward-gaussian-spla-83697.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #83697. OctreeSplat: Hierarchical Octree-Guided Feed-Forward Gaussian Splatting
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>
