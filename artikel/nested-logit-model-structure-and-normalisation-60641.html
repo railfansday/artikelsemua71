@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nested logit: model structure and normalisation</title>
+    <meta name="description" content="In a recent development, arXiv:2611.22638v1 Announce Type: newly introduced Abstract: Nested logit remains a widely used model, especially in applied work.">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/nested-logit-model-structure-and-normalisation-60641.html">
+    <meta property="og:title" content="Nested logit: model structure and normalisation">
+    <meta property="og:description" content="In a recent development, arXiv:2611.22638v1 Announce Type: newly introduced Abstract: Nested logit remains a widely used model, especially in applied work.">
+    <meta property="og:image" content="/static/browse/0.3.4/images/arxiv-logo-fb.png">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/nested-logit-model-structure-and-normalisation-60641.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Nested logit: model structure and normalisation", "image": ["/static/browse/0.3.4/images/arxiv-logo-fb.png"], "datePublished": "2026-11-18T05:00:00", "dateModified": "2026-11-18T23:51:36.614182", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/nested-logit-model-structure-and-normalisation-60641.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Nested logit: model structure and normalisation</h1>
+        <div class="meta-line">🌐 Source: <strong>Arxiv</strong> &bull; 📅 18 Nov 2026 &bull; ⏱️ 1 min read (239 words, 📖 Standard)</div>
+        
+        
+            <div style="text-align:center; margin-bottom:20px;"><img src="/static/browse/0.3.4/images/arxiv-logo-fb.png" alt="Nested logit: model structure and normalisation" style="max-width:100%; height:auto; border-radius:8px;" loading="lazy"></div>
+            
+<div style="text-align:center; margin:20px 0;">
+    <script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+    <script type="text/javascript" src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js"></script>
+</div>
+
+            <div class="article-body" style="line-height: 1.8;">
+                <p>In a recent development, arXiv:2611.22638v1 Announce Type: newly introduced 
+Abstract: Nested logit remains a widely used model, especially in applied work. However, there remains substantial confusion surrounding the existence of different versions of the model, different normalisations for the same version, and different software implementations. This paper argues that the labels in common use, RU1 and RU2, and the name non-normalised nested logit (NNNL) itself, have contributed to the confusion. The model is written in two forms: one in which utilities are divided by the structural parameter of the nest that contains them, which is consistent with utility maximisation by construction, and one without that division, known as NNNL. The difference between these forms is not one of normalisation. Normalising at the top or at the bottom gives the same model, and NNNL is itself normalised. What distinguishes the forms is whether the division is performed. In short, normalisation changes the units, whereas division changes the model. The undivided form coincides with the utility-consistent one only under specific conditions, and otherwise is consistent with utility maximisation only under utilities other than those specified, in which generic coefficients become nest-specific. The paper highlights that RU1 has been used for three different specifications, compares how widely used software packages normalise and report their parameters, and illustrates the consequences with calculated examples. The recommendation is that models be described by what they do, rather than by these labels.</p>
+                <p style="margin-top: 25px;">
+                    <a href="https://arxiv.org/abs/2611.22638" target="_blank" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;">
+                        &rarr; Read original article
+                    </a>
+                </p>
+            </div>
+            
+<div style="text-align:center; margin:20px 0;">
+    <script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+    <script type="text/javascript" src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js"></script>
+</div>
+
+            
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="keeper-security-debuts-secure-model-context-protocol-ai-agent-int-81071.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #81071. Keeper Security Debuts Secure Model Context Protocol AI Agent Integration for Secrets Management - PR Newswire
+        </a>
+        
+        <a href="how-to-prepare-for-a-zero-trust-model-in-the-cloud-techtarget-80950.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #80950. How to prepare for a zero-trust model in the cloud - TechTarget
+        </a>
+        
+        <a href="how-small-businesses-can-implement-a-zero-trust-security-model-fo-80933.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #80933. How Small Businesses Can Implement A Zero Trust Security Model - Forbes
+        </a>
+        
+        <a href="four-ways-to-achieve-a-zero-trust-security-model-security-magazin-80913.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #80913. Four Ways to Achieve a Zero Trust Security Model - Security Magazine
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

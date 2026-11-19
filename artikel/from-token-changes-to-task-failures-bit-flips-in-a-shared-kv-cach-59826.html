@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From Token Changes to Task Failures: Bit Flips in a Shared KV-Cache Block</title>
+    <meta name="description" content="Industry observers note that arXiv:2611.22243v1 Announce Type: newly introduced Abstract: In LLM serving systems with prefix caching, each KV block of a sh">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/from-token-changes-to-task-failures-bit-flips-in-a-shared-kv-cach-59826.html">
+    <meta property="og:title" content="From Token Changes to Task Failures: Bit Flips in a Shared KV-Cache Block">
+    <meta property="og:description" content="Industry observers note that arXiv:2611.22243v1 Announce Type: newly introduced Abstract: In LLM serving systems with prefix caching, each KV block of a sh">
+    <meta property="og:image" content="/static/browse/0.3.4/images/arxiv-logo-fb.png">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/from-token-changes-to-task-failures-bit-flips-in-a-shared-kv-cach-59826.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "From Token Changes to Task Failures: Bit Flips in a Shared KV-Cache Block", "image": ["/static/browse/0.3.4/images/arxiv-logo-fb.png"], "datePublished": "2026-11-18T05:00:00", "dateModified": "2026-11-18T23:51:16.804522", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/from-token-changes-to-task-failures-bit-flips-in-a-shared-kv-cach-59826.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>From Token Changes to Task Failures: Bit Flips in a Shared KV-Cache Block</h1>
+        <div class="meta-line">🌐 Source: <strong>Arxiv</strong> &bull; 📅 18 Nov 2026 &bull; ⏱️ 1 min read (206 words, 📖 Standard)</div>
+        
+        
+            <div style="text-align:center; margin-bottom:20px;"><img src="/static/browse/0.3.4/images/arxiv-logo-fb.png" alt="From Token Changes to Task Failures: Bit Flips in a Shared KV-Cache Block" style="max-width:100%; height:auto; border-radius:8px;" loading="lazy"></div>
+            
+<div style="text-align:center; margin:20px 0;">
+    <script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+    <script type="text/javascript" src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js"></script>
+</div>
+
+            <div class="article-body" style="line-height: 1.8;">
+                <p>Industry observers note that arXiv:2611.22243v1 Announce Type: newly introduced 
+Abstract: In LLM serving systems with prefix caching, each KV block of a shared system prompt is held in GPU memory as a single physical copy, which every request with that prompt reads. Our earlier work measured change and showed that one bit flip in such a block changes many later responses without making them visibly degenerate. This paper extends that work by measuring how often the changed responses are wrong. Using software fault injection into vLLM serving Qwen3-8B, we flip the most significant mantissa bit or the sign bit of a value in such a block. We score responses on four tasks: code generation, short-answer questions, multiple-choice reasoning, and refusal under a policy. The fraction of changes that turned a correct response wrong depended strongly on the task: 0.023 on MBPP+ and 0.59 on held-out TriviaQA at the mantissa bit, and 0.019 and 0.60 at the sign bit. Harm fell on requests whose sampled answers are sometimes wrong, so the damage of a flip depends on how common such requests are. Harmed responses looked like ordinary errors, so a flip should be detected by checking cached blocks rather than by monitoring outputs.</p>
+                <p style="margin-top: 25px;">
+                    <a href="https://arxiv.org/abs/2611.22243" target="_blank" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;">
+                        &rarr; Read original article
+                    </a>
+                </p>
+            </div>
+            
+<div style="text-align:center; margin:20px 0;">
+    <script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+    <script type="text/javascript" src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js"></script>
+</div>
+
+            
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="tech-report-ika-and-human-tech-reveal-wallet-as-a-protocol-waap-f-80958.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #80958. Tech Report: Ika and Human Tech Reveal Wallet-as-a-Protocol (WaaP): First Zero-Trust Decentralized Wallet Infra - The Block
+        </a>
+        
+        <a href="enterprise-ais-token-rationing-era-begins-as-costs-spiral-the-tec-80889.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #80889. Enterprise AI's Token Rationing Era Begins as Costs Spiral - The Tech Buzz
+        </a>
+        
+        <a href="air-force-sends-f-16s-to-remote-island-in-the-western-aleutians-t-80009.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #80009. Air Force sends F-16s to remote island in the western Aleutians - Task & Purpose
+        </a>
+        
+        <a href="breaking-faa-audit-could-result-in-changes-to-737-production-sche-79899.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #79899. Breaking: FAA audit could result in changes to 737 production schedule, Boeing exec says - Reuters
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>

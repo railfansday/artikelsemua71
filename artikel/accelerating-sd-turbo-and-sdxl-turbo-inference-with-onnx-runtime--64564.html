@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accelerating SD Turbo and SDXL Turbo Inference with ONNX Runtime and Olive</title>
+    <meta name="description" content="SD Turbo and SDXL Turbo are two fast generative text-to-image models capable of generating viable images in as little as one step, a significant improvemen">
+    <link rel="canonical" href="https://railfansday.github.io/artikelsemua71/artikel/accelerating-sd-turbo-and-sdxl-turbo-inference-with-onnx-runtime--64564.html">
+    <meta property="og:title" content="Accelerating SD Turbo and SDXL Turbo Inference with ONNX Runtime and Olive">
+    <meta property="og:description" content="SD Turbo and SDXL Turbo are two fast generative text-to-image models capable of generating viable images in as little as one step, a significant improvemen">
+    <meta property="og:image" content="https://huggingface.co/blog/assets/optimum_onnxruntime-training/thumbnail.png">
+    <meta property="og:url" content="https://railfansday.github.io/artikelsemua71/artikel/accelerating-sd-turbo-and-sdxl-turbo-inference-with-onnx-runtime--64564.html">
+    <meta property="og:type" content="article">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Accelerating SD Turbo and SDXL Turbo Inference with ONNX Runtime and Olive", "image": ["https://huggingface.co/blog/assets/optimum_onnxruntime-training/thumbnail.png"], "datePublished": "2024-01-15T00:00:00", "dateModified": "2026-11-18T23:58:27.320843", "author": {"@type": "Person", "name": "Global News Desk Editor"}, "publisher": {"@type": "NewsMediaOrganization", "name": "Global News Desk", "logo": {"@type": "ImageObject", "url": "https://railfansday.github.io/artikelsemua71/favicon.ico"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://railfansday.github.io/artikelsemua71/artikel/accelerating-sd-turbo-and-sdxl-turbo-inference-with-onnx-runtime--64564.html"}}</script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .article-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cat-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        h1 {
+            font-size: 28px;
+            line-height: 1.35;
+            margin: 10px 0 14px 0;
+        }
+        .meta-line {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .ctrl-btn {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .article-wrapper { border-radius: 0; padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="article-wrapper">
+        <div class="top-nav">
+            <a href="../index.html" class="back-link">&larr; Back to Portal Home</a>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <span class="cat-badge">General</span>
+                <span class="cat-badge" style="background:#fef3c7; color:#d97706;">⚖️ Neutral</span>
+                <button class="ctrl-btn" onclick="document.body.classList.toggle('dark-mode')">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1>Accelerating SD Turbo and SDXL Turbo Inference with ONNX Runtime and Olive</h1>
+        <div class="meta-line">🌐 Source: <strong>Hugging Face</strong> &bull; 📅 15 Jan 2024 &bull; ⏱️ 7 min read (1399 words, 📚 Deep Dive)</div>
+        
+        <div class="tldr-box" style="background: rgba(37, 99, 235, 0.08); border-left: 4px solid #2563eb; padding: 14px 18px; border-radius: 8px; margin: 18px 0;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: #2563eb; font-size: 14px;">💡 Key Takeaways</div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6;"><li style='margin-bottom:6px;'>SD Turbo and SDXL Turbo are two fast generative text-to-image models capable of generating viable images in as little as one step, a significant improvement over the 30+ steps often required with previous Stable Diffusion models.</li><li style='margin-bottom:6px;'>In this post, we will introduce optimizations in the ONNX Runtime CUDA and TensorRT execution providers that speed up inference of SD Turbo and SDXL Turbo on NVIDIA GPUs significantly.</li><li style='margin-bottom:6px;'>Recent findings suggest that ONNX Runtime outperformed PyTorch for all (batch size, number of steps) combinations tested, with throughput gains as high as 229% for the SDXL Turbo model and 120% for the SD Turbo model.</li></ul>
+        </div>
+        
+        
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 18px 0; padding:10px 14px; border:1px solid var(--border, #e2e8f0); border-radius:8px; font-size:13px;">
+            <strong style="color:var(--text-muted, #64748b);">📑 Quick Jump:</strong>
+            <a href="#sec-start-64564"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">1. Overview</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-mid-64564"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">2. Key Details</a>
+            <span style="color:var(--text-muted, #64748b);">•</span>
+            <a href="#sec-end-64564"  style="color:var(--primary, #2563eb); text-decoration:none; font-weight:600;">3. Closing Notes</a>
+        </div>
+        
+<div style="text-align:center; margin-bottom:20px;"><img alt="Accelerating SD Turbo and SDXL Turbo Inference with ONNX Runtime and Olive" loading="lazy" src="https://huggingface.co/blog/assets/optimum_onnxruntime-training/thumbnail.png" style="max-width:100%; height:auto; border-radius:8px;"/></div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+<div class="article-body" style="line-height: 1.8;">
+<p id="sec-start-64564">SD Turbo and SDXL Turbo are two fast generative text-to-image models capable of generating viable images in as little as one step, a significant improvement over the 30+ steps often required with previous Stable Diffusion models. SD Turbo is a distilled version of Stable Diffusion 2.1, and SDXL Turbo is a distilled version of SDXL 1.0. We’ve previously shown how to accelerate Stable Diffusion inference with ONNX Runtime. Not only does ONNX Runtime provide performance benefits when used with SD Turbo and SDXL Turbo, but it also makes the models accessible in languages other than Python, like C# and Java.</p>
+<p>In this post, we will introduce optimizations in the ONNX Runtime CUDA and TensorRT execution providers that speed up inference of SD Turbo and SDXL Turbo on NVIDIA GPUs significantly.</p>
+<p>Recent findings suggest that ONNX Runtime outperformed PyTorch for all (batch size, number of steps) combinations tested, with throughput gains as high as 229% for the SDXL Turbo model and 120% for the SD Turbo model. ONNX Runtime CUDA has particularly good performance for dynamic shape but demonstrates a marked improvement over PyTorch for static shape as well.</p>
+<p>To accelerate inference with the ONNX Runtime CUDA execution provider, access our optimized versions of SD Turbo and SDXL Turbo on Hugging Face.</p>
+<p>Sources indicate that the models are generated by Olive, an easy-to-use model optimization tool that is hardware aware. Note that fp16 VAE must be enabled through the command line for best performance, as shown in the optimized versions shared. For instructions on how to run the SD and SDXL pipelines with the ONNX files hosted on Hugging Face, see the SD Turbo usage example and the SDXL Turbo usage example.</p>
+<p>To accelerate inference with the ONNX Runtime TensorRT execution provider instead, follow the instructions found here.</p>
+<p>The following is an example of image generation with the SDXL Turbo model guided by a text prompt:.</p>
+<p>Recent findings suggest that figure 1. Little cute gremlin wearing a jacket image generated with text prompt using SDXL Turbo.</p>
+<p>Note that the example image was generated in 4 steps, demonstrating the ability of SD Turbo and SDXL Turbo to generate viable images in fewer steps than previous Stable Diffusion models.</p>
+<p>It has been revealed that for a user-friendly way to try out Stable Diffusion models, see our ONNX Runtime Extension for Automatic1111’s SD WebUI. This extension enables optimized execution of the Stable Diffusion UNet model on NVIDIA GPUs and uses the ONNX Runtime CUDA execution provider to run inference against models optimized with Olive. At this time, the extension has only been optimized for Stable Diffusion 1.5. SD Turbo and SDXL Turbo models can be used as well, but performance optimizations are still in progress.</p>
+<p>Taking advantage of the cross-platform, performance, and usability benefits of ONNX Runtime, members of the community have also contributed samples and UI tools of their own using Stable Diffusion with ONNX Runtime.</p>
+<p>These community contributions include OnnxStack, a .NET library that builds upon our previous C# tutorial to provide consumers with a variety of capabilities for many different Stable Diffusion models when performing inference with C# and ONNX Runtime.</p>
+<p>It has been revealed that additionally, Oracle has released a Stable Diffusion sample with Java that runs inference on top of ONNX Runtime. This project is also based on our C# tutorial.</p>
+<p>We benchmarked the SD Turbo and SDXL Turbo models with Standard_ND96amsr_A100_v4 VM using A100-SXM4-80GB and a Lenovo Desktop with RTX-4090 GPU (WSL Ubuntu 20.04) to generate images of resolution 512x512 using the LCM Scheduler and fp16 models. The results are measured using these specifications:.</p>
+<p>To reproduce these results, we recommend using the instructions linked in the ‘Usage example’ section.</p>
+<p id="sec-mid-64564">In a recent development, since the original VAE of SDXL Turbo cannot run in fp16 precision, we used sdxl-vae-fp16-fix in testing SDXL Turbo. There are slight discrepancies between its output and that of the original VAE, but the decoded images are close enough for most purposes.</p>
+<p>The PyTorch pipeline for static shape has applied channel-last memory format and torch.compile with reduce-overhead mode.</p>
+<p>The following charts illustrate the throughput in images per second vs. different (batch size, number of steps) combinations for various frameworks. It is worth noting that the label above each bar indicates the speedup percentage vs. Torch Compile – e.g., in the first chart, ORT_TRT (Static) is 31% faster than Torch (Compile) for (batch, steps) combination (4, 1).</p>
+<p>We elected to use 1 and 4 steps because both SD Turbo and SDXL Turbo can generate viable images in as little as 1 step but typically produce images of the best quality in 3-5 steps.</p>
+<p>The graphs below illustrate the throughput in images per second for the SDXL Turbo model with both static and dynamic shape. Results were gathered on an A100-SXM4-80GB GPU for different (batch size, number of steps) combinations. For dynamic shape, the TensorRT engine supports batch size 1 to 8 and image size 512x512 to 768x768, but it is optimized for batch size 1 and image size 512x512.</p>
+<p>The next two graphs illustrate throughput in images per second for the SD Turbo model with both static and dynamic shape on an A100-SXM4-80GB GPU.</p>
+<p>Sources indicate that the final set of graphs illustrates throughput in images per second for the SD Turbo model with both static and dynamic shape on an RTX-4090 GPU. In this dynamic shape test, the TensorRT engine is built for batch size 1 to 8 (optimized for batch size 1) and fixed image size 512x512 due to memory limitation.</p>
+<p>Sources indicate that these results demonstrate that ONNX Runtime significantly outperforms PyTorch with both CUDA and TensorRT execution providers in static and dynamic shape for all (batch, steps) combinations shown. This conclusion applies to both model sizes (SD Turbo and SDXL Turbo), as well as both GPUs tested. Notably, ONNX Runtime with CUDA (dynamic shape) was shown to be 229% faster than Torch Eager for (batch, steps) combination (1, 4).</p>
+<p>Additionally, ONNX Runtime with the TensorRT execution provider performs slightly better for static shape given that the ORT_TRT throughput is higher than the corresponding ORT_CUDA throughput for most (batch, steps) combinations. Static shape is typically favored when the user knows the batch and image size at graph definition time (e.g., the user is only planning to generate images with batch size 1 and image size 512x512). In these situations, the static shape has faster performance. However, if the user decides to switch to a different batch and/or image size, TensorRT must create a newly introduced engine (meaning double the engine files in the disk) and switch engines (meaning additional time spent loading the new engine).</p>
+<p>On the other hand, ONNX Runtime with the CUDA execution provider is often a better choice for dynamic shape for SD Turbo and SDXL Turbo models when using an A100-SXM4-80GB GPU, but ONNX Runtime with the TensorRT execution provider performs slightly better on dynamic shape for most (batch, steps) combinations when using an RTX-4090 GPU. The benefit of using dynamic shape is that owners can run inference more rapidly when the batch and image sizes are not known until graph execution time (e.g., running batch size 1 and image size 512x512 for one image and batch size 4 and image size 512x768 for another). When dynamic shape is used in these cases, users only need to build and save one engine, rather than switching engines during inference.</p>
+<p>Besides the techniques introduced in our previous Stable Diffusion blog, the following optimizations were applied by ONNX Runtime to yield the SD Turbo and SDXL Turbo results outlined in this post:.</p>
+<p>Additionally, we have added support for new features, including LoRA weights for latent consistency models (LCMs).</p>
+<p>In the future, we blueprint to continue improving upon our Stable Diffusion work by updating the demo to support latest features, such as IP Adapter and Stable Video Diffusion. ControlNet support will also be available shortly.</p>
+<p>We are also working on optimizing SD Turbo and SDXL Turbo performance with our existing Stable Diffusion web UI extension and blueprint to help add support for both models to a Windows UI developed by a member of the ONNX Runtime community.</p>
+<p>Additionally, a tutorial for how to run SD Turbo and SDXL Turbo with C# and ONNX Runtime is coming soon. In the meantime, check out our previous tutorial on Stable Diffusion.</p>
+<p id="sec-end-64564">Check out some of the resources discussed in this post:.</p>
+<p style="margin-top: 25px;">
+<a href="https://huggingface.co/blog/sdxl_ort_inference" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;" target="_blank">
+                        → Read original article
+                    </a>
+</p>
+</div>
+<div style="text-align:center; margin:20px 0;">
+<script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+<script src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js" type="text/javascript"></script>
+</div>
+
+        
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border, #e2e8f0);">
+        <h3 style="font-size: 16px; margin: 0 0 12px 0; color: var(--text-main, #1e293b);">🔗 Related Articles</h3>
+        
+        <a href="accelerating-over-130000-hugging-face-models-with-onnx-runtime-64771.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #64771. Accelerating over 130,000 Hugging Face models with ONNX Runtime
+        </a>
+        
+        <a href="latest-update-optimumonnx-runtime-easier-faster-training-for-your-65783.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #65783. Latest Update: Optimum+ONNX Runtime - Easier, Faster training for your Hugging Face models
+        </a>
+        
+        <a href="industry-news-accelerating-stable-diffusion-inference-on-intel-cp-65569.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #65569. Industry News: Accelerating Stable Diffusion Inference on Intel CPUs
+        </a>
+        
+        <a href="industry-news-accelerating-stable-diffusion-xl-inference-with-jax-64773.html" style="display:block; width:100%; box-sizing:border-box; text-align:left; text-decoration:none; background:transparent; border:1px solid var(--border, #e2e8f0); padding:10px 14px; border-radius:8px; margin-bottom:8px; color:var(--text-main, #1e293b); font-size:14px; font-weight:600; transition:0.2s;">
+            📰 #64773. Industry News: 🧨 Accelerating Stable Diffusion XL Inference with JAX on Cloud TPU v5e
+        </a>
+        
+    </div>
+    
+    </div>
+</body>
+</html>
